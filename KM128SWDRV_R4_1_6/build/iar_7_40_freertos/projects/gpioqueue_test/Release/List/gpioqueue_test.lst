@@ -1,0 +1,391 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        07/Feb/2017  17:55:52
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\projects\gpioqueue_test\gpioqueue_test.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\projects\gpioqueue_test\gpioqueue_test.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\freertos\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\freertos\iar\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\projects\gpioqueue_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\Release\List\gpioqueue_test.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\Release\Obj\gpioqueue_test.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\projects\gpioqueue_test\gpioqueue_test.c
+      1          #include "drivers.h"
+      2          #include "freertos.h"
+      3          
+      4          /* values passed to the two tasks just to check the task parameter            */
+      5          #define mainQUEUE_TX_PARAM    (0xAAUL)
+      6          #define mainQUEUE_RX_PARAM    (0xBBUL)
+      7          
+      8          /* function including configuration of peripherals                            */
+      9          static void prvSetupHardware( void );
+     10          
+     11          /* FreeRTOS tasks                                                             */
+     12          static void prvQueueRxTask (void *pvParameters);
+     13          static void prvQueueTxTask (void *pvParameters);
+     14          
+     15          /* queue handler.                                                             */
+
+   \                                 In section .bss, align 4
+     16          static QueueHandle_t xQueue = NULL;
+   \                     xQueue:
+   \   00000000                      DS8 4
+     17          
+
+   \                                 In section .text, align 4, keep-with-next
+     18          void main (void)
+     19          {
+   \                     main: (+1)
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB085             SUB      SP,SP,#+20
+     20            prvSetupHardware ();
+   \   00000004   0x....             LDR      R1,??DataTable5  ;; 0x4003e000
+   \   00000006   0x2000             MOVS     R0,#+0
+   \   00000008   0x6008             STR      R0,[R1, #+0]
+   \   0000000A   0x6048             STR      R0,[R1, #+4]
+   \   0000000C   0x....             LDR      R1,??DataTable5_1  ;; 0x4003f004
+   \   0000000E   0x2201             MOVS     R2,#+1
+   \   00000010   0x600A             STR      R2,[R1, #+0]
+   \   00000012   0x....             LDR      R2,??DataTable5_2  ;; 0x786cbdf2
+   \   00000014   0x630A             STR      R2,[R1, #+48]
+   \   00000016   0x....             LDR      R2,??DataTable5_3  ;; 0x7ab7fc8
+   \   00000018   0x634A             STR      R2,[R1, #+52]
+   \   0000001A   0x....             LDR      R2,??DataTable5_4  ;; 0xd0116a1f
+   \   0000001C   0x638A             STR      R2,[R1, #+56]
+   \   0000001E   0x2203             MOVS     R2,#+3
+   \   00000020   0x63CA             STR      R2,[R1, #+60]
+   \   00000022   0x2280             MOVS     R2,#+128
+   \   00000024   0x0512             LSLS     R2,R2,#+20       ;; #+134217728
+   \   00000026   0x640A             STR      R2,[R1, #+64]
+   \   00000028   0x6488             STR      R0,[R1, #+72]
+   \   0000002A   0x6688             STR      R0,[R1, #+104]
+   \   0000002C   0x2220             MOVS     R2,#+32
+   \   0000002E   0xBF00             Nop      
+   \   00000030   0x....             ADR.N    R0,?_2
+   \   00000032   0xC803             LDM      R0,{R0,R1}
+   \   00000034   0x.... 0x....      BL       PORTE_Init
+   \   00000038   0x....             LDR      R0,??DataTable5_5  ;; 0x400ff040
+   \   0000003A   0x7801             LDRB     R1,[R0, #+0]
+   \   0000003C   0x22DF             MOVS     R2,#+223
+   \   0000003E   0x400A             ANDS     R2,R2,R1
+   \   00000040   0x7002             STRB     R2,[R0, #+0]
+   \   00000042   0x7D01             LDRB     R1,[R0, #+20]
+   \   00000044   0x2220             MOVS     R2,#+32
+   \   00000046   0x430A             ORRS     R2,R2,R1
+   \   00000048   0x7502             STRB     R2,[R0, #+20]
+     21          
+     22            /* create the queue of length 1.                                            */
+     23            xQueue = xQueueCreate (1, sizeof(unsigned long));
+   \   0000004A   0x2200             MOVS     R2,#+0
+   \   0000004C   0x2104             MOVS     R1,#+4
+   \   0000004E   0x2001             MOVS     R0,#+1
+   \   00000050   0x.... 0x....      BL       xQueueGenericCreate
+   \   00000054   0x....             LDR      R1,??DataTable5_6
+   \   00000056   0x6008             STR      R0,[R1, #+0]
+     24          
+     25            if (xQueue != NULL)
+   \   00000058   0x2800             CMP      R0,#+0
+   \   0000005A   0xD019             BEQ      ??main_0
+     26            {
+     27              /* create tasks.                                                          */
+     28              xTaskCreate
+     29              (
+     30                prvQueueRxTask,             /* the function that implements the task    */
+     31                "Receive task",             /* the text name assigned to the task       */
+     32                configMINIMAL_STACK_SIZE,   /* the size of the stack of the task        */
+     33                (void*)mainQUEUE_RX_PARAM,  /* the parameter passed to the task         */
+     34                2,                          /* the priority assigned to the task        */
+     35                NULL                        /* the task handle                          */
+     36              );
+   \   0000005C   0x2000             MOVS     R0,#+0
+   \   0000005E   0x9003             STR      R0,[SP, #+12]
+   \   00000060   0x9002             STR      R0,[SP, #+8]
+   \   00000062   0x9001             STR      R0,[SP, #+4]
+   \   00000064   0x2002             MOVS     R0,#+2
+   \   00000066   0x9000             STR      R0,[SP, #+0]
+   \   00000068   0x23BB             MOVS     R3,#+187
+   \   0000006A   0x2280             MOVS     R2,#+128
+   \   0000006C   0x....             ADR.N    R1,?_0
+   \   0000006E   0x....             LDR      R0,??DataTable5_7
+   \   00000070   0x.... 0x....      BL       xTaskGenericCreate
+     37          
+     38              xTaskCreate
+     39              (
+     40                prvQueueTxTask,             /* the function that implements the task    */
+     41                "Transmit task",            /* the text name assigned to the task       */
+     42                configMINIMAL_STACK_SIZE,   /* the size of the stack of the task        */
+     43                (void*)mainQUEUE_TX_PARAM,  /* the parameter passed to the task         */
+     44                1,                          /* the priority assigned to the task        */
+     45                NULL                        /* the task handle                          */
+     46              );
+   \   00000074   0x2000             MOVS     R0,#+0
+   \   00000076   0x9003             STR      R0,[SP, #+12]
+   \   00000078   0x9002             STR      R0,[SP, #+8]
+   \   0000007A   0x9001             STR      R0,[SP, #+4]
+   \   0000007C   0x2001             MOVS     R0,#+1
+   \   0000007E   0x9000             STR      R0,[SP, #+0]
+   \   00000080   0x23AA             MOVS     R3,#+170
+   \   00000082   0x2280             MOVS     R2,#+128
+   \   00000084   0x....             ADR.N    R1,?_1
+   \   00000086   0x....             LDR      R0,??DataTable5_8
+   \   00000088   0x.... 0x....      BL       xTaskGenericCreate
+     47          
+     48              /* start the tasks and timer running including enabling all interrupts    */
+     49              vTaskStartScheduler ();
+   \   0000008C   0x.... 0x....      BL       vTaskStartScheduler
+     50            }
+     51          
+     52            /* this loop will never be reached                                          */
+     53            while(1);
+   \                     ??main_0: (+1)
+   \   00000090   0xE7FE             B        ??main_0
+     54          }
+     55          
+     56          static void prvSetupHardware (void)
+     57          {
+     58            /* enable clocks to all on chip peripherals                                 */
+     59            SIM_Init (SIM_MODULE_ALL_PERIPH_ON_CONFIG);
+     60          
+     61            /* initialize LED on the board                                              */
+     62            PORT_Init (PORTE, PORT_MODULE_LED_MODE, PIN5);
+     63            GPIO_Init (GPIOE, GPIO_OUT_LOGIC0_MODE, PIN5);
+     64          }
+     65          
+
+   \                                 In section .text, align 4, keep-with-next
+     66          static void prvQueueTxTask( void *pvParameters )
+     67          {
+   \                     prvQueueTxTask: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0xB082             SUB      SP,SP,#+8
+     68            TickType_t xNextWakeTime;
+     69            const unsigned long ulTxValue = 100;
+   \   00000004   0x2164             MOVS     R1,#+100
+   \   00000006   0x9101             STR      R1,[SP, #+4]
+     70          
+     71            /* check the task parameter is as expected                                  */
+     72            configASSERT (((unsigned long)pvParameters) == mainQUEUE_TX_PARAM);
+   \   00000008   0x28AA             CMP      R0,#+170
+   \   0000000A   0xD001             BEQ      ??prvQueueTxTask_0
+   \   0000000C   0xB672             cpsid i
+   \                     ??prvQueueTxTask_1: (+1)
+   \   0000000E   0xE7FE             B        ??prvQueueTxTask_1
+     73          
+     74            /* initialise xNextWakeTime.                                                */
+     75            xNextWakeTime = xTaskGetTickCount ();
+   \                     ??prvQueueTxTask_0: (+1)
+   \   00000010   0x.... 0x....      BL       xTaskGetTickCount
+   \   00000014   0x9000             STR      R0,[SP, #+0]
+   \   00000016   0x....             LDR      R4,??DataTable5_6
+     76          
+     77            for( ;; )
+     78            {
+     79              /* the task is blocked for 500ms                                          */
+     80              vTaskDelayUntil (&xNextWakeTime, 500/portTICK_PERIOD_MS);
+   \                     ??prvQueueTxTask_2: (+1)
+   \   00000018   0x217D             MOVS     R1,#+125
+   \   0000001A   0x4668             MOV      R0,SP
+   \   0000001C   0x.... 0x....      BL       vTaskDelayUntil
+     81          
+     82              /* send data to queue for unblocking the receive task                     */
+     83              xQueueSend (xQueue, &ulTxValue, 0U);
+   \   00000020   0x2300             MOVS     R3,#+0
+   \   00000022   0x2200             MOVS     R2,#+0
+   \   00000024   0xA901             ADD      R1,SP,#+4
+   \   00000026   0x6820             LDR      R0,[R4, #+0]
+   \   00000028   0x.... 0x....      BL       xQueueGenericSend
+   \   0000002C   0xE7F4             B        ??prvQueueTxTask_2
+     84            }
+     85          }
+     86          
+
+   \                                 In section .text, align 4, keep-with-next
+     87          static void prvQueueRxTask (void *pvParameters)
+     88          {
+   \                     prvQueueRxTask: (+1)
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
+     89            unsigned long ulRxValue;
+     90          
+     91            /* check the task parameter is as expected                                  */
+     92            configASSERT (((unsigned long)pvParameters) == mainQUEUE_RX_PARAM);
+   \   00000004   0x28BB             CMP      R0,#+187
+   \   00000006   0xD001             BEQ      ??prvQueueRxTask_0
+   \   00000008   0xB672             cpsid i
+   \                     ??prvQueueRxTask_1: (+1)
+   \   0000000A   0xE7FE             B        ??prvQueueRxTask_1
+     93          
+     94            for( ;; )
+     95            {
+     96              /* wait until something arrives in the queue - this task will block
+     97              indefinitely provided INCLUDE_vTaskSuspend is set to 1 in freertos_cfg.h  */
+     98              xQueueReceive (xQueue, &ulRxValue, portMAX_DELAY);
+   \                     ??prvQueueRxTask_0: (+1)
+   \   0000000C   0x2300             MOVS     R3,#+0
+   \   0000000E   0x2200             MOVS     R2,#+0
+   \   00000010   0x43D2             MVNS     R2,R2            ;; #-1
+   \   00000012   0x4669             MOV      R1,SP
+   \   00000014   0x....             LDR      R0,??DataTable5_6
+   \   00000016   0x6800             LDR      R0,[R0, #+0]
+   \   00000018   0x.... 0x....      BL       xQueueGenericReceive
+     99          
+    100              /*  check the received value.                                             */
+    101              if( ulRxValue == 100UL )
+   \   0000001C   0x9800             LDR      R0,[SP, #+0]
+   \   0000001E   0x2864             CMP      R0,#+100
+   \   00000020   0xD1F4             BNE      ??prvQueueRxTask_0
+    102              {
+    103                /* toggle the LED                                                       */
+    104                GPIO_Tgl (GPIOE, PIN5);
+   \   00000022   0x....             LDR      R0,??DataTable5_5  ;; 0x400ff040
+   \   00000024   0x7801             LDRB     R1,[R0, #+0]
+   \   00000026   0x2220             MOVS     R2,#+32
+   \   00000028   0x404A             EORS     R2,R2,R1
+   \   0000002A   0x7002             STRB     R2,[R0, #+0]
+    105                ulRxValue = 0U;
+   \   0000002C   0x2000             MOVS     R0,#+0
+   \   0000002E   0x9000             STR      R0,[SP, #+0]
+   \   00000030   0xE7EC             B        ??prvQueueRxTask_0
+    106              }
+    107            }
+    108          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5:
+   \   00000000   0x4003E000         DC32     0x4003e000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_1:
+   \   00000000   0x4003F004         DC32     0x4003f004
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_2:
+   \   00000000   0x786CBDF2         DC32     0x786cbdf2
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_3:
+   \   00000000   0x07AB7FC8         DC32     0x7ab7fc8
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_4:
+   \   00000000   0xD0116A1F         DC32     0xd0116a1f
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_5:
+   \   00000000   0x400FF040         DC32     0x400ff040
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_6:
+   \   00000000   0x........         DC32     xQueue
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_7:
+   \   00000000   0x........         DC32     prvQueueRxTask
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_8:
+   \   00000000   0x........         DC32     prvQueueTxTask
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_0:
+   \   00000000   0x52 0x65          DC8 "Receive task"
+   \              0x63 0x65    
+   \              0x69 0x76    
+   \              0x65 0x20    
+   \              0x74 0x61    
+   \              0x73 0x6B    
+   \              0x00         
+   \   0000000D   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_1:
+   \   00000000   0x54 0x72          DC8 "Transmit task"
+   \              0x61 0x6E    
+   \              0x73 0x6D    
+   \              0x69 0x74    
+   \              0x20 0x74    
+   \              0x61 0x73    
+   \              0x6B 0x00    
+   \   0000000E   0x00 0x00          DC8 0, 0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_2:
+   \   00000000   0x00000104         DC32 260, 0
+   \              0x00000000   
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      24   main
+        24   -> PORTE_Init
+        24   -> vTaskStartScheduler
+        24   -> xQueueGenericCreate
+        24   -> xTaskGenericCreate
+       8   prvQueueRxTask
+         8   -> xQueueGenericReceive
+      16   prvQueueTxTask
+        16   -> vTaskDelayUntil
+        16   -> xQueueGenericSend
+        16   -> xTaskGetTickCount
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable5
+       4  ??DataTable5_1
+       4  ??DataTable5_2
+       4  ??DataTable5_3
+       4  ??DataTable5_4
+       4  ??DataTable5_5
+       4  ??DataTable5_6
+       4  ??DataTable5_7
+       4  ??DataTable5_8
+      16  ?_0
+      16  ?_1
+       8  ?_2
+     146  main
+      50  prvQueueRxTask
+      46  prvQueueTxTask
+       4  xQueue
+
+ 
+   4 bytes in section .bss
+ 318 bytes in section .text
+ 
+ 318 bytes of CODE memory
+   4 bytes of DATA memory
+
+Errors: none
+Warnings: none

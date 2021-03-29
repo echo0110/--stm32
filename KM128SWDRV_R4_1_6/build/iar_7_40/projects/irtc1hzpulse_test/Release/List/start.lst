@@ -1,0 +1,199 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        15/Mar/2017  13:16:53
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\common\start.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\common\start.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc1hzpulse_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc1hzpulse_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc1hzpulse_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc1hzpulse_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc1hzpulse_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc1hzpulse_test\..\..\..\..\src\projects\irtc1hzpulse_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc1hzpulse_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc1hzpulse_test\Release\List\start.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc1hzpulse_test\Release\Obj\start.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\common\start.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2015, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      start.c
+      6           * @version   1.0.5.0
+      7           * @date      Dec-01-2014
+      8           * @brief     startup function (high level part).
+      9           ******************************************************************************/
+     10          #include "start.h"
+     11          #include "drivers.h"
+     12          
+     13          #define WDOG_DISABLE()                                                        \
+     14          {                                                                             \
+     15            /* Write 0xC520 to the unlock register                          */          \
+     16            WDOG_UNLOCK = 0xC520;                                                       \
+     17                                                                                        \
+     18            /* Followed by 0xD928 to complete the unlock                    */          \
+     19            WDOG_UNLOCK = 0xD928;                                                       \
+     20                                                                                        \
+     21            /* Clear the WDOGEN bit to disable the watchdog timer           */          \
+     22            ioclrh(WDOG_STCTRLH,WDOG_STCTRLH_WDOGEN_MASK);                              \
+     23          }
+     24          
+     25          /******************************************************************************
+     26           * Startup function definition - function calls all of the needed startup     *
+     27           * routines and then branches to the main process.                            *
+     28           ******************************************************************************/
+
+   \                                 In section .text, align 4, keep-with-next
+     29          void start(void)
+     30          {
+   \                     start: (+1)
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
+     31            #if defined(BOOT_HWVLPR_MODE)
+     32              /* Hardware forced VLPR boot mode. The device will boot in VLPR mode      */
+     33              /* after next POR provided VBAT is powered.                               */
+     34              IRTC_BootVLPR   ();
+     35            #else
+     36              /* Activate VLPR mode by software if BOOT_EXE_MODE constant has been      */
+     37              /* defined in the appconfig.h header file.                                */
+     38              if (NV_FOPT & NV_FOPT_EXE_MODE_MASK)
+   \   00000004   0x....             LDR      R0,??DataTable1  ;; 0x40d
+   \   00000006   0x7800             LDRB     R0,[R0, #+0]
+   \   00000008   0x0700             LSLS     R0,R0,#+28
+   \   0000000A   0xD50E             BPL      ??start_0
+     39              {
+     40                SMC_Init (SMC_MODULE_VLPS_ON_VLLS_ON_CONFIG); /* enable all modes       */
+   \   0000000C   0x....             ADR.N    R0,?_0
+   \   0000000E   0x6800             LDR      R0,[R0, #+0]
+   \   00000010   0x9000             STR      R0,[SP, #+0]
+   \   00000012   0x4668             MOV      R0,SP
+   \   00000014   0x7800             LDRB     R0,[R0, #+0]
+   \   00000016   0x....             LDR      R1,??DataTable1_1  ;; 0x4007e000
+   \   00000018   0x7008             STRB     R0,[R1, #+0]
+     41                SMC_SetMode (VLPR);                           /* enter VLPR mode        */
+   \   0000001A   0x2040             MOVS     R0,#+64
+   \   0000001C   0x....             LDR      R1,??DataTable1_2  ;; 0x528fe001
+   \   0000001E   0x7008             STRB     R0,[R1, #+0]
+   \   00000020   0x2004             MOVS     R0,#+4
+   \   00000022   0x....             LDR      R1,??DataTable1_3  ;; 0x4007d002
+   \                     ??start_1: (+1)
+   \   00000024   0x780A             LDRB     R2,[R1, #+0]
+   \   00000026   0x4202             TST      R2,R0
+   \   00000028   0xD1FC             BNE      ??start_1
+     42              }
+     43            #endif
+     44          
+     45            WDOG_DISABLE(); /* Disable watchdog timer                                   */
+   \                     ??start_0: (+1)
+   \   0000002A   0x....             LDR      R0,??DataTable1_4  ;; 0x4005300e
+   \   0000002C   0x....             LDR      R1,??DataTable1_5  ;; 0xc520
+   \   0000002E   0x8001             STRH     R1,[R0, #+0]
+   \   00000030   0x....             LDR      R1,??DataTable1_6  ;; 0xd928
+   \   00000032   0x8001             STRH     R1,[R0, #+0]
+   \   00000034   0x....             LDR      R0,??DataTable1_7  ;; 0xfffe
+   \   00000036   0x....             LDR      R1,??DataTable1_8  ;; 0x44053000
+   \   00000038   0x8008             STRH     R0,[R1, #+0]
+     46            startup     (); /* Copy any vector or data sections that need to be in RAM  */
+   \   0000003A   0x.... 0x....      BL       startup
+     47            (void)main  (); /* Jump to main process                                     */
+   \   0000003E   0x.... 0x....      BL       main
+     48          }
+   \   00000042   0xB001             ADD      SP,SP,#+4
+   \   00000044   0xBD00             POP      {PC}             ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \   00000000   0x0000040D         DC32     0x40d
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \   00000000   0x4007E000         DC32     0x4007e000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \   00000000   0x528FE001         DC32     0x528fe001
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_3:
+   \   00000000   0x4007D002         DC32     0x4007d002
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_4:
+   \   00000000   0x4005300E         DC32     0x4005300e
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_5:
+   \   00000000   0x0000C520         DC32     0xc520
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_6:
+   \   00000000   0x0000D928         DC32     0xd928
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_7:
+   \   00000000   0x0000FFFE         DC32     0xfffe
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_8:
+   \   00000000   0x44053000         DC32     0x44053000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_0:
+   \   00000000   0x22 0x00          DC8 34, 0, 0, 0
+   \              0x00 0x00    
+     49          /******************************************************************************
+     50           * End of module                                                              *
+     51           ******************************************************************************/
+     52          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   start
+         8   -> main
+         8   -> startup
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable1
+       4  ??DataTable1_1
+       4  ??DataTable1_2
+       4  ??DataTable1_3
+       4  ??DataTable1_4
+       4  ??DataTable1_5
+       4  ??DataTable1_6
+       4  ??DataTable1_7
+       4  ??DataTable1_8
+       4  ?_0
+      70  start
+
+ 
+ 110 bytes in section .text
+ 
+ 110 bytes of CODE memory
+
+Errors: none
+Warnings: none

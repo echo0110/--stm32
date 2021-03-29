@@ -1,0 +1,13 @@
+"D:\IAR7.4anzhuang\arm\bin\armproc.dll" 
+
+"D:\IAR7.4anzhuang\arm\bin\armjlink.dll" 
+
+"C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adcbgap_test\Release\Exe\project.out" 
+
+--plugin "D:\IAR7.4anzhuang\arm\bin\armbat.dll" 
+
+--device_macro "D:\IAR7.4anzhuang\arm\config\debugger\Freescale\Kinetis.dmac" 
+
+
+
+

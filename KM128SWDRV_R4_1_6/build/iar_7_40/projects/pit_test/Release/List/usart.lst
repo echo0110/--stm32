@@ -1,0 +1,327 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        17/Apr/2017  14:32:13
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\i2c\usart.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\i2c\usart.c -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M0+ --no_mem_idioms -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\..\..\..\..\src\projects\pit_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\..\..\..\..\src\toolchain\iar\
+#        -On
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\List\usart.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\usart.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\i2c\usart.c
+      1          #include "common.h"
+      2          #include "gpio/gpio.h"
+      3          #include  "i2c/modbus.h"
+      4          #include  "usart.h"
+      5          #include "uart/uart.h"
+      6          #include "adc/adc.h"
+      7          #include "math.h"
+      8          #include "stdio.h"
+      9          #define  K 20
+
+   \                                 In section .bss, align 8
+     10          double data[120];
+   \                     `data`:
+   \   00000000                      DS8 960
+
+   \                                 In section .bss, align 4
+     11          float voltage3;
+   \                     voltage3:
+   \   00000000                      DS8 4
+     12          
+     13          
+     14          
+     15          
+
+   \                                 In section .bss, align 4
+     16          int t=0;
+   \                     t:
+   \   00000000                      DS8 4
+     17          
+     18          #define HIFI_CONST 65523
+     19          struct Hifi_filter_s
+     20          {
+     21          uint32 ynLast;
+     22          uint16 wDataLast;
+     23          };
+     24          
+     25          /*
+     26           * 函数名： AC
+     27           * 描述  ：采集交流电压
+     28           * 输入  ：无
+     29           * 输出  ：无
+     30           * 调用  ：  
+     31           */
+
+   \                                 In section .text, align 2, keep-with-next
+     32          void AC(void)                
+     33          {
+   \                     AC: (+1)
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+     34            //y.f=3.14;
+     35           // for(int t=0;i<t;i++)
+     36           // {
+     37            if(t<64)
+   \   00000002   0x....             LDR      R0,??DataTable0_7
+   \   00000004   0x6800             LDR      R0,[R0, #+0]
+   \   00000006   0x2840             CMP      R0,#+64
+   \   00000008   0xDA1C             BGE      ??AC_0
+     38            {
+     39               if (ADC_Ready(CHA))
+   \   0000000A   0x....             LDR      R0,??DataTable0  ;; 0x4002b000
+   \   0000000C   0x6800             LDR      R0,[R0, #+0]
+   \   0000000E   0x0600             LSLS     R0,R0,#+24
+   \   00000010   0xD518             BPL      ??AC_0
+     40               {
+     41                data[t]=(ADC_Read(CHA)-1.925943089315270844E+4);//-1.8788E+4);//-1.8585E+4);//这里减去一个值 了所以AD变了
+   \   00000012   0x....             LDR      R0,??DataTable0_1  ;; 0x4002b018
+   \   00000014   0x6800             LDR      R0,[R0, #+0]
+   \   00000016   0xB280             UXTH     R0,R0
+   \   00000018   0x.... 0x....      BL       __aeabi_ui2d
+   \   0000001C   0x....             ADR      R2,??DataTable0_2
+   \   0000001E   0xCA0C             LDM      R2,{R2,R3}
+   \   00000020   0x.... 0x....      BL       __aeabi_dadd
+   \   00000024   0x....             LDR      R2,??DataTable0_4
+   \   00000026   0x....             LDR      R3,??DataTable0_7
+   \   00000028   0x681B             LDR      R3,[R3, #+0]
+   \   0000002A   0x2408             MOVS     R4,#+8
+   \   0000002C   0x4363             MULS     R3,R4,R3
+   \   0000002E   0x18D2             ADDS     R2,R2,R3
+   \   00000030   0xC203             STM      R2!,{R0,R1}
+   \   00000032   0x3A08             SUBS     R2,R2,#+8
+     42                ADC_Start(CHA,AD10);
+   \   00000034   0x2013             MOVS     R0,#+19
+   \   00000036   0x....             LDR      R1,??DataTable0_3  ;; 0x5022b000
+   \   00000038   0x6008             STR      R0,[R1, #+0]
+     43                t++;
+   \   0000003A   0x....             LDR      R0,??DataTable0_7
+   \   0000003C   0x6800             LDR      R0,[R0, #+0]
+   \   0000003E   0x1C40             ADDS     R0,R0,#+1
+   \   00000040   0x....             LDR      R1,??DataTable0_7
+   \   00000042   0x6008             STR      R0,[R1, #+0]
+     44               }
+     45            }
+     46          
+     47             if(t==64)
+   \                     ??AC_0: (+1)
+   \   00000044   0x....             LDR      R0,??DataTable0_7
+   \   00000046   0x6800             LDR      R0,[R0, #+0]
+   \   00000048   0x2840             CMP      R0,#+64
+   \   0000004A   0xD112             BNE      ??AC_1
+     48            {
+     49               double rms=calc(data,64);
+   \   0000004C   0x2140             MOVS     R1,#+64
+   \   0000004E   0x....             LDR      R0,??DataTable0_4
+   \   00000050   0x.... 0x....      BL       calc
+   \   00000054   0x0004             MOVS     R4,R0
+   \   00000056   0x000D             MOVS     R5,R1
+     50               voltage3=rms*(3.357/65535);//3.354//3.357//3.28 //3.323
+   \   00000058   0x....             ADR      R0,??DataTable0_5
+   \   0000005A   0xC803             LDM      R0,{R0,R1}
+   \   0000005C   0x0022             MOVS     R2,R4
+   \   0000005E   0x002B             MOVS     R3,R5
+   \   00000060   0x.... 0x....      BL       __aeabi_dmul
+   \   00000064   0x.... 0x....      BL       __aeabi_d2f
+   \   00000068   0x....             LDR      R1,??DataTable0_6
+   \   0000006A   0x6008             STR      R0,[R1, #+0]
+     51          //     voltage3=voltage3*1000;
+     52            //     adcval[0]=voltage3&0xff;//adcval[0]=(uint16)voltage3/1000;//最左边一位
+     53          //     adcval[1]=(uint16)voltage3%1000/100;
+     54          //     adcval[2]=(uint16)voltage3%1000%100/10;//%100/10;
+     55          //     adcval[3]=(uint16)voltage3%1000%100%10;//个位，最右边一位
+     56               
+     57               t=0;
+   \   0000006C   0x2000             MOVS     R0,#+0
+   \   0000006E   0x....             LDR      R1,??DataTable0_7
+   \   00000070   0x6008             STR      R0,[R1, #+0]
+     58            }
+     59            //}    
+     60          }
+   \                     ??AC_1: (+1)
+   \   00000072   0xBD31             POP      {R0,R4,R5,PC}    ;; return
+     61          /*
+     62           * 函数名： calc
+     63           * 描述  ：计算均方根
+     64           * 输入  ：无
+     65           * 输出  ：无
+     66           * 调用  ：  
+     67           */
+
+   \                                 In section .text, align 2, keep-with-next
+     68          double calc(double*pData,int nNum)
+     69          {
+   \                     calc: (+1)
+   \   00000000   0xB5F2             PUSH     {R1,R4-R7,LR}
+   \   00000002   0x0007             MOVS     R7,R0
+     70           //平方和
+     71            double fSum=0;
+   \   00000004   0x2400             MOVS     R4,#+0
+   \   00000006   0x2500             MOVS     R5,#+0
+     72            for(int i=0;i<nNum;i++)
+   \   00000008   0x2600             MOVS     R6,#+0
+   \                     ??calc_0: (+1)
+   \   0000000A   0x9800             LDR      R0,[SP, #+0]
+   \   0000000C   0x4286             CMP      R6,R0
+   \   0000000E   0xDA12             BGE      ??calc_1
+     73            {
+     74             fSum+=pData[i]*pData[i];
+   \   00000010   0x2008             MOVS     R0,#+8
+   \   00000012   0x4370             MULS     R0,R6,R0
+   \   00000014   0x1838             ADDS     R0,R7,R0
+   \   00000016   0xC80C             LDM      R0!,{R2,R3}
+   \   00000018   0x3808             SUBS     R0,R0,#+8
+   \   0000001A   0x2008             MOVS     R0,#+8
+   \   0000001C   0x4370             MULS     R0,R6,R0
+   \   0000001E   0x1838             ADDS     R0,R7,R0
+   \   00000020   0xC803             LDM      R0,{R0,R1}
+   \   00000022   0x.... 0x....      BL       __aeabi_dmul
+   \   00000026   0x0022             MOVS     R2,R4
+   \   00000028   0x002B             MOVS     R3,R5
+   \   0000002A   0x.... 0x....      BL       __aeabi_dadd
+   \   0000002E   0x0004             MOVS     R4,R0
+   \   00000030   0x000D             MOVS     R5,R1
+     75            }
+   \   00000032   0x1C76             ADDS     R6,R6,#+1
+   \   00000034   0xE7E9             B        ??calc_0
+     76            //平均 开方
+     77            return sqrt(fSum/nNum);
+   \                     ??calc_1: (+1)
+   \   00000036   0x9800             LDR      R0,[SP, #+0]
+   \   00000038   0x.... 0x....      BL       __aeabi_i2d
+   \   0000003C   0x0002             MOVS     R2,R0
+   \   0000003E   0x000B             MOVS     R3,R1
+   \   00000040   0x0020             MOVS     R0,R4
+   \   00000042   0x0029             MOVS     R1,R5
+   \   00000044   0x.... 0x....      BL       __aeabi_ddiv
+   \   00000048   0x.... 0x....      BL       sqrt
+   \   0000004C   0xBDF4             POP      {R2,R4-R7,PC}    ;; return
+     78          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0:
+   \   00000000   0x4002B000         DC32     0x4002b000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_1:
+   \   00000000   0x4002B018         DC32     0x4002b018
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_2:
+   \   00000000   0x93C0DFBD         DC32     0x93C0DFBD,0xC0D2CEDB
+   \              0xC0D2CEDB   
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_3:
+   \   00000000   0x5022B000         DC32     0x5022b000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_4:
+   \   00000000   0x........         DC32     `data`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_5:
+   \   00000000   0xAC230C65         DC32     0xAC230C65,0x3F0ADB3D
+   \              0x3F0ADB3D   
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_6:
+   \   00000000   0x........         DC32     voltage3
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_7:
+   \   00000000   0x........         DC32     t
+     79          
+     80          /*
+     81           * 函数名： Hifi_filter_s
+     82           * 描述  ：高通滤波
+     83           * 输入  ：无
+     84           * 输出  ：无
+     85           * 调用  ：  
+     86           */
+     87          //static struct  Hifi_filter_s filters[ADC_CHANNEL_NUMBER];
+     88          //static void Hifi_filter_init(struct Hifi_filter_s *filter)
+     89          //{
+     90          //filter->ynLast=0;
+     91          //filter->wDataLast=0;
+     92          //}
+     93          ////高通滤波
+     94          //static uint16 Hifi_filter(uint16 wData,struct Hifi_filter_s *filter)
+     95          //{
+     96          //uint64  mul=(uint64)HIFI_CONST*filter->ynLast;
+     97          //filter->ynLast=mul>>16;
+     98          //filter->ynLast-=(uint32)filter->wDataLast<<16;
+     99          //filter->ynLast+=(uint32)wData<<16;
+    100          //filter->wDataLast=wData;
+    101          //return filter->ynLast>>16;
+    102          //}
+    103          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      16   AC
+        16   -> __aeabi_d2f
+        16   -> __aeabi_dadd
+        16   -> __aeabi_dmul
+        16   -> __aeabi_ui2d
+        16   -> calc
+      24   calc
+        24   -> __aeabi_dadd
+        24   -> __aeabi_ddiv
+        24   -> __aeabi_dmul
+        24   -> __aeabi_i2d
+        24   -> sqrt
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable0
+       4  ??DataTable0_1
+       8  ??DataTable0_2
+       4  ??DataTable0_3
+       4  ??DataTable0_4
+       8  ??DataTable0_5
+       4  ??DataTable0_6
+       4  ??DataTable0_7
+     116  AC
+      78  calc
+     960  data
+       4  t
+       4  voltage3
+
+ 
+ 968 bytes in section .bss
+ 234 bytes in section .text
+ 
+ 234 bytes of CODE memory
+ 968 bytes of DATA memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,135 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        20/Dec/2016  13:04:32
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\freemaster\freemaster_bdm.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\freemaster\freemaster_bdm.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfee_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfee_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfee_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfee_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfee_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfee_test\..\..\..\..\src\projects\fllfee_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfee_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfee_test\Release\List\freemaster_bdm.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfee_test\Release\Obj\freemaster_bdm.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\freemaster\freemaster_bdm.c
+      1          /*******************************************************************************
+      2          *
+      3          * Copyright 2004-2013 Freescale Semiconductor, Inc.
+      4          *
+      5          * This software is owned or controlled by Freescale Semiconductor.
+      6          * Use of this software is governed by the Freescale FreeMASTER License
+      7          * distributed with this Material.
+      8          * See the license file distributed for more details.
+      9          *
+     10          ****************************************************************************//*!
+     11          *
+     12          * @brief  FreeMASTER BDM communication routines
+     13          *
+     14          *******************************************************************************/
+     15          
+     16          #include "freemaster.h"
+     17          #include "freemaster_private.h"
+     18          #include "freemaster_protocol.h"
+     19          
+     20          #if FMSTR_USE_PDBDM
+     21          typedef struct
+     22          {
+     23            FMSTR_U16 buffBorder1;                 // Border code of Packet driven BDM communication buffer
+     24            FMSTR_U8 buffSize;                     // Size of Packet driven BDM communication buffer
+     25            FMSTR_U8 bdmState;                     // State of the Packet driven BDM communication
+     26            FMSTR_BCHR commBuffer[FMSTR_COMM_BUFFER_SIZE+1]; //FreeMASTER Packet driven BDM communication buffer (in/out) plus the STS
+     27            FMSTR_U16 buffBorder2;                 // Border code of Packet driven BDM communication buffer
+     28          }FMSTR_PDBDM_COMBUFF;
+     29          
+     30          static FMSTR_PDBDM_COMBUFF pcm_bdm_pCommBuffer; //Packet driven communication buffer
+     31          
+     32          /**************************************************************************//*!
+     33          *
+     34          * @brief    Packet Driven BDM communication initialization
+     35          *
+     36          ******************************************************************************/
+     37          
+     38          void FMSTR_InitPDBdm(void)
+     39          {
+     40            /* Initialize buffer border and size in communication buffer */
+     41            pcm_bdm_pCommBuffer.buffBorder1 = FMSTR_PDBDM_BUFFBORDER_CODE1;
+     42            pcm_bdm_pCommBuffer.buffSize = FMSTR_COMM_BUFFER_SIZE + 1;
+     43            pcm_bdm_pCommBuffer.buffBorder2 = FMSTR_PDBDM_BUFFBORDER_CODE2;
+     44          
+     45            /* initialize state variables */
+     46            pcm_bdm_pCommBuffer.bdmState = FMSTR_PDBDM_IDLE;
+     47          }
+     48          
+     49          /**************************************************************************//*!
+     50          *
+     51          * @brief    Finalize transmit buffer before transmitting
+     52          *
+     53          * @param    nLength - response length (1 for status + data length)
+     54          *
+     55          *
+     56          * This Function takes the data already prepared in the transmit buffer
+     57          * (including the status byte). Change state of BDM driver.
+     58          *
+     59          ******************************************************************************/
+     60          
+     61          void FMSTR_SendResponse(FMSTR_BPTR pResponse, FMSTR_SIZE8 nLength)
+     62          {
+     63            FMSTR_UNUSED(pResponse);
+     64            FMSTR_UNUSED(nLength);
+     65            /* Frame is ready to send */
+     66            pcm_bdm_pCommBuffer.bdmState = FMSTR_PDBDM_FRAME_TO_SEND;
+     67          }
+     68          
+     69          /*******************************************************************************
+     70          *
+     71          * @brief    API: Main "Polling" call from the application main loop
+     72          *
+     73          *******************************************************************************/
+     74          
+     75          void FMSTR_Poll(void)
+     76          {
+     77            if (pcm_bdm_pCommBuffer.bdmState == FMSTR_PDBDM_RECEIVED_FRAME)
+     78            {
+     79              /* Packet is received */
+     80              pcm_bdm_pCommBuffer.bdmState = FMSTR_PDBDM_DECODING_FRAME;
+     81              /* Decode packet and create response */
+     82              FMSTR_ProtocolDecoder(pcm_bdm_pCommBuffer.commBuffer);
+     83            }
+     84          }
+     85          #else /* FMSTR_USE_PDBDM */
+     86          
+     87          /*lint -efile(766, freemaster_protocol.h) include file is not used in this case */
+     88          
+     89          #endif /* FMSTR_USE_PDBDM */
+     90          
+
+
+ 
+
+ 
+
+
+Errors: none
+Warnings: none

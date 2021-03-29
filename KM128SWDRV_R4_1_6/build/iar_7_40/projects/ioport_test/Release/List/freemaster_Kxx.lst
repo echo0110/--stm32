@@ -1,0 +1,552 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        07/Feb/2017  17:56:22
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\freemaster\freemaster_Kxx.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\freemaster\freemaster_Kxx.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\..\..\..\..\src\projects\ioport_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\Release\List\freemaster_Kxx.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\Release\Obj\freemaster_Kxx.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\freemaster\freemaster_Kxx.c
+      1          /*******************************************************************************
+      2          *
+      3          * Copyright 2004-2014 Freescale Semiconductor, Inc.
+      4          *
+      5          * This software is owned or controlled by Freescale Semiconductor.
+      6          * Use of this software is governed by the Freescale FreeMASTER License
+      7          * distributed with this Material.
+      8          * See the license file distributed for more details.
+      9          *
+     10          ****************************************************************************//*!
+     11          *
+     12          * @brief  FreeMASTER Driver Kxx-hardware dependent stuff
+     13          *
+     14          *******************************************************************************/
+     15          
+     16          #include "freemaster.h"
+     17          #include "freemaster_private.h"
+     18          #include "freemaster_Kxx.h"
+     19          
+     20          #if !(FMSTR_DISABLE)
+     21          /*******************************************************************************
+     22          *
+     23          *  @brief    API: User callback called from FMSTR_Isr() handler
+     24          *
+     25          *******************************************************************************/
+     26          
+     27          #if defined(FMSTR_ISR_CALLBACK)
+     28            extern void FMSTR_ISR_CALLBACK(void);
+     29          #endif
+     30          
+     31          /*******************************************************************************
+     32          *
+     33          * @brief    API: Main SCI or CAN Interrupt handler call
+     34          *
+     35          * This Interrupt Service Routine handles the SCI or CAN interrupts for the FreeMASTER
+     36          * driver. In case you want to handle the interrupt in the application yourselves,
+     37          * call the FMSTR_ProcessSCI, FMSTR_ProcessCanRx or FMSTR_ProcessCanTx functions which
+     38          * does the same job but is not compiled as an Interrupt Service Routine.
+     39          *
+     40          * In poll-driven mode (FMSTR_POLL_DRIVEN) this function does nothing.
+     41          *
+     42          *******************************************************************************/
+     43          
+
+   \                                 In section .text, align 2, keep-with-next
+     44          void FMSTR_Isr(void)
+     45          {
+     46          #if (FMSTR_LONG_INTR) || (FMSTR_SHORT_INTR)
+     47          
+     48              /* process serial interface */
+     49          #if (FMSTR_USE_SCI)||(FMSTR_USE_LPUART)
+     50              FMSTR_ProcessSCI();
+     51          
+     52              /* process CAN interface */
+     53          #elif FMSTR_USE_CAN
+     54              FMSTR_ProcessCanRx();
+     55              FMSTR_ProcessCanTx();
+     56          #endif /* FMSTR_USE_SCI */
+     57          
+     58              /* process application callback */
+     59          #if defined(FMSTR_ISR_CALLBACK)
+     60              if((FMSTR_ISR_CALLBACK) != NULL)
+     61                  FMSTR_ISR_CALLBACK();
+     62          #endif
+     63          
+     64          #endif
+     65          }
+   \                     FMSTR_Isr: (+1)
+   \   00000000   0x4770             BX       LR               ;; return
+     66          
+     67          /**************************************************************************//*!
+     68          *
+     69          * @brief    The "memcpy" used internally in FreeMASTER driver
+     70          *
+     71          * @param    nDestAddr - destination memory address
+     72          * @param    nSrcAddr  - source memory address
+     73          * @param    nSize     - memory size (always in bytes)
+     74          *
+     75          ******************************************************************************/
+     76          
+
+   \                                 In section .text, align 2, keep-with-next
+     77          void FMSTR_CopyMemory(FMSTR_ADDR nDestAddr, FMSTR_ADDR nSrcAddr, FMSTR_SIZE8 nSize)
+     78          {
+     79              FMSTR_U8* ps = (FMSTR_U8*) nSrcAddr;
+     80              FMSTR_U8* pd = (FMSTR_U8*) nDestAddr;
+   \                     FMSTR_CopyMemory: (+1)
+   \   00000000   0x2A00             CMP      R2,#+0
+   \   00000002   0xD005             BEQ      ??FMSTR_CopyMemory_0
+     81          
+     82              while(nSize--)
+     83                  *pd++ = *ps++;
+   \                     ??FMSTR_CopyMemory_1: (+1)
+   \   00000004   0x780B             LDRB     R3,[R1, #+0]
+   \   00000006   0x7003             STRB     R3,[R0, #+0]
+   \   00000008   0x1C49             ADDS     R1,R1,#+1
+   \   0000000A   0x1C40             ADDS     R0,R0,#+1
+   \   0000000C   0x1E52             SUBS     R2,R2,#+1
+   \   0000000E   0xD1F9             BNE      ??FMSTR_CopyMemory_1
+     84          }
+   \                     ??FMSTR_CopyMemory_0: (+1)
+   \   00000010   0x4770             BX       LR               ;; return
+     85          
+     86          /**************************************************************************//*!
+     87          *
+     88          * @brief  Write-into the communication buffer memory
+     89          *
+     90          * @param  pDestBuff - pointer to destination memory in communication buffer
+     91          * @param  nSrcAddr  - source memory address
+     92          * @param  nSize     - buffer size (always in bytes)
+     93          *
+     94          * @return This function returns a pointer to next byte in comm. buffer
+     95          *
+     96          ******************************************************************************/
+     97          
+
+   \                                 In section .text, align 2, keep-with-next
+     98          FMSTR_BPTR FMSTR_CopyToBuffer(FMSTR_BPTR pDestBuff, FMSTR_ADDR nSrcAddr, FMSTR_SIZE8 nSize)
+     99          {
+    100              FMSTR_U8* ps = (FMSTR_U8*) nSrcAddr;
+    101              FMSTR_U8* pd = (FMSTR_U8*) pDestBuff;
+   \                     FMSTR_CopyToBuffer: (+1)
+   \   00000000   0x2A00             CMP      R2,#+0
+   \   00000002   0xD005             BEQ      ??FMSTR_CopyToBuffer_0
+    102          
+    103              while(nSize--)
+    104                  *pd++ = *ps++;
+   \                     ??FMSTR_CopyToBuffer_1: (+1)
+   \   00000004   0x780B             LDRB     R3,[R1, #+0]
+   \   00000006   0x7003             STRB     R3,[R0, #+0]
+   \   00000008   0x1C49             ADDS     R1,R1,#+1
+   \   0000000A   0x1C40             ADDS     R0,R0,#+1
+   \   0000000C   0x1E52             SUBS     R2,R2,#+1
+   \   0000000E   0xD1F9             BNE      ??FMSTR_CopyToBuffer_1
+    105          
+    106              return (FMSTR_BPTR) pd;
+   \                     ??FMSTR_CopyToBuffer_0: (+1)
+   \   00000010   0x4770             BX       LR               ;; return
+    107          }
+    108          
+    109          /**************************************************************************//*!
+    110          *
+    111          * @brief  Read-out memory from communication buffer
+    112          *
+    113          * @param  nDestAddr - destination memory address
+    114          * @param  pSrcBuff  - pointer to source memory in communication buffer
+    115          * @param  nSize     - buffer size (always in bytes)
+    116          *
+    117          * @return This function returns a pointer to next byte in comm. buffer
+    118          *
+    119          ******************************************************************************/
+    120          
+
+   \                                 In section .text, align 2, keep-with-next
+    121          FMSTR_BPTR FMSTR_CopyFromBuffer(FMSTR_ADDR nDestAddr, FMSTR_BPTR pSrcBuff, FMSTR_SIZE8 nSize)
+    122          {
+   \                     FMSTR_CopyFromBuffer: (+1)
+   \   00000000   0x0003             MOVS     R3,R0
+   \   00000002   0x0008             MOVS     R0,R1
+    123              FMSTR_U8* ps = (FMSTR_U8*) pSrcBuff;
+    124              FMSTR_U8* pd = (FMSTR_U8*) nDestAddr;
+   \   00000004   0x2A00             CMP      R2,#+0
+   \   00000006   0xD005             BEQ      ??FMSTR_CopyFromBuffer_0
+    125          
+    126              while(nSize--)
+    127                  *pd++ = *ps++;
+   \                     ??FMSTR_CopyFromBuffer_1: (+1)
+   \   00000008   0x7801             LDRB     R1,[R0, #+0]
+   \   0000000A   0x7019             STRB     R1,[R3, #+0]
+   \   0000000C   0x1C40             ADDS     R0,R0,#+1
+   \   0000000E   0x1C5B             ADDS     R3,R3,#+1
+   \   00000010   0x1E52             SUBS     R2,R2,#+1
+   \   00000012   0xD1F9             BNE      ??FMSTR_CopyFromBuffer_1
+    128          
+    129              return (FMSTR_BPTR) ps;
+   \                     ??FMSTR_CopyFromBuffer_0: (+1)
+   \   00000014   0x4770             BX       LR               ;; return
+    130          }
+    131          
+    132          #if (FMSTR_BYTE_BUFFER_ACCESS)
+
+   \                                 In section .text, align 2, keep-with-next
+    133          FMSTR_BPTR FMSTR_ValueFromBuffer16(FMSTR_U16* pDest, FMSTR_BPTR pSrc)
+    134          {
+    135              return FMSTR_CopyFromBuffer((FMSTR_ADDR)(FMSTR_U8*)pDest, pSrc, 2);
+   \                     FMSTR_ValueFromBuffer16: (+1)
+   \   00000000   0x2202             MOVS     R2,#+2
+   \                     ??FMSTR_ValueFromBuffer16_0: (+1)
+   \   00000002   0x780B             LDRB     R3,[R1, #+0]
+   \   00000004   0x7003             STRB     R3,[R0, #+0]
+   \   00000006   0x1C49             ADDS     R1,R1,#+1
+   \   00000008   0x1C40             ADDS     R0,R0,#+1
+   \   0000000A   0x1E52             SUBS     R2,R2,#+1
+   \   0000000C   0xD1F9             BNE      ??FMSTR_ValueFromBuffer16_0
+   \   0000000E   0x0008             MOVS     R0,R1
+   \   00000010   0x4770             BX       LR               ;; return
+    136          }
+    137          
+
+   \                                 In section .text, align 2, keep-with-next
+    138          FMSTR_BPTR FMSTR_ValueFromBuffer32(FMSTR_U32* pDest, FMSTR_BPTR pSrc)
+    139          {
+    140              return FMSTR_CopyFromBuffer((FMSTR_ADDR)(FMSTR_U8*)pDest, pSrc, 4);
+   \                     FMSTR_ValueFromBuffer32: (+1)
+   \   00000000   0x2204             MOVS     R2,#+4
+   \                     ??FMSTR_ValueFromBuffer32_0: (+1)
+   \   00000002   0x780B             LDRB     R3,[R1, #+0]
+   \   00000004   0x7003             STRB     R3,[R0, #+0]
+   \   00000006   0x1C49             ADDS     R1,R1,#+1
+   \   00000008   0x1C40             ADDS     R0,R0,#+1
+   \   0000000A   0x1E52             SUBS     R2,R2,#+1
+   \   0000000C   0xD1F9             BNE      ??FMSTR_ValueFromBuffer32_0
+   \   0000000E   0x0008             MOVS     R0,R1
+   \   00000010   0x4770             BX       LR               ;; return
+    141          }
+    142          
+
+   \                                 In section .text, align 2, keep-with-next
+    143          FMSTR_BPTR FMSTR_ValueToBuffer16(FMSTR_BPTR pDest, FMSTR_U16 src)
+    144          {
+   \                     FMSTR_ValueToBuffer16: (+1)
+   \   00000000   0xB402             PUSH     {R1}
+    145              return FMSTR_CopyToBuffer(pDest, (FMSTR_ADDR)(FMSTR_U8*)&src, 2);
+   \   00000002   0x4669             MOV      R1,SP
+   \   00000004   0x2202             MOVS     R2,#+2
+   \                     ??FMSTR_ValueToBuffer16_0: (+1)
+   \   00000006   0x780B             LDRB     R3,[R1, #+0]
+   \   00000008   0x7003             STRB     R3,[R0, #+0]
+   \   0000000A   0x1C49             ADDS     R1,R1,#+1
+   \   0000000C   0x1C40             ADDS     R0,R0,#+1
+   \   0000000E   0x1E52             SUBS     R2,R2,#+1
+   \   00000010   0xD1F9             BNE      ??FMSTR_ValueToBuffer16_0
+   \   00000012   0xB001             ADD      SP,SP,#+4
+   \   00000014   0x4770             BX       LR               ;; return
+    146          }
+    147          
+
+   \                                 In section .text, align 2, keep-with-next
+    148          FMSTR_BPTR FMSTR_ValueToBuffer32(FMSTR_BPTR pDest, FMSTR_U32 src)
+    149          {
+   \                     FMSTR_ValueToBuffer32: (+1)
+   \   00000000   0xB402             PUSH     {R1}
+    150              return FMSTR_CopyToBuffer(pDest, (FMSTR_ADDR)(FMSTR_U8*)&src, 4);
+   \   00000002   0x4669             MOV      R1,SP
+   \   00000004   0x2204             MOVS     R2,#+4
+   \                     ??FMSTR_ValueToBuffer32_0: (+1)
+   \   00000006   0x780B             LDRB     R3,[R1, #+0]
+   \   00000008   0x7003             STRB     R3,[R0, #+0]
+   \   0000000A   0x1C49             ADDS     R1,R1,#+1
+   \   0000000C   0x1C40             ADDS     R0,R0,#+1
+   \   0000000E   0x1E52             SUBS     R2,R2,#+1
+   \   00000010   0xD1F9             BNE      ??FMSTR_ValueToBuffer32_0
+   \   00000012   0xB001             ADD      SP,SP,#+4
+   \   00000014   0x4770             BX       LR               ;; return
+    151          }
+    152          #endif
+    153          
+    154          /**************************************************************************//*!
+    155          *
+    156          * @brief  Read-out memory from communication buffer, perform AND-masking
+    157          *
+    158          * @param  nDestAddr - destination memory address
+    159          * @param  pSrcBuff  - source memory in communication buffer, mask follows data
+    160          * @param  nSize     - buffer size (always in bytes)
+    161          *
+    162          ******************************************************************************/
+    163          
+
+   \                                 In section .text, align 2, keep-with-next
+    164          void FMSTR_CopyFromBufferWithMask(FMSTR_ADDR nDestAddr, FMSTR_BPTR pSrcBuff, FMSTR_SIZE8 nSize)
+    165          {
+    166              FMSTR_U8* ps = (FMSTR_U8*) pSrcBuff;
+    167              FMSTR_U8* pd = (FMSTR_U8*) nDestAddr;
+    168              FMSTR_U8* pm = ps + nSize;
+   \                     FMSTR_CopyFromBufferWithMask: (+1)
+   \   00000000   0x188B             ADDS     R3,R1,R2
+   \   00000002   0x2A00             CMP      R2,#+0
+   \   00000004   0xD100             BNE      ??FMSTR_CopyFromBufferWithMask_0
+   \   00000006   0x4770             BX       LR
+   \                     ??FMSTR_CopyFromBufferWithMask_0: (+1)
+   \   00000008   0xB470             PUSH     {R4-R6}
+    169              FMSTR_U8 mask, stmp, dtmp;
+    170          
+    171              while(nSize--)
+    172              {
+    173                  mask = *pm++;
+   \                     ??FMSTR_CopyFromBufferWithMask_1: (+1)
+   \   0000000A   0x781C             LDRB     R4,[R3, #+0]
+   \   0000000C   0x1C5B             ADDS     R3,R3,#+1
+    174                  stmp = *ps++;
+   \   0000000E   0x780D             LDRB     R5,[R1, #+0]
+   \   00000010   0x1C49             ADDS     R1,R1,#+1
+    175                  dtmp = *pd;
+    176          
+    177                  /* perform AND-masking */
+    178                  stmp = (FMSTR_U8) ((stmp & mask) | (dtmp & ~mask));
+    179          
+    180                  /* put the result back */
+    181                  *pd++ = stmp;
+   \   00000012   0x4025             ANDS     R5,R5,R4
+   \   00000014   0x7806             LDRB     R6,[R0, #+0]
+   \   00000016   0x43A6             BICS     R6,R6,R4
+   \   00000018   0x432E             ORRS     R6,R6,R5
+   \   0000001A   0x7006             STRB     R6,[R0, #+0]
+   \   0000001C   0x1C40             ADDS     R0,R0,#+1
+   \   0000001E   0x1E52             SUBS     R2,R2,#+1
+    182              }
+   \   00000020   0xD1F3             BNE      ??FMSTR_CopyFromBufferWithMask_1
+    183          }
+   \   00000022   0xBC70             POP      {R4-R6}
+   \   00000024   0x4770             BX       LR               ;; return
+    184          
+    185          /******************************************************************************/
+    186          
+    187          /* mixed EX and no-EX commands? */
+    188          #if (FMSTR_USE_EX_CMDS) && (FMSTR_USE_NOEX_CMDS) || (FMSTR_BYTE_BUFFER_ACCESS)
+    189          
+    190          /**************************************************************************//*!
+    191          *
+    192          * @brief  When mixed EX and no-EX command may occur, this variable is
+    193          *         here to remember what command is just being handled.
+    194          *
+    195          ******************************************************************************/
+    196          
+
+   \                                 In section .bss, align 1
+    197          static FMSTR_BOOL pcm_bNextAddrIsEx;
+   \                     pcm_bNextAddrIsEx:
+   \   00000000                      DS8 1
+    198          
+
+   \                                 In section .text, align 2, keep-with-next
+    199          void FMSTR_SetExAddr(FMSTR_BOOL bNextAddrIsEx)
+    200          {
+    201              pcm_bNextAddrIsEx = bNextAddrIsEx;
+   \                     FMSTR_SetExAddr: (+1)
+   \   00000000   0x....             LDR      R1,??DataTable2
+   \   00000002   0x7008             STRB     R0,[R1, #+0]
+    202          }
+   \   00000004   0x4770             BX       LR               ;; return
+    203          
+    204          /**************************************************************************//*!
+    205          *
+    206          * @brief  Store address to communication buffer. The address may be
+    207          *         32 or 16 bit wide (based on previous call to FMSTR_SetExAddr)
+    208          *
+    209          ******************************************************************************/
+    210          
+
+   \                                 In section .text, align 2, keep-with-next
+    211          FMSTR_BPTR FMSTR_AddressToBuffer(FMSTR_BPTR pDest, FMSTR_ADDR nAddr)
+    212          {
+   \                     FMSTR_AddressToBuffer: (+1)
+   \   00000000   0xB402             PUSH     {R1}
+    213              if(pcm_bNextAddrIsEx)
+   \   00000002   0x....             LDR      R1,??DataTable2
+   \   00000004   0x7809             LDRB     R1,[R1, #+0]
+   \   00000006   0x2900             CMP      R1,#+0
+   \   00000008   0x4669             MOV      R1,SP
+   \   0000000A   0xD007             BEQ      ??FMSTR_AddressToBuffer_0
+    214              {
+    215                  /* fill in the 32bit address */
+    216          #if FMSTR_BYTE_BUFFER_ACCESS
+    217                  pDest = FMSTR_CopyToBuffer(pDest, (FMSTR_ADDR)&nAddr, 4);
+   \   0000000C   0x2204             MOVS     R2,#+4
+   \                     ??FMSTR_AddressToBuffer_1: (+1)
+   \   0000000E   0x780B             LDRB     R3,[R1, #+0]
+   \   00000010   0x7003             STRB     R3,[R0, #+0]
+   \   00000012   0x1C49             ADDS     R1,R1,#+1
+   \   00000014   0x1C40             ADDS     R0,R0,#+1
+   \   00000016   0x1E52             SUBS     R2,R2,#+1
+   \   00000018   0xD1F9             BNE      ??FMSTR_AddressToBuffer_1
+    218          #else
+    219                  *(FMSTR_U32*) pDest = ((FMSTR_U32)nAddr);
+    220                  pDest += 4;
+    221          #endif
+    222              }
+   \   0000001A   0xE006             B        ??FMSTR_AddressToBuffer_2
+    223              else
+    224              {
+    225                  /* fill in the 16bit address (never used) */
+    226          #if FMSTR_BYTE_BUFFER_ACCESS
+    227                  pDest = FMSTR_CopyToBuffer(pDest, (FMSTR_ADDR)&nAddr, 2);
+   \                     ??FMSTR_AddressToBuffer_0: (+1)
+   \   0000001C   0x2202             MOVS     R2,#+2
+   \                     ??FMSTR_AddressToBuffer_3: (+1)
+   \   0000001E   0x780B             LDRB     R3,[R1, #+0]
+   \   00000020   0x7003             STRB     R3,[R0, #+0]
+   \   00000022   0x1C49             ADDS     R1,R1,#+1
+   \   00000024   0x1C40             ADDS     R0,R0,#+1
+   \   00000026   0x1E52             SUBS     R2,R2,#+1
+   \   00000028   0xD1F9             BNE      ??FMSTR_AddressToBuffer_3
+    228          #else
+    229                  *(FMSTR_U16*) pDest = ((FMSTR_U16)nAddr);
+    230                  pDest += 2;
+    231          #endif
+    232              }
+    233          
+    234              return pDest;
+   \                     ??FMSTR_AddressToBuffer_2: (+1)
+   \   0000002A   0xB001             ADD      SP,SP,#+4
+   \   0000002C   0x4770             BX       LR               ;; return
+    235          }
+    236          
+    237          /**************************************************************************//*!
+    238          *
+    239          * @brief  Fetch address from communication buffer
+    240          *
+    241          ******************************************************************************/
+    242          
+
+   \                                 In section .text, align 2, keep-with-next
+    243          FMSTR_BPTR FMSTR_AddressFromBuffer(FMSTR_ADDR* pAddr, FMSTR_BPTR pSrc)
+    244          {
+    245              if(pcm_bNextAddrIsEx)
+   \                     FMSTR_AddressFromBuffer: (+1)
+   \   00000000   0x....             LDR      R2,??DataTable2
+   \   00000002   0x7812             LDRB     R2,[R2, #+0]
+   \   00000004   0x2A00             CMP      R2,#+0
+   \   00000006   0xD007             BEQ      ??FMSTR_AddressFromBuffer_0
+    246              {
+    247          #if FMSTR_BYTE_BUFFER_ACCESS
+    248                  pSrc = FMSTR_CopyFromBuffer((FMSTR_ADDR)(FMSTR_U8*)pAddr, pSrc, 4);
+   \   00000008   0x2204             MOVS     R2,#+4
+   \                     ??FMSTR_AddressFromBuffer_1: (+1)
+   \   0000000A   0x780B             LDRB     R3,[R1, #+0]
+   \   0000000C   0x7003             STRB     R3,[R0, #+0]
+   \   0000000E   0x1C49             ADDS     R1,R1,#+1
+   \   00000010   0x1C40             ADDS     R0,R0,#+1
+   \   00000012   0x1E52             SUBS     R2,R2,#+1
+   \   00000014   0xD1F9             BNE      ??FMSTR_AddressFromBuffer_1
+    249          #else
+    250                  *pAddr = (FMSTR_ADDR) *((FMSTR_U32*) pSrc);
+    251                  pSrc += 4;
+    252          #endif
+    253              }
+   \   00000016   0xE006             B        ??FMSTR_AddressFromBuffer_2
+    254              else
+    255              {
+    256          #if FMSTR_BYTE_BUFFER_ACCESS
+    257                  pSrc = FMSTR_CopyFromBuffer((FMSTR_ADDR)(FMSTR_U8*)pAddr, pSrc, 2);
+   \                     ??FMSTR_AddressFromBuffer_0: (+1)
+   \   00000018   0x2202             MOVS     R2,#+2
+   \                     ??FMSTR_AddressFromBuffer_3: (+1)
+   \   0000001A   0x780B             LDRB     R3,[R1, #+0]
+   \   0000001C   0x7003             STRB     R3,[R0, #+0]
+   \   0000001E   0x1C49             ADDS     R1,R1,#+1
+   \   00000020   0x1C40             ADDS     R0,R0,#+1
+   \   00000022   0x1E52             SUBS     R2,R2,#+1
+   \   00000024   0xD1F9             BNE      ??FMSTR_AddressFromBuffer_3
+    258          #else
+    259                  *pAddr = (FMSTR_ADDR) *((FMSTR_U16*) pSrc);
+    260                  pSrc += 2;
+    261          #endif
+    262              }
+    263          
+    264              return pSrc;
+   \                     ??FMSTR_AddressFromBuffer_2: (+1)
+   \   00000026   0x0008             MOVS     R0,R1
+   \   00000028   0x4770             BX       LR               ;; return
+    265          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2:
+   \   00000000   0x........         DC32     pcm_bNextAddrIsEx
+    266          
+    267          #endif /* mixed EX and no-EX commands */
+    268          
+    269          #endif /* !(FMSTR_DISABLE) */
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   FMSTR_AddressFromBuffer
+       4   FMSTR_AddressToBuffer
+       0   FMSTR_CopyFromBuffer
+      12   FMSTR_CopyFromBufferWithMask
+       0   FMSTR_CopyMemory
+       0   FMSTR_CopyToBuffer
+       0   FMSTR_Isr
+       0   FMSTR_SetExAddr
+       0   FMSTR_ValueFromBuffer16
+       0   FMSTR_ValueFromBuffer32
+       4   FMSTR_ValueToBuffer16
+       4   FMSTR_ValueToBuffer32
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable2
+      42  FMSTR_AddressFromBuffer
+      46  FMSTR_AddressToBuffer
+      22  FMSTR_CopyFromBuffer
+      38  FMSTR_CopyFromBufferWithMask
+      18  FMSTR_CopyMemory
+      18  FMSTR_CopyToBuffer
+       2  FMSTR_Isr
+       6  FMSTR_SetExAddr
+      18  FMSTR_ValueFromBuffer16
+      18  FMSTR_ValueFromBuffer32
+      22  FMSTR_ValueToBuffer16
+      22  FMSTR_ValueToBuffer32
+       1  pcm_bNextAddrIsEx
+
+ 
+   1 byte  in section .bss
+ 276 bytes in section .text
+ 
+ 276 bytes of CODE memory
+   1 byte  of DATA memory
+
+Errors: none
+Warnings: none

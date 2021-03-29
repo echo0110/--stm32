@@ -1,0 +1,110 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        13/Jan/2017  10:29:24
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\common\arm_cm0.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\common\arm_cm0.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\..\..\..\..\src\projects\fllfei_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\List\arm_cm0.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\arm_cm0.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\common\arm_cm0.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2016, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      arm_cm0.c
+      6           * @version   1.0.2.0
+      7           * @date      Mar-27-2016
+      8           * @brief     arm_cm0 driver implementation.
+      9           ******************************************************************************/
+     10          #include "common.h"
+     11          
+     12          /******************************************************************************
+     13           * data type definitions                                                      *
+     14           ******************************************************************************/
+
+   \                                 In section .bss, align 4
+     15          SVC_CALLBACK pCallbackSVC;
+   \                     pCallbackSVC:
+   \   00000000                      DS8 4
+     16          
+     17          /******************************************************************************
+     18           * public function definitions                                                *
+     19           ******************************************************************************/
+
+   \                                 In section .text, align 4, keep-with-next
+     20          void SVC_InstallCallback (uint8 ip, SVC_CALLBACK pCallback)
+     21          {
+     22            if (pCallback) { pCallbackSVC = pCallback; FAULT_SetIsr(INT_SVCall,ip); }
+   \                     SVC_InstallCallback: (+1)
+   \   00000000   0x000A             MOVS     R2,R1
+   \   00000002   0xD006             BEQ      ??SVC_InstallCallback_0
+   \   00000004   0x4A03             LDR      R2,??SVC_InstallCallback_1
+   \   00000006   0x6011             STR      R1,[R2, #+0]
+   \   00000008   0x4903             LDR      R1,??SVC_InstallCallback_1+0x4  ;; 0xe000ed1c
+   \   0000000A   0x680A             LDR      R2,[R1, #+0]
+   \   0000000C   0x0780             LSLS     R0,R0,#+30
+   \   0000000E   0x4310             ORRS     R0,R0,R2
+   \   00000010   0x6008             STR      R0,[R1, #+0]
+     23          }
+   \                     ??SVC_InstallCallback_0: (+1)
+   \   00000012   0x4770             BX       LR               ;; return
+   \                     ??SVC_InstallCallback_1:
+   \   00000014   0x........         DC32     pCallbackSVC
+   \   00000018   0xE000ED1C         DC32     0xe000ed1c
+     24          
+     25          /******************************************************************************
+     26           * interrupt function definitions - please refer to svcall_isr.s module       *
+     27           ******************************************************************************/
+     28          /******************************************************************************
+     29           * End of module                                                              *
+     30           ******************************************************************************/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   SVC_InstallCallback
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      28  SVC_InstallCallback
+       4  pCallbackSVC
+
+ 
+  4 bytes in section .bss
+ 28 bytes in section .text
+ 
+ 28 bytes of CODE memory
+  4 bytes of DATA memory
+
+Errors: none
+Warnings: none

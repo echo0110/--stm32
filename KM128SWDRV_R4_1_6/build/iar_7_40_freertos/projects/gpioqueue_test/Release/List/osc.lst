@@ -1,0 +1,62 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        07/Feb/2017  17:55:54
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\osc\osc.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\osc\osc.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\freertos\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\freertos\iar\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\projects\gpioqueue_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\Release\List\osc.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\Release\Obj\osc.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\osc\osc.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2015, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      osc.c
+      6           * @version   1.0.1.0
+      7           * @date      May-14-2012
+      8           * @brief     System Oscillator (OSC) driver source code.
+      9           ******************************************************************************/
+     10          #include "common.h"
+     11          #include "osc.h"
+     12          /******************************************************************************
+     13           * End of module                                                              *
+     14           ******************************************************************************/
+
+
+ 
+
+ 
+
+
+Errors: none
+Warnings: none

@@ -1,0 +1,216 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        20/Mar/2017  09:47:58
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\ewm\ewm.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\ewm\ewm.c -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\Release\Obj\
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M0+ --no_mem_idioms -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\..\..\..\..\src\projects\i2c_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\..\..\..\..\src\toolchain\iar\
+#        -On
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\Release\List\ewm.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\Release\Obj\ewm.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\ewm\ewm.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2015, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      ewm.c
+      6           * @version   1.0.0.0
+      7           * @date      Apr-20-2015
+      8           * @brief     External Watchdog Monitor (EWM) driver source code.
+      9           ******************************************************************************/
+     10          #include "common.h"
+     11          #include "ewm.h"
+     12          
+     13          #if !defined(MCU_MKM34ZA5)
+     14            #error "The ewm.c module is specific to the MKMxxZxxACxx5 microcontrollers."
+     15          #endif
+     16          
+     17          /******************************************************************************
+     18           * data type definitions                                                      *
+     19           ******************************************************************************/
+
+   \                                 In section .bss, align 4
+     20          static EWM_CALLBACK pCallbackEWM;
+   \                     pCallbackEWM:
+   \   00000000                      DS8 4
+     21          
+     22          /******************************************************************************
+     23           * Public functions definitions                                               *
+     24           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+     25          void EWM_Init (tEWM cfg, uint8 ip, EWM_CALLBACK pCallback)
+     26          {
+   \                     EWM_Init: (+1)
+   \   00000000   0xB511             PUSH     {R0,R4,LR}
+     27            register uint8 tmp = 0;
+   \   00000002   0x2000             MOVS     R0,#+0
+     28          
+     29            if (pCallback)
+   \   00000004   0x0013             MOVS     R3,R2
+   \   00000006   0x2B00             CMP      R3,#+0
+   \   00000008   0xD018             BEQ      ??EWM_Init_0
+     30            {
+     31              pCallbackEWM = pCallback;
+   \   0000000A   0x....             LDR      R3,??DataTable1
+   \   0000000C   0x601A             STR      R2,[R3, #+0]
+     32              NVIC_SetIsr(INT_EWM,ip);
+   \   0000000E   0x....             LDR      R3,??DataTable1_1  ;; 0xe000e280
+   \   00000010   0x681B             LDR      R3,[R3, #+0]
+   \   00000012   0x2480             MOVS     R4,#+128
+   \   00000014   0x0524             LSLS     R4,R4,#+20       ;; #+134217728
+   \   00000016   0x431C             ORRS     R4,R4,R3
+   \   00000018   0x....             LDR      R3,??DataTable1_1  ;; 0xe000e280
+   \   0000001A   0x601C             STR      R4,[R3, #+0]
+   \   0000001C   0x....             LDR      R3,??DataTable1_2  ;; 0xe000e100
+   \   0000001E   0x681B             LDR      R3,[R3, #+0]
+   \   00000020   0x2480             MOVS     R4,#+128
+   \   00000022   0x0524             LSLS     R4,R4,#+20       ;; #+134217728
+   \   00000024   0x431C             ORRS     R4,R4,R3
+   \   00000026   0x....             LDR      R3,??DataTable1_2  ;; 0xe000e100
+   \   00000028   0x601C             STR      R4,[R3, #+0]
+   \   0000002A   0x....             LDR      R3,??DataTable1_3  ;; 0xe000e418
+   \   0000002C   0x681B             LDR      R3,[R3, #+0]
+   \   0000002E   0xB2C9             UXTB     R1,R1
+   \   00000030   0x078C             LSLS     R4,R1,#+30
+   \   00000032   0x431C             ORRS     R4,R4,R3
+   \   00000034   0x....             LDR      R3,??DataTable1_3  ;; 0xe000e418
+   \   00000036   0x601C             STR      R4,[R3, #+0]
+     33              tmp = EWM_CTRL_INTEN_MASK;
+   \   00000038   0x2308             MOVS     R3,#+8
+   \   0000003A   0x0018             MOVS     R0,R3
+     34            }
+     35          
+     36            EWM_CMPL = cfg.CMPL;
+   \                     ??EWM_Init_0: (+1)
+   \   0000003C   0x466B             MOV      R3,SP
+   \   0000003E   0x785B             LDRB     R3,[R3, #+1]
+   \   00000040   0x....             LDR      R4,??DataTable1_4  ;; 0x40061002
+   \   00000042   0x7023             STRB     R3,[R4, #+0]
+     37            EWM_CMPH = cfg.CMPH;
+   \   00000044   0x466B             MOV      R3,SP
+   \   00000046   0x789B             LDRB     R3,[R3, #+2]
+   \   00000048   0x....             LDR      R4,??DataTable1_5  ;; 0x40061003
+   \   0000004A   0x7023             STRB     R3,[R4, #+0]
+     38            EWM_CTRL = cfg.CTRL|tmp;
+   \   0000004C   0x466B             MOV      R3,SP
+   \   0000004E   0x781B             LDRB     R3,[R3, #+0]
+   \   00000050   0x4303             ORRS     R3,R3,R0
+   \   00000052   0x....             LDR      R4,??DataTable1_6  ;; 0x40061000
+   \   00000054   0x7023             STRB     R3,[R4, #+0]
+     39          }
+   \   00000056   0xBD11             POP      {R0,R4,PC}       ;; return
+     40          
+     41          /******************************************************************************
+     42           * interrupt functions definitions                                            *
+     43           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+     44          weak void ewm_isr (void)                        /* overriden in swisr.c     */
+     45          {
+   \                     ewm_isr: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+     46            ioclrb (EWM_CTRL,EWM_CTRL_INTEN_MASK);
+   \   00000002   0x20F7             MOVS     R0,#+247
+   \   00000004   0x....             LDR      R1,??DataTable1_7  ;; 0x44061000
+   \   00000006   0x7008             STRB     R0,[R1, #+0]
+     47            pCallbackEWM();
+   \   00000008   0x....             LDR      R0,??DataTable1
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0x4780             BLX      R0
+     48          }
+   \   0000000E   0xBD01             POP      {R0,PC}          ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \   00000000   0x........         DC32     pCallbackEWM
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \   00000000   0xE000E280         DC32     0xe000e280
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \   00000000   0xE000E100         DC32     0xe000e100
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_3:
+   \   00000000   0xE000E418         DC32     0xe000e418
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_4:
+   \   00000000   0x40061002         DC32     0x40061002
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_5:
+   \   00000000   0x40061003         DC32     0x40061003
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_6:
+   \   00000000   0x40061000         DC32     0x40061000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_7:
+   \   00000000   0x44061000         DC32     0x44061000
+     49          /******************************************************************************
+     50           * End of module                                                              *
+     51           ******************************************************************************/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      12   EWM_Init
+       8   ewm_isr
+         8   -- Indirect call
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable1
+       4  ??DataTable1_1
+       4  ??DataTable1_2
+       4  ??DataTable1_3
+       4  ??DataTable1_4
+       4  ??DataTable1_5
+       4  ??DataTable1_6
+       4  ??DataTable1_7
+      88  EWM_Init
+      16  ewm_isr
+       4  pCallbackEWM
+
+ 
+   4 bytes in section .bss
+ 136 bytes in section .text
+ 
+ 136 bytes of CODE memory
+   4 bytes of DATA memory
+
+Errors: none
+Warnings: none

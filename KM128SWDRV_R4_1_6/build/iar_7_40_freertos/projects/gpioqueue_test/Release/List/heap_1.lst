@@ -1,0 +1,330 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        07/Feb/2017  17:55:52
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\freertos\heap_1.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\freertos\heap_1.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\freertos\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\freertos\iar\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\projects\gpioqueue_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\Release\List\heap_1.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40_freertos\projects\gpioqueue_test\Release\Obj\heap_1.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\freertos\heap_1.c
+      1          /*
+      2              FreeRTOS V8.2.1 - Copyright (C) 2015 Real Time Engineers Ltd.
+      3              All rights reserved
+      4          
+      5              VISIT http://www.FreeRTOS.org TO ENSURE YOU ARE USING THE LATEST VERSION.
+      6          
+      7              This file is part of the FreeRTOS distribution.
+      8          
+      9              FreeRTOS is free software; you can redistribute it and/or modify it under
+     10              the terms of the GNU General Public License (version 2) as published by the
+     11              Free Software Foundation >>!AND MODIFIED BY!<< the FreeRTOS exception.
+     12          
+     13              ***************************************************************************
+     14              >>!   NOTE: The modification to the GPL is included to allow you to     !<<
+     15              >>!   distribute a combined work that includes FreeRTOS without being   !<<
+     16              >>!   obliged to provide the source code for proprietary components     !<<
+     17              >>!   outside of the FreeRTOS kernel.                                   !<<
+     18              ***************************************************************************
+     19          
+     20              FreeRTOS is distributed in the hope that it will be useful, but WITHOUT ANY
+     21              WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+     22              FOR A PARTICULAR PURPOSE.  Full license text is available on the following
+     23              link: http://www.freertos.org/a00114.html
+     24          
+     25              ***************************************************************************
+     26               *                                                                       *
+     27               *    FreeRTOS provides completely free yet professionally developed,    *
+     28               *    robust, strictly quality controlled, supported, and cross          *
+     29               *    platform software that is more than just the market leader, it     *
+     30               *    is the industry's de facto standard.                               *
+     31               *                                                                       *
+     32               *    Help yourself get started quickly while simultaneously helping     *
+     33               *    to support the FreeRTOS project by purchasing a FreeRTOS           *
+     34               *    tutorial book, reference manual, or both:                          *
+     35               *    http://www.FreeRTOS.org/Documentation                              *
+     36               *                                                                       *
+     37              ***************************************************************************
+     38          
+     39              http://www.FreeRTOS.org/FAQHelp.html - Having a problem?  Start by reading
+     40              the FAQ page "My application does not run, what could be wrong?".  Have you
+     41              defined configASSERT()?
+     42          
+     43              http://www.FreeRTOS.org/support - In return for receiving this top quality
+     44              embedded software for free we request you assist our global community by
+     45              participating in the support forum.
+     46          
+     47              http://www.FreeRTOS.org/training - Investing in training allows your team to
+     48              be as productive as possible as early as possible.  Now you can receive
+     49              FreeRTOS training directly from Richard Barry, CEO of Real Time Engineers
+     50              Ltd, and the world's leading authority on the world's leading RTOS.
+     51          
+     52              http://www.FreeRTOS.org/plus - A selection of FreeRTOS ecosystem products,
+     53              including FreeRTOS+Trace - an indispensable productivity tool, a DOS
+     54              compatible FAT file system, and our tiny thread aware UDP/IP stack.
+     55          
+     56              http://www.FreeRTOS.org/labs - Where new FreeRTOS products go to incubate.
+     57              Come and try FreeRTOS+TCP, our new open source TCP/IP stack for FreeRTOS.
+     58          
+     59              http://www.OpenRTOS.com - Real Time Engineers ltd. license FreeRTOS to High
+     60              Integrity Systems ltd. to sell under the OpenRTOS brand.  Low cost OpenRTOS
+     61              licenses offer ticketed support, indemnification and commercial middleware.
+     62          
+     63              http://www.SafeRTOS.com - High Integrity Systems also provide a safety
+     64              engineered and independently SIL3 certified version for use in safety and
+     65              mission critical applications that require provable dependability.
+     66          
+     67              1 tab == 4 spaces!
+     68          */
+     69          
+     70          /*
+     71           * The simplest possible implementation of pvPortMalloc().  Note that this
+     72           * implementation does NOT allow allocated memory to be freed again.
+     73           *
+     74           * See heap_2.c, heap_3.c and heap_4.c for alternative implementations, and the
+     75           * memory management pages of http://www.FreeRTOS.org for more information.
+     76           */
+     77          #include <stdlib.h>
+     78          
+     79          /* Defining MPU_WRAPPERS_INCLUDED_FROM_API_FILE prevents task.h from redefining
+     80          all the API functions to use the MPU wrappers.  That should only be done when
+     81          task.h is included from an application file. */
+     82          #define MPU_WRAPPERS_INCLUDED_FROM_API_FILE
+     83          
+     84          #include "freertos.h"
+     85          #include "task.h"
+     86          
+     87          #if(configUSE_HEAP_1)
+     88          
+     89          #undef MPU_WRAPPERS_INCLUDED_FROM_API_FILE
+     90          
+     91          /* A few bytes might be lost to byte aligning the heap start address. */
+     92          #define configADJUSTED_HEAP_SIZE	( configTOTAL_HEAP_SIZE - portBYTE_ALIGNMENT )
+     93          
+     94          /* Allocate the memory for the heap. */
+     95          static uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
+     96          static size_t xNextFreeByte = ( size_t ) 0;
+     97          
+     98          /*-----------------------------------------------------------*/
+     99          
+
+   \                                 In section .text, align 2, keep-with-next
+    100          void *pvPortMalloc( size_t xWantedSize )
+    101          {
+   \                     pvPortMalloc: (+1)
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
+   \   00000004   0x0004             MOVS     R4,R0
+    102          void *pvReturn = NULL;
+   \   00000006   0x2500             MOVS     R5,#+0
+    103          static uint8_t *pucAlignedHeap = NULL;
+    104          
+    105          	/* Ensure that blocks are always aligned to the required number of bytes. */
+    106          	#if portBYTE_ALIGNMENT != 1
+    107          		if( xWantedSize & portBYTE_ALIGNMENT_MASK )
+   \   00000008   0x2007             MOVS     R0,#+7
+   \   0000000A   0x4204             TST      R4,R0
+   \   0000000C   0xD003             BEQ      ??pvPortMalloc_0
+    108          		{
+    109          			/* Byte alignment required. */
+    110          			xWantedSize += ( portBYTE_ALIGNMENT - ( xWantedSize & portBYTE_ALIGNMENT_MASK ) );
+   \   0000000E   0x0021             MOVS     R1,R4
+   \   00000010   0x3108             ADDS     R1,R1,#+8
+   \   00000012   0x4020             ANDS     R0,R0,R4
+   \   00000014   0x1A0C             SUBS     R4,R1,R0
+    111          		}
+    112          	#endif
+    113          
+    114          	vTaskSuspendAll();
+   \                     ??pvPortMalloc_0: (+1)
+   \   00000016   0x.... 0x....      BL       vTaskSuspendAll
+    115          	{
+    116          		if( pucAlignedHeap == NULL )
+   \   0000001A   0x....             LDR      R0,??DataTable2
+   \   0000001C   0x6841             LDR      R1,[R0, #+4]
+   \   0000001E   0x2900             CMP      R1,#+0
+   \   00000020   0xD104             BNE      ??pvPortMalloc_1
+    117          		{
+    118          			/* Ensure the heap starts on a correctly aligned boundary. */
+    119          			pucAlignedHeap = ( uint8_t * ) ( ( ( portPOINTER_SIZE_TYPE ) &ucHeap[ portBYTE_ALIGNMENT ] ) & ( ~( ( portPOINTER_SIZE_TYPE ) portBYTE_ALIGNMENT_MASK ) ) );
+   \   00000022   0x0001             MOVS     R1,R0
+   \   00000024   0x3110             ADDS     R1,R1,#+16
+   \   00000026   0x2207             MOVS     R2,#+7
+   \   00000028   0x4391             BICS     R1,R1,R2
+   \   0000002A   0x6041             STR      R1,[R0, #+4]
+    120          		}
+    121          
+    122          		/* Check there is enough room left for the allocation. */
+    123          		if( ( ( xNextFreeByte + xWantedSize ) < configADJUSTED_HEAP_SIZE ) &&
+    124          			( ( xNextFreeByte + xWantedSize ) > xNextFreeByte )	)/* Check for overflow. */
+   \                     ??pvPortMalloc_1: (+1)
+   \   0000002C   0x6801             LDR      R1,[R0, #+0]
+   \   0000002E   0x190A             ADDS     R2,R1,R4
+   \   00000030   0x....             LDR      R3,??DataTable2_1  ;; 0x2ed8
+   \   00000032   0x429A             CMP      R2,R3
+   \   00000034   0xD204             BCS      ??pvPortMalloc_2
+   \   00000036   0x4291             CMP      R1,R2
+   \   00000038   0xD202             BCS      ??pvPortMalloc_2
+    125          		{
+    126          			/* Return the next free byte then increment the index past this
+    127          			block. */
+    128          			pvReturn = pucAlignedHeap + xNextFreeByte;
+   \   0000003A   0x6843             LDR      R3,[R0, #+4]
+   \   0000003C   0x185D             ADDS     R5,R3,R1
+    129          			xNextFreeByte += xWantedSize;
+   \   0000003E   0x6002             STR      R2,[R0, #+0]
+    130          		}
+    131          
+    132          		traceMALLOC( pvReturn, xWantedSize );
+    133          	}
+    134          	( void ) xTaskResumeAll();
+   \                     ??pvPortMalloc_2: (+1)
+   \   00000040   0x.... 0x....      BL       xTaskResumeAll
+    135          
+    136          	#if( configUSE_MALLOC_FAILED_HOOK == 1 )
+    137          	{
+    138          		if( pvReturn == NULL )
+    139          		{
+    140          			extern void vApplicationMallocFailedHook( void );
+    141          			vApplicationMallocFailedHook();
+    142          		}
+    143          	}
+    144          	#endif
+    145          
+    146          	return pvReturn;
+   \   00000044   0x0028             MOVS     R0,R5
+   \   00000046   0xB001             ADD      SP,SP,#+4
+   \   00000048   0xBD30             POP      {R4,R5,PC}       ;; return
+    147          }
+
+   \                                 In section .bss, align 4
+   \                     xNextFreeByte:
+   \   00000000                      DS8 4
+   \   00000004                      DS8 4
+   \   00000008                      DS8 12000
+    148          /*-----------------------------------------------------------*/
+    149          
+
+   \                                 In section .text, align 4, keep-with-next
+    150          void vPortFree( void *pv )
+    151          {
+    152          	/* Memory cannot be freed using this scheme.  See heap_2.c, heap_3.c and
+    153          	heap_4.c for alternative implementations, and the memory management pages of
+    154          	http://www.FreeRTOS.org for more information. */
+    155          	( void ) pv;
+    156          
+    157          	/* Force an assert as it is invalid to call this function. */
+    158          	configASSERT( pv == NULL );
+   \                     vPortFree: (+1)
+   \   00000000   0x2800             CMP      R0,#+0
+   \   00000002   0xD001             BEQ      ??vPortFree_0
+   \   00000004   0xB672             cpsid i
+   \                     ??vPortFree_1: (+1)
+   \   00000006   0xE7FE             B        ??vPortFree_1
+    159          }
+   \                     ??vPortFree_0: (+1)
+   \   00000008   0x4770             BX       LR               ;; return
+    160          /*-----------------------------------------------------------*/
+    161          
+
+   \                                 In section .text, align 2, keep-with-next
+    162          void vPortInitialiseBlocks( void )
+    163          {
+    164          	/* Only required when static memory is not cleared. */
+    165          	xNextFreeByte = ( size_t ) 0;
+   \                     vPortInitialiseBlocks: (+1)
+   \   00000000   0x2000             MOVS     R0,#+0
+   \   00000002   0x....             LDR      R1,??DataTable2
+   \   00000004   0x6008             STR      R0,[R1, #+0]
+    166          }
+   \   00000006   0x4770             BX       LR               ;; return
+    167          /*-----------------------------------------------------------*/
+    168          
+
+   \                                 In section .text, align 2, keep-with-next
+    169          size_t xPortGetFreeHeapSize( void )
+    170          {
+    171          	return ( configADJUSTED_HEAP_SIZE - xNextFreeByte );
+   \                     xPortGetFreeHeapSize: (+1)
+   \   00000000   0x....             LDR      R0,??DataTable2_1  ;; 0x2ed8
+   \   00000002   0x....             LDR      R1,??DataTable2
+   \   00000004   0x6809             LDR      R1,[R1, #+0]
+   \   00000006   0x1A40             SUBS     R0,R0,R1
+   \   00000008   0x4770             BX       LR               ;; return
+    172          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2:
+   \   00000000   0x........         DC32     xNextFreeByte
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_1:
+   \   00000000   0x00002ED8         DC32     0x2ed8
+    173          
+    174          #endif /* configUSE_HEAP_1 */
+    175          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      16   pvPortMalloc
+        16   -> vTaskSuspendAll
+        16   -> xTaskResumeAll
+       0   vPortFree
+       0   vPortInitialiseBlocks
+       0   xPortGetFreeHeapSize
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable2
+       4  ??DataTable2_1
+      74  pvPortMalloc
+      10  vPortFree
+       8  vPortInitialiseBlocks
+   12008  xNextFreeByte
+          pucAlignedHeap
+          ucHeap
+      10  xPortGetFreeHeapSize
+
+ 
+ 12 008 bytes in section .bss
+    110 bytes in section .text
+ 
+    110 bytes of CODE memory
+ 12 008 bytes of DATA memory
+
+Errors: none
+Warnings: none

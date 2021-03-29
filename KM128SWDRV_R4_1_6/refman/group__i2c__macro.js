@@ -1,0 +1,27 @@
+var group__i2c__macro =
+[
+    [ "I2C_StartSignal", "group__i2c__macro.html#gad43399f0eee44dd6d986b410feb67871", null ],
+    [ "I2C_StopSignal", "group__i2c__macro.html#gaff051b2b5cd72b3c0ded78c6ba943d2e", null ],
+    [ "I2C_RepeatStartSignal", "group__i2c__macro.html#ga3654a14a08bb1a98dbba069f0b443d0b", null ],
+    [ "I2C_WrData", "group__i2c__macro.html#ga85eb42f2df7677a922284a39cb147ab4", null ],
+    [ "I2C_RdData", "group__i2c__macro.html#gabd4839e7316841910bc95143ff347205", null ],
+    [ "I2C_GetTcFlag", "group__i2c__macro.html#gab11a1a7b4762c4d2d7e5b89d032afbdc", null ],
+    [ "I2C_GetIsrFlag", "group__i2c__macro.html#ga548fcffeedf0ccce26d068aa159ff338", null ],
+    [ "I2C_ClrIsrFlag", "group__i2c__macro.html#ga010196be27730694d95b6d23c8195f48", null ],
+    [ "I2C_SetRxMode", "group__i2c__macro.html#ga456519af5836bfc48375ff221338560c", null ],
+    [ "I2C_SetTxMode", "group__i2c__macro.html#gad627bcbf718866f0536bf3cf4c1e0074", null ],
+    [ "I2C_SetNackMode", "group__i2c__macro.html#ga0742ecbd104a2f3a3534619c303a4f3b", null ],
+    [ "I2C_ClrNackMode", "group__i2c__macro.html#gabed77a7e108b3dc62dd44f3324e06462", null ],
+    [ "I2C_SetADDR", "group__i2c__macro.html#gae7ab2b2b1b2420adef21e625a43ca52e", null ],
+    [ "I2C_GetRxakFlag", "group__i2c__macro.html#ga57489d4df9dd8b141c936b114e24c51a", null ],
+    [ "I2C_GetBusyFlag", "group__i2c__macro.html#ga5a36f687e79a486e4a7effb3059d7b7f", null ],
+    [ "I2C_Reset", "group__i2c__macro.html#ga72502020dc4b41a08da811d470c9f6eb", null ],
+    [ "I2C_GetStopfFlag", "group__i2c__macro.html#gaf8c3e87bd4d7aaf7d8edfdc29636b26f", null ],
+    [ "I2C_ClrStopfFlag", "group__i2c__macro.html#gac6ac345aa57f8bd0ea61b783964e42e6", null ],
+    [ "I2C_GetStartfFlag", "group__i2c__macro.html#gad27237e19d76a51bbf9d6c7a3b578f98", null ],
+    [ "I2C_ClrStartfFlag", "group__i2c__macro.html#ga10bc0c189aec635623a67f130447b9ac", null ],
+    [ "I2C_GetErrorFlag", "group__i2c__macro.html#ga2f25d40bfc2833c792182cfaea07d121", null ],
+    [ "I2C_GetEmptyFlag", "group__i2c__macro.html#gaa1ac0334c4fc6c3ce5fb37cd2224c07c", null ],
+    [ "I2C_InstallCallback", "group__i2c__macro.html#gac323012db8086cceba5f4ad1da7c27bd", null ],
+    [ "I2C_Init", "group__i2c__macro.html#gaa7f4876072f70eb4e5196601d882094c", null ]
+];

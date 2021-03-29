@@ -1,0 +1,169 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        13/Feb/2017  15:49:20
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\vref\vref.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\vref\vref.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\spiisr_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\spiisr_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\spiisr_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\spiisr_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\spiisr_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\spiisr_test\..\..\..\..\src\projects\spiisr_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\spiisr_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\spiisr_test\Release\List\vref.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\spiisr_test\Release\Obj\vref.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\vref\vref.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2013, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      vref.c
+      6           * @version   1.0.2.0
+      7           * @date      May-8-2011
+      8           * @brief     Voltage Reference (VREF) driver source code.
+      9           ******************************************************************************/
+     10          #include "common.h"
+     11          #include "vref.h"
+     12          
+     13          #if !defined(MCU_MKM34ZA5)
+     14            #error "The vref.c module is specific to the MKMxxZxxACxx5 microcontrollers."
+     15          #endif
+     16          
+     17          /******************************************************************************
+     18           * public function definitions                                                *
+     19           ******************************************************************************/
+
+   \                                 In section .text, align 4, keep-with-next
+     20          void VREF_Init (tVREF vref, tVREF_S vref_s)
+     21          {
+   \                     VREF_Init: (+1)
+   \   00000000   0xB407             PUSH     {R0-R2}
+     22            register uint8  tmp;
+     23            register uint32 tmpl;
+     24          
+     25            VREF_VREFH_SC = VREF_VREFH_SC_VREFEN_MASK; /* enable module and keep mode 0 */
+   \   00000002   0x4812             LDR      R0,??VREF_Init_0  ;; 0x4006f000
+   \   00000004   0x2280             MOVS     R2,#+128
+   \   00000006   0x7042             STRB     R2,[R0, #+1]
+     26            /* check and wait until reference is stable                                 */
+     27            if (vref.VREFH_SC & VREF_VREFH_SC_VREFEN_MASK)
+   \   00000008   0x4669             MOV      R1,SP
+   \   0000000A   0x7849             LDRB     R1,[R1, #+1]
+   \   0000000C   0x4211             TST      R1,R2
+   \   0000000E   0xD002             BEQ      ??VREF_Init_1
+     28              while (!(VREF_VREFH_SC & VREF_VREFH_SC_VREFST_MASK));
+   \                     ??VREF_Init_2: (+1)
+   \   00000010   0x7842             LDRB     R2,[R0, #+1]
+   \   00000012   0x0752             LSLS     R2,R2,#+29
+   \   00000014   0xD5FC             BPL      ??VREF_Init_2
+     29          
+     30            /* Load VREFH_TRM without change trim value                                 */
+     31            tmp            = (VREF_VREFH_TRM & VREF_VREFH_TRM_TRIM_MASK);
+   \                     ??VREF_Init_1: (+1)
+   \   00000016   0x7802             LDRB     R2,[R0, #+0]
+     32            VREF_VREFH_TRM = (vref.VREFH_TRM | tmp);    /* Set actual selection         */
+   \   00000018   0x466B             MOV      R3,SP
+   \   0000001A   0x781B             LDRB     R3,[R3, #+0]
+   \   0000001C   0x0692             LSLS     R2,R2,#+26
+   \   0000001E   0x0E92             LSRS     R2,R2,#+26
+   \   00000020   0x431A             ORRS     R2,R2,R3
+   \   00000022   0x7002             STRB     R2,[R0, #+0]
+     33            /* Load control register                                                    */
+     34            VREF_VREFH_SC  = vref.VREFH_SC;             /* write control register       */
+   \   00000024   0x7041             STRB     R1,[R0, #+1]
+     35            /* Load VREFL_TRM without change trim value                                 */
+     36            tmp            = (VREF_VREFL_TRM & VREF_VREFL_TRM_VREFL_TRIM_MASK);
+   \   00000026   0x7941             LDRB     R1,[R0, #+5]
+     37            VREF_VREFL_TRM = (vref.VREFL_TRM | vref_s.VREFL_TRM_S | tmp);
+   \   00000028   0x466A             MOV      R2,SP
+   \   0000002A   0x7892             LDRB     R2,[R2, #+2]
+   \   0000002C   0xAB01             ADD      R3,SP,#+4
+   \   0000002E   0x791B             LDRB     R3,[R3, #+4]
+   \   00000030   0x4313             ORRS     R3,R3,R2
+   \   00000032   0x0749             LSLS     R1,R1,#+29
+   \   00000034   0x0F49             LSRS     R1,R1,#+29
+   \   00000036   0x4319             ORRS     R1,R1,R3
+   \   00000038   0x7141             STRB     R1,[R0, #+5]
+     38            /* Load SIM_MISC_CTL without change other flags                             */
+     39            tmpl           = (SIM_MISC_CTL & (                                           \
+     40                                                SIM_MISC_CTL_RTCCLKSEL_MASK|             \
+     41                                                SIM_MISC_CTL_TMR3PCSSEL_MASK|            \
+     42                                                SIM_MISC_CTL_TMR2PCSSEL_MASK|            \
+     43                                                SIM_MISC_CTL_TMR1PCSSEL_MASK|            \
+     44                                                SIM_MISC_CTL_TMR0PCSSEL_MASK|            \
+     45                                                SIM_MISC_CTL_TMR3SCSSEL_MASK|            \
+     46                                                SIM_MISC_CTL_TMR2SCSSEL_MASK|            \
+     47                                                SIM_MISC_CTL_TMR1SCSSEL_MASK|            \
+     48                                                SIM_MISC_CTL_TMR0SCSSEL_MASK|            \
+     49                                                SIM_MISC_CTL_TMR0PLLCLKSEL_MASK|         \
+     50                                                SIM_MISC_CTL_EWMINSEL_MASK|              \
+     51                                                SIM_MISC_CTL_XBARPITOUTSEL_MASK|         \
+     52                                                SIM_MISC_CTL_UART3IRSEL_MASK|            \
+     53                                                SIM_MISC_CTL_UART2IRSEL_MASK|            \
+     54                                                SIM_MISC_CTL_UART1IRSEL_MASK|            \
+     55                                                SIM_MISC_CTL_UART0IRSEL_MASK|            \
+     56                                                SIM_MISC_CTL_UARTMODTYPE_MASK|           \
+     57                                                SIM_MISC_CTL_AFECLKPADDIR_MASK|          \
+     58                                                SIM_MISC_CTL_AFECLKSEL_MASK|             \
+     59                                                SIM_MISC_CTL_DMADONESEL_MASK|            \
+     60                                                SIM_MISC_CTL_XBARAFEMODOUTSEL_MASK       \
+     61                                             )                                           \
+     62                             );
+   \   0000003A   0x4805             LDR      R0,??VREF_Init_0+0x4  ;; 0x4003f06c
+   \   0000003C   0x6801             LDR      R1,[R0, #+0]
+     63            SIM_MISC_CTL   = (vref_s.SIM_MISC_CTL_S | tmpl);
+   \   0000003E   0x9A01             LDR      R2,[SP, #+4]
+   \   00000040   0x00C9             LSLS     R1,R1,#+3
+   \   00000042   0x08C9             LSRS     R1,R1,#+3
+   \   00000044   0x4311             ORRS     R1,R1,R2
+   \   00000046   0x6001             STR      R1,[R0, #+0]
+     64          }
+   \   00000048   0xB003             ADD      SP,SP,#+12
+   \   0000004A   0x4770             BX       LR               ;; return
+   \                     ??VREF_Init_0:
+   \   0000004C   0x4006F000         DC32     0x4006f000
+   \   00000050   0x4003F06C         DC32     0x4003f06c
+     65          /******************************************************************************
+     66           * End of module                                                              *
+     67           ******************************************************************************/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      12   VREF_Init
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      84  VREF_Init
+
+ 
+ 84 bytes in section .text
+ 
+ 84 bytes of CODE memory
+
+Errors: none
+Warnings: none

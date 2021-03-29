@@ -1,0 +1,122 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        26/Dec/2016  09:29:06
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\projects\sim_test\sim_test.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\projects\sim_test\sim_test.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\sim_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\sim_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\sim_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\sim_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\sim_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\sim_test\..\..\..\..\src\projects\sim_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\sim_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\sim_test\Release\List\sim_test.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\sim_test\Release\Obj\sim_test.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\projects\sim_test\sim_test.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2015, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ******************************************************************************
+      5           * sim_test.c
+      6           ******************************************************************************/
+      7          #include "drivers.h"
+      8          
+
+   \                                 In section .text, align 4, keep-with-next
+      9          void main (void)
+     10          {
+   \                     main: (+1)
+   \   00000000   0xB430             PUSH     {R4,R5}
+     11            SIM_Init (SIM_MODULE_ALL_PERIPH_OFF_CONFIG);
+   \   00000002   0x4812             LDR      R0,??main_0      ;; 0x4003e000
+   \   00000004   0x2100             MOVS     R1,#+0
+   \   00000006   0x6001             STR      R1,[R0, #+0]
+   \   00000008   0x6041             STR      R1,[R0, #+4]
+   \   0000000A   0x4A11             LDR      R2,??main_0+0x4  ;; 0x4003f004
+   \   0000000C   0x2301             MOVS     R3,#+1
+   \   0000000E   0x6013             STR      R3,[R2, #+0]
+   \   00000010   0x4C10             LDR      R4,??main_0+0x8  ;; 0x78000020
+   \   00000012   0x6314             STR      R4,[R2, #+48]
+   \   00000014   0x24C0             MOVS     R4,#+192
+   \   00000016   0x02A4             LSLS     R4,R4,#+10       ;; #+196608
+   \   00000018   0x6354             STR      R4,[R2, #+52]
+   \   0000001A   0x4C0F             LDR      R4,??main_0+0xC  ;; 0xc0000001
+   \   0000001C   0x6394             STR      R4,[R2, #+56]
+   \   0000001E   0x63D1             STR      R1,[R2, #+60]
+   \   00000020   0x06DC             LSLS     R4,R3,#+27
+   \   00000022   0x6414             STR      R4,[R2, #+64]
+   \   00000024   0x6491             STR      R1,[R2, #+72]
+   \   00000026   0x2580             MOVS     R5,#+128
+   \   00000028   0x062D             LSLS     R5,R5,#+24       ;; #-2147483648
+   \   0000002A   0x6695             STR      R5,[R2, #+104]
+     12            SIM_Init (SIM_MODULE_ALL_PERIPH_ON_CONFIG );
+   \   0000002C   0x6001             STR      R1,[R0, #+0]
+   \   0000002E   0x6041             STR      R1,[R0, #+4]
+   \   00000030   0x6013             STR      R3,[R2, #+0]
+   \   00000032   0x480A             LDR      R0,??main_0+0x10  ;; 0x786cbdf2
+   \   00000034   0x6310             STR      R0,[R2, #+48]
+   \   00000036   0x480A             LDR      R0,??main_0+0x14  ;; 0x7ab7fc8
+   \   00000038   0x6350             STR      R0,[R2, #+52]
+   \   0000003A   0x480A             LDR      R0,??main_0+0x18  ;; 0xd0116a1f
+   \   0000003C   0x6390             STR      R0,[R2, #+56]
+   \   0000003E   0x2003             MOVS     R0,#+3
+   \   00000040   0x63D0             STR      R0,[R2, #+60]
+   \   00000042   0x6414             STR      R4,[R2, #+64]
+   \   00000044   0x6491             STR      R1,[R2, #+72]
+   \   00000046   0x6691             STR      R1,[R2, #+104]
+     13          
+     14            while(1);
+   \                     ??main_1: (+1)
+   \   00000048   0xE7FE             B        ??main_1
+   \   0000004A   0xBF00             Nop      
+   \                     ??main_0:
+   \   0000004C   0x4003E000         DC32     0x4003e000
+   \   00000050   0x4003F004         DC32     0x4003f004
+   \   00000054   0x78000020         DC32     0x78000020
+   \   00000058   0xC0000001         DC32     0xc0000001
+   \   0000005C   0x786CBDF2         DC32     0x786cbdf2
+   \   00000060   0x07AB7FC8         DC32     0x7ab7fc8
+   \   00000064   0xD0116A1F         DC32     0xd0116a1f
+     15          }
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   main
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+     104  main
+
+ 
+ 104 bytes in section .text
+ 
+ 104 bytes of CODE memory
+
+Errors: none
+Warnings: none

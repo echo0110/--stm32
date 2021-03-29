@@ -1,0 +1,194 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        13/Apr/2017  10:50:54
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\lptmr\lptmr.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\lptmr\lptmr.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\..\..\..\..\src\projects\vref_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\Release\List\lptmr.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\Release\Obj\lptmr.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\lptmr\lptmr.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2015, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      lptmr.c
+      6           * @version   1.0.4.0
+      7           * @date      Apr-20-2015
+      8           * @brief     Low-Power Timer (LPTMR) driver source code.
+      9           ******************************************************************************/
+     10          #include "common.h"
+     11          #include "lptmr.h"
+     12          
+     13          #if !defined(MCU_MKM34ZA5)
+     14            #error "The lptmr.c module is specific to the MKMxxZxxACxx5 microcontrollers."
+     15          #endif
+     16          
+     17          /******************************************************************************
+     18           * data type definitions                                                      *
+     19           ******************************************************************************/
+
+   \                                 In section .bss, align 4
+     20          static LPTMR_CALLBACK pCallbackLPTMR;
+   \                     pCallbackLPTMR:
+   \   00000000                      DS8 4
+     21          
+     22          /******************************************************************************
+     23           * public function definitions                                                *
+     24           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+     25          void LPTMR_InstallCallback (uint8 ip, LPTMR_CALLBACK pCallback)
+     26          {
+     27            if (pCallback) { pCallbackLPTMR = pCallback; NVIC_SetIsr(INT_LPTMR,ip); }
+   \                     LPTMR_InstallCallback: (+1)
+   \   00000000   0x000A             MOVS     R2,R1
+   \   00000002   0xD010             BEQ      ??LPTMR_InstallCallback_0
+   \   00000004   0x....             LDR      R2,??DataTable2
+   \   00000006   0x6011             STR      R1,[R2, #+0]
+   \   00000008   0x2180             MOVS     R1,#+128
+   \   0000000A   0x05C9             LSLS     R1,R1,#+23       ;; #+1073741824
+   \   0000000C   0x....             LDR      R2,??DataTable2_1  ;; 0xe000e280
+   \   0000000E   0x6813             LDR      R3,[R2, #+0]
+   \   00000010   0x430B             ORRS     R3,R3,R1
+   \   00000012   0x6013             STR      R3,[R2, #+0]
+   \   00000014   0x....             LDR      R2,??DataTable2_2  ;; 0xe000e100
+   \   00000016   0x6813             LDR      R3,[R2, #+0]
+   \   00000018   0x4319             ORRS     R1,R1,R3
+   \   0000001A   0x6011             STR      R1,[R2, #+0]
+   \   0000001C   0x....             LDR      R1,??DataTable2_3  ;; 0xe000e41c
+   \   0000001E   0x680A             LDR      R2,[R1, #+0]
+   \   00000020   0x0580             LSLS     R0,R0,#+22
+   \   00000022   0x4310             ORRS     R0,R0,R2
+   \   00000024   0x6008             STR      R0,[R1, #+0]
+     28          }
+   \                     ??LPTMR_InstallCallback_0: (+1)
+   \   00000026   0x4770             BX       LR               ;; return
+     29          
+
+   \                                 In section .text, align 2, keep-with-next
+     30          void LPTMR_Init (tLPTMR lptmr, uint16 val)
+     31          {
+     32            LPTMR_PSR = lptmr.PSR;
+   \                     LPTMR_Init: (+1)
+   \   00000000   0x....             LDR      R3,??DataTable2_4  ;; 0x4003c000
+   \   00000002   0x6059             STR      R1,[R3, #+4]
+     33            LPTMR_CMR = val;
+   \   00000004   0xB292             UXTH     R2,R2
+   \   00000006   0x609A             STR      R2,[R3, #+8]
+     34            LPTMR_CSR = (lptmr.CSR|LPTMR_CSR_TCF_MASK);     /* Timer Compare Flag       */
+   \   00000008   0x2180             MOVS     R1,#+128
+   \   0000000A   0x4301             ORRS     R1,R1,R0
+   \   0000000C   0x6019             STR      R1,[R3, #+0]
+     35          }
+   \   0000000E   0x4770             BX       LR               ;; return
+     36          
+     37          /******************************************************************************
+     38           * interrupt function definitions                                             *
+     39           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+     40          weak void lptmr_isr (void)
+     41          {
+   \                     lptmr_isr: (+1)
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
+     42            iosetw (LPTMR_CSR,LPTMR_CSR_TCF_MASK);          /* Clear interrupt flag     */
+   \   00000004   0x2080             MOVS     R0,#+128
+   \   00000006   0x....             LDR      R1,??DataTable2_5  ;; 0x4803c000
+   \   00000008   0x6008             STR      R0,[R1, #+0]
+     43            /* call interrupt function                                                  */
+     44            pCallbackLPTMR ();
+   \   0000000A   0x....             LDR      R0,??DataTable2
+   \   0000000C   0x6800             LDR      R0,[R0, #+0]
+   \   0000000E   0x4780             BLX      R0
+     45          }
+   \   00000010   0xB001             ADD      SP,SP,#+4
+   \   00000012   0xBD00             POP      {PC}             ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2:
+   \   00000000   0x........         DC32     pCallbackLPTMR
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_1:
+   \   00000000   0xE000E280         DC32     0xe000e280
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_2:
+   \   00000000   0xE000E100         DC32     0xe000e100
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_3:
+   \   00000000   0xE000E41C         DC32     0xe000e41c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_4:
+   \   00000000   0x4003C000         DC32     0x4003c000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_5:
+   \   00000000   0x4803C000         DC32     0x4803c000
+     46          /******************************************************************************
+     47           * End of module                                                              *
+     48           ******************************************************************************/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   LPTMR_Init
+       0   LPTMR_InstallCallback
+       8   lptmr_isr
+         8   -- Indirect call
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable2
+       4  ??DataTable2_1
+       4  ??DataTable2_2
+       4  ??DataTable2_3
+       4  ??DataTable2_4
+       4  ??DataTable2_5
+      16  LPTMR_Init
+      40  LPTMR_InstallCallback
+      20  lptmr_isr
+       4  pCallbackLPTMR
+
+ 
+   4 bytes in section .bss
+ 100 bytes in section .text
+ 
+ 100 bytes of CODE memory
+   4 bytes of DATA memory
+
+Errors: none
+Warnings: none

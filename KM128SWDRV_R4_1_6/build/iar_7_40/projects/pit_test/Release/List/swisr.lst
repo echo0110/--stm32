@@ -1,0 +1,308 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        21/Mar/2017  14:13:04
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\swisr\swisr.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\swisr\swisr.c -D NDEBUG
+#        -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M0+ --no_mem_idioms -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\..\..\..\..\src\projects\pit_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\..\..\..\..\src\toolchain\iar\
+#        -On
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\List\swisr.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\swisr.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\swisr\swisr.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2015, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      swisr.c
+      6           * @version   1.0.3.0
+      7           * @date      Apr-21-2015
+      8           * @brief     Software Interrupt (SWISR) driver source code.
+      9           ******************************************************************************/
+     10          #include "common.h"
+     11          #include "swisr.h"
+     12          
+     13          #if !defined(MCU_MKM34ZA5)
+     14            #error "The swisr.c module is specific to the MKMxxZxxACxx5 microcontrollers."
+     15          #endif
+     16          
+     17          
+     18          /******************************************************************************
+     19           * public data type definitions                                               *
+     20           ******************************************************************************/
+
+   \                                 In section .bss, align 4
+     21          uint16 swisrcnt[] = {0,0,0};
+   \                     swisrcnt:
+   \   00000000                      DS8 8
+     22          
+     23          /******************************************************************************
+     24           * data type definitions                                                      *
+     25           ******************************************************************************/
+
+   \                                 In section .bss, align 4
+     26          static SWISR_CALLBACK pCallback0;
+   \                     pCallback0:
+   \   00000000                      DS8 4
+
+   \                                 In section .bss, align 4
+     27          static SWISR_CALLBACK pCallback1;
+   \                     pCallback1:
+   \   00000000                      DS8 4
+
+   \                                 In section .bss, align 4
+     28          static SWISR_CALLBACK pCallback2;
+   \                     pCallback2:
+   \   00000000                      DS8 4
+     29          
+     30          /******************************************************************************
+     31           * public function definitions                                                *
+     32           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+     33          void SWISR0_HandlerInit  (uint16 ip, SWISR_CALLBACK pCallback)
+     34          {
+   \                     SWISR0_HandlerInit: (+1)
+   \   00000000   0xB500             PUSH     {LR}
+     35            if (pCallback) { pCallback0 = pCallback; NVIC_SetIsr(SWISR_VECTOR_0,ip); }
+   \   00000002   0x000A             MOVS     R2,R1
+   \   00000004   0x2A00             CMP      R2,#+0
+   \   00000006   0xD016             BEQ      ??SWISR0_HandlerInit_0
+   \   00000008   0x....             LDR      R2,??DataTable5
+   \   0000000A   0x6011             STR      R1,[R2, #+0]
+   \   0000000C   0x....             LDR      R2,??DataTable5_1  ;; 0xe000e280
+   \   0000000E   0x6812             LDR      R2,[R2, #+0]
+   \   00000010   0x2380             MOVS     R3,#+128
+   \   00000012   0x021B             LSLS     R3,R3,#+8        ;; #+32768
+   \   00000014   0x4313             ORRS     R3,R3,R2
+   \   00000016   0x....             LDR      R2,??DataTable5_1  ;; 0xe000e280
+   \   00000018   0x6013             STR      R3,[R2, #+0]
+   \   0000001A   0x....             LDR      R2,??DataTable5_2  ;; 0xe000e100
+   \   0000001C   0x6812             LDR      R2,[R2, #+0]
+   \   0000001E   0x2380             MOVS     R3,#+128
+   \   00000020   0x021B             LSLS     R3,R3,#+8        ;; #+32768
+   \   00000022   0x4313             ORRS     R3,R3,R2
+   \   00000024   0x....             LDR      R2,??DataTable5_2  ;; 0xe000e100
+   \   00000026   0x6013             STR      R3,[R2, #+0]
+   \   00000028   0x....             LDR      R2,??DataTable5_3  ;; 0xe000e40c
+   \   0000002A   0x6812             LDR      R2,[R2, #+0]
+   \   0000002C   0xB280             UXTH     R0,R0
+   \   0000002E   0x0783             LSLS     R3,R0,#+30
+   \   00000030   0x4313             ORRS     R3,R3,R2
+   \   00000032   0x....             LDR      R2,??DataTable5_3  ;; 0xe000e40c
+   \   00000034   0x6013             STR      R3,[R2, #+0]
+     36          }
+   \                     ??SWISR0_HandlerInit_0: (+1)
+   \   00000036   0xBD00             POP      {PC}             ;; return
+     37          
+
+   \                                 In section .text, align 2, keep-with-next
+     38          void SWISR1_HandlerInit  (uint16 ip, SWISR_CALLBACK pCallback)
+     39          {
+   \                     SWISR1_HandlerInit: (+1)
+   \   00000000   0xB500             PUSH     {LR}
+     40            if (pCallback) { pCallback1 = pCallback; NVIC_SetIsr(SWISR_VECTOR_1,ip); }
+   \   00000002   0x000A             MOVS     R2,R1
+   \   00000004   0x2A00             CMP      R2,#+0
+   \   00000006   0xD016             BEQ      ??SWISR1_HandlerInit_0
+   \   00000008   0x....             LDR      R2,??DataTable5_4
+   \   0000000A   0x6011             STR      R1,[R2, #+0]
+   \   0000000C   0x....             LDR      R2,??DataTable5_1  ;; 0xe000e280
+   \   0000000E   0x6812             LDR      R2,[R2, #+0]
+   \   00000010   0x2380             MOVS     R3,#+128
+   \   00000012   0x051B             LSLS     R3,R3,#+20       ;; #+134217728
+   \   00000014   0x4313             ORRS     R3,R3,R2
+   \   00000016   0x....             LDR      R2,??DataTable5_1  ;; 0xe000e280
+   \   00000018   0x6013             STR      R3,[R2, #+0]
+   \   0000001A   0x....             LDR      R2,??DataTable5_2  ;; 0xe000e100
+   \   0000001C   0x6812             LDR      R2,[R2, #+0]
+   \   0000001E   0x2380             MOVS     R3,#+128
+   \   00000020   0x051B             LSLS     R3,R3,#+20       ;; #+134217728
+   \   00000022   0x4313             ORRS     R3,R3,R2
+   \   00000024   0x....             LDR      R2,??DataTable5_2  ;; 0xe000e100
+   \   00000026   0x6013             STR      R3,[R2, #+0]
+   \   00000028   0x....             LDR      R2,??DataTable5_5  ;; 0xe000e418
+   \   0000002A   0x6812             LDR      R2,[R2, #+0]
+   \   0000002C   0xB280             UXTH     R0,R0
+   \   0000002E   0x0783             LSLS     R3,R0,#+30
+   \   00000030   0x4313             ORRS     R3,R3,R2
+   \   00000032   0x....             LDR      R2,??DataTable5_5  ;; 0xe000e418
+   \   00000034   0x6013             STR      R3,[R2, #+0]
+     41          }
+   \                     ??SWISR1_HandlerInit_0: (+1)
+   \   00000036   0xBD00             POP      {PC}             ;; return
+     42          
+
+   \                                 In section .text, align 2, keep-with-next
+     43          void SWISR2_HandlerInit  (uint16 ip, SWISR_CALLBACK pCallback)
+     44          {
+   \                     SWISR2_HandlerInit: (+1)
+   \   00000000   0xB500             PUSH     {LR}
+     45            if (pCallback) { pCallback2 = pCallback; NVIC_SetIsr(SWISR_VECTOR_2,ip); }
+   \   00000002   0x000A             MOVS     R2,R1
+   \   00000004   0x2A00             CMP      R2,#+0
+   \   00000006   0xD016             BEQ      ??SWISR2_HandlerInit_0
+   \   00000008   0x....             LDR      R2,??DataTable5_6
+   \   0000000A   0x6011             STR      R1,[R2, #+0]
+   \   0000000C   0x....             LDR      R2,??DataTable5_1  ;; 0xe000e280
+   \   0000000E   0x6812             LDR      R2,[R2, #+0]
+   \   00000010   0x2380             MOVS     R3,#+128
+   \   00000012   0x055B             LSLS     R3,R3,#+21       ;; #+268435456
+   \   00000014   0x4313             ORRS     R3,R3,R2
+   \   00000016   0x....             LDR      R2,??DataTable5_1  ;; 0xe000e280
+   \   00000018   0x6013             STR      R3,[R2, #+0]
+   \   0000001A   0x....             LDR      R2,??DataTable5_2  ;; 0xe000e100
+   \   0000001C   0x6812             LDR      R2,[R2, #+0]
+   \   0000001E   0x2380             MOVS     R3,#+128
+   \   00000020   0x055B             LSLS     R3,R3,#+21       ;; #+268435456
+   \   00000022   0x4313             ORRS     R3,R3,R2
+   \   00000024   0x....             LDR      R2,??DataTable5_2  ;; 0xe000e100
+   \   00000026   0x6013             STR      R3,[R2, #+0]
+   \   00000028   0x....             LDR      R2,??DataTable5_7  ;; 0xe000e41c
+   \   0000002A   0x6812             LDR      R2,[R2, #+0]
+   \   0000002C   0xB280             UXTH     R0,R0
+   \   0000002E   0x0183             LSLS     R3,R0,#+6
+   \   00000030   0x4313             ORRS     R3,R3,R2
+   \   00000032   0x....             LDR      R2,??DataTable5_7  ;; 0xe000e41c
+   \   00000034   0x6013             STR      R3,[R2, #+0]
+     46          }
+   \                     ??SWISR2_HandlerInit_0: (+1)
+   \   00000036   0xBD00             POP      {PC}             ;; return
+     47          
+     48          /******************************************************************************
+     49           * interrupt function definitions                                             *
+     50           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+     51          void slcd_isr (void) { pCallback0(); }
+   \                     slcd_isr: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000002   0x....             LDR      R0,??DataTable5
+   \   00000004   0x6800             LDR      R0,[R0, #+0]
+   \   00000006   0x4780             BLX      R0
+   \   00000008   0xBD01             POP      {R0,PC}          ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+     52          void ewm_isr  (void) { pCallback1(); }
+   \                     ewm_isr: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000002   0x....             LDR      R0,??DataTable5_4
+   \   00000004   0x6800             LDR      R0,[R0, #+0]
+   \   00000006   0x4780             BLX      R0
+   \   00000008   0xBD01             POP      {R0,PC}          ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+     53          void mcg_isr  (void) { pCallback2(); }
+   \                     mcg_isr: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000002   0x....             LDR      R0,??DataTable5_6
+   \   00000004   0x6800             LDR      R0,[R0, #+0]
+   \   00000006   0x4780             BLX      R0
+   \   00000008   0xBD01             POP      {R0,PC}          ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5:
+   \   00000000   0x........         DC32     pCallback0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_1:
+   \   00000000   0xE000E280         DC32     0xe000e280
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_2:
+   \   00000000   0xE000E100         DC32     0xe000e100
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_3:
+   \   00000000   0xE000E40C         DC32     0xe000e40c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_4:
+   \   00000000   0x........         DC32     pCallback1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_5:
+   \   00000000   0xE000E418         DC32     0xe000e418
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_6:
+   \   00000000   0x........         DC32     pCallback2
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_7:
+   \   00000000   0xE000E41C         DC32     0xe000e41c
+     54          /******************************************************************************
+     55           * End of module                                                              *
+     56           ******************************************************************************/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       4   SWISR0_HandlerInit
+       4   SWISR1_HandlerInit
+       4   SWISR2_HandlerInit
+       8   ewm_isr
+         8   -- Indirect call
+       8   mcg_isr
+         8   -- Indirect call
+       8   slcd_isr
+         8   -- Indirect call
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable5
+       4  ??DataTable5_1
+       4  ??DataTable5_2
+       4  ??DataTable5_3
+       4  ??DataTable5_4
+       4  ??DataTable5_5
+       4  ??DataTable5_6
+       4  ??DataTable5_7
+      56  SWISR0_HandlerInit
+      56  SWISR1_HandlerInit
+      56  SWISR2_HandlerInit
+      10  ewm_isr
+      10  mcg_isr
+       4  pCallback0
+       4  pCallback1
+       4  pCallback2
+      10  slcd_isr
+       8  swisrcnt
+
+ 
+  20 bytes in section .bss
+ 230 bytes in section .text
+ 
+ 230 bytes of CODE memory
+  20 bytes of DATA memory
+
+Errors: none
+Warnings: none

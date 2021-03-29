@@ -1,0 +1,472 @@
+###############################################################################
+#
+# IAR ELF Linker V7.40.3.8902/W32 for ARM                 23/Oct/2018  09:46:38
+# Copyright 2007-2015 IAR Systems AB.
+#
+#    Output file  =  
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Exe\project.out
+#    Map file     =  
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\List\project.map
+#    Command line =  
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\adc.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\afe.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\aips.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\arch_delay.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\arm_cm0.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\cmp.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\crc.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\crt0.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\dma.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\ewm.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\fll.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\freemaster_appcmd.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\freemaster_bdm.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\freemaster_Kxx.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\freemaster_protocol.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\freemaster_rec.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\freemaster_scope.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\freemaster_serial.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\freemaster_tsa.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\ftfa.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\gpio.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\i2c.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\irtc.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\llwu.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\lptmr.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\mcm.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\modbus.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\mpu.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\osc.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\osc32k.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\pit.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\pit_test.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\pll.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\pmc.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\rcm.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\rnga.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\sim.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\smc.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\spi.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\start.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\startup.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\svcall_isr.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\swisr.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\syst.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\system.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\tmr.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\uart.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\usart.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\vref.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\wdog.o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\xbar.o
+#        -o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Exe\project.out
+#        --map
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\List\project.map
+#        --config
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\..\..\..\..\src\toolchain\iar\config\MKMxxZ128_flash.icf
+#        --entry __iar_program_start --inline --no_exceptions --no_vfe
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A1":  place at 0x00000000 { ro section .intvec };
+"A2":  place at 0x00000400 { ro section .memcfg };
+"P1":  place in [from 0x00000000 to 0x0001ffff] { ro, block CodeRelocate };
+"P2":  place in [from 0x1ffff000 to 0x20002fff] {
+          rw, block CodeRelocateRam, block HEAP, block CSTACK };
+
+  Section              Kind        Address    Size  Object
+  -------              ----        -------    ----  ------
+"A1":                                         0xc0
+  .intvec              const    0x00000000    0xc0  system.o [1]
+                              - 0x000000c0    0xc0
+
+"P1", part 1 of 2:                             0x4
+  CodeRelocate                  0x000000c0     0x0  <Block>
+  Initializer bytes    const    0x000000c0     0x4  <for P2 s0>
+                              - 0x000000c4     0x4
+
+"A2":                                         0x10
+  .memcfg              const    0x00000400    0x10  system.o [1]
+                              - 0x00000410    0x10
+
+"P1", part 2 of 2:                          0x26dc
+  .text                ro code  0x00000410   0x37c  uart.o [1]
+  .text                ro code  0x0000078c   0x358  modbus.o [1]
+  .text                ro code  0x00000ae4    0xe0  I32DivModFast.o [5]
+  .text                ro code  0x00000bc4   0x308  irtc.o [1]
+  .text                ro code  0x00000ecc   0x288  pit_test.o [1]
+  .text                ro code  0x00001154    0x34  ABImemcpy.o [5]
+  .text                ro code  0x00001188    0x14  memset.o [3]
+  .text                ro code  0x0000119c   0x164  adc.o [1]
+  .text                ro code  0x00001300   0x1ec  gpio.o [1]
+  .text                ro code  0x000014ec   0x120  fll.o [1]
+  .text                ro code  0x0000160c    0xf0  pit.o [1]
+  .text                ro code  0x000016fc    0xea  usart.o [1]
+  .text                ro code  0x000017e8    0x54  ABImemset.o [5]
+  .text                ro code  0x0000183c    0x34  I32ToDbl.o [4]
+  .text                ro code  0x00001870   0x1a8  DblAddSub.o [4]
+  .text                ro code  0x00001a18   0x184  DblMul.o [4]
+  .text                ro code  0x00001b9c    0x62  DblToFlt.o [4]
+  .text                ro code  0x00001bfe    0xc2  DblDiv.o [4]
+  .text                ro code  0x00001cc0    0xbe  sqrt.o [4]
+  .text                ro code  0x00001d80     0xc  iarEdom.o [5]
+  .text                ro code  0x00001d8c    0x10  errno.o [3]
+  .text                ro code  0x00001d9c   0x1ec  tmr.o [1]
+  .text                ro code  0x00001f88   0x1b4  i2c.o [1]
+  .rodata              const    0x0000213c   0x100  modbus.o [1]
+  .rodata              const    0x0000223c   0x100  modbus.o [1]
+  .text                ro code  0x0000233c    0xe4  spi.o [1]
+  .text                ro code  0x00002420    0xc4  afe.o [1]
+  .text                ro code  0x000024e4    0xc0  dma.o [1]
+  .text                ro code  0x000025a4    0xac  cmp.o [1]
+  .text                ro code  0x00002650    0x88  llwu.o [1]
+  .text                ro code  0x000026d8    0x7c  startup.o [1]
+  .text                ro code  0x00002754    0x6c  start.o [1]
+  .text                ro code  0x000027c0    0x54  pmc.o [1]
+  .text                ro code  0x00002814    0x2c  swisr.o [1]
+  .rodata              const    0x00002840    0x28  pit_test.o [1]
+  .rodata              const    0x00002868    0x28  pit_test.o [1]
+  .rodata              const    0x00002890    0x28  pit_test.o [1]
+  .rodata              const    0x000028b8    0x28  pit_test.o [1]
+  .rodata              const    0x000028e0    0x28  pit_test.o [1]
+  .rodata              const    0x00002908    0x28  pit_test.o [1]
+  .rodata              const    0x00002930    0x28  pit_test.o [1]
+  .rodata              const    0x00002958    0x28  pit_test.o [1]
+  .rodata              const    0x00002980    0x28  pit_test.o [1]
+  .rodata              const    0x000029a8    0x28  pit_test.o [1]
+  .text                ro code  0x000029d0    0x24  svcall_isr.o [1]
+  .rodata              const    0x000029f4    0x1c  pit_test.o [1]
+  .text                ro code  0x00002a10    0x1c  rnga.o [1]
+  .text                ro code  0x00002a2c    0x18  crt0.o [1]
+  .text                ro code  0x00002a44    0x18  lptmr.o [1]
+  .text                ro code  0x00002a5c    0x18  xbar.o [1]
+  .text                ro code  0x00002a74    0x10  syst.o [1]
+  .text                ro code  0x00002a84    0x10  system.o [1]
+  .rodata              const    0x00002a94     0xc  pit_test.o [1]
+  .rodata              const    0x00002aa0     0x8  pit_test.o [1]
+  .rodata              const    0x00002aa8     0x8  pit_test.o [1]
+  .rodata              const    0x00002ab0     0x8  pit_test.o [1]
+  .rodata              const    0x00002ab8     0x8  pit_test.o [1]
+  .rodata              const    0x00002ac0     0x4  pit_test.o [1]
+  .rodata              const    0x00002ac4     0x4  pit_test.o [1]
+  .rodata              const    0x00002ac8     0x4  pit_test.o [1]
+  .rodata              const    0x00002acc     0x4  pit_test.o [1]
+  .rodata              const    0x00002ad0     0x4  pit_test.o [1]
+  .rodata              const    0x00002ad4     0x4  pit_test.o [1]
+  .rodata              const    0x00002ad8     0x4  pit_test.o [1]
+  .rodata              const    0x00002adc     0x4  start.o [1]
+  .text                ro code  0x00002ae0     0x4  ftfa.o [1]
+  .text                ro code  0x00002ae4     0x4  wdog.o [1]
+  .data_init                    0x00002ae8     0x4  <Block>
+    Initializer bytes  const    0x00002ae8     0x4  <for .data-1>
+                              - 0x00002aec  0x26dc
+
+"P2":                                        0x5f4
+  .data                         0x1ffff000     0x4  <Block>
+    .data-1                     0x1ffff000     0x1  <Init block>
+      .data            inited   0x1ffff000     0x1  modbus.o [1]
+  .bss                          0x1ffff008   0x5e5  <Block>
+    .bss               uninit   0x1ffff008   0x3c0  usart.o [1]
+    .bss               uninit   0x1ffff3c8     0x4  adc.o [1]
+    .bss               uninit   0x1ffff3cc     0x4  afe.o [1]
+    .bss               uninit   0x1ffff3d0     0x4  afe.o [1]
+    .bss               uninit   0x1ffff3d4     0x4  afe.o [1]
+    .bss               uninit   0x1ffff3d8     0x4  afe.o [1]
+    .bss               uninit   0x1ffff3dc     0x4  arm_cm0.o [1]
+    .bss               uninit   0x1ffff3e0     0x4  cmp.o [1]
+    .bss               uninit   0x1ffff3e4     0x4  dma.o [1]
+    .bss               uninit   0x1ffff3e8     0x4  dma.o [1]
+    .bss               uninit   0x1ffff3ec     0x4  dma.o [1]
+    .bss               uninit   0x1ffff3f0     0x4  dma.o [1]
+    .bss               uninit   0x1ffff3f4     0x4  gpio.o [1]
+    .bss               uninit   0x1ffff3f8     0x4  i2c.o [1]
+    .bss               uninit   0x1ffff3fc     0x4  irtc.o [1]
+    .bss               uninit   0x1ffff400     0xc  irtc.o [1]
+    .bss               uninit   0x1ffff40c     0x4  llwu.o [1]
+    .bss               uninit   0x1ffff410     0x4  lptmr.o [1]
+    .bss               uninit   0x1ffff414    0x20  modbus.o [1]
+    .bss               uninit   0x1ffff434    0x78  modbus.o [1]
+    .bss               uninit   0x1ffff4ac     0x4  modbus.o [1]
+    .bss               uninit   0x1ffff4b0    0xf0  modbus.o [1]
+    .bss               uninit   0x1ffff5a0     0x4  pit.o [1]
+    .bss               uninit   0x1ffff5a4     0x4  pmc.o [1]
+    .bss               uninit   0x1ffff5a8     0x4  rnga.o [1]
+    .bss               uninit   0x1ffff5ac     0x4  spi.o [1]
+    .bss               uninit   0x1ffff5b0     0x4  spi.o [1]
+    .bss               uninit   0x1ffff5b4     0x4  swisr.o [1]
+    .bss               uninit   0x1ffff5b8     0x4  swisr.o [1]
+    .bss               uninit   0x1ffff5bc     0x4  swisr.o [1]
+    .bss               uninit   0x1ffff5c0     0x4  syst.o [1]
+    .bss               uninit   0x1ffff5c4     0x4  tmr.o [1]
+    .bss               uninit   0x1ffff5c8     0x4  tmr.o [1]
+    .bss               uninit   0x1ffff5cc     0x4  tmr.o [1]
+    .bss               uninit   0x1ffff5d0     0x4  tmr.o [1]
+    .bss               uninit   0x1ffff5d4     0x4  uart.o [1]
+    .bss               uninit   0x1ffff5d8     0x4  uart.o [1]
+    .bss               uninit   0x1ffff5dc     0x4  usart.o [1]
+    .bss               uninit   0x1ffff5e0     0x4  usart.o [1]
+    .bss               uninit   0x1ffff5e4     0x4  xbar.o [1]
+    .bss               uninit   0x1ffff5e8     0x1  modbus.o [1]
+    .bss               uninit   0x1ffff5e9     0x1  modbus.o [1]
+    .bss               uninit   0x1ffff5ea     0x1  modbus.o [1]
+    .bss               uninit   0x1ffff5eb     0x1  modbus.o [1]
+    .bss               uninit   0x1ffff5ec     0x1  modbus.o [1]
+  CodeRelocateRam               0x1ffff5ed     0x0  <Block>
+  P2 s0                         0x1ffff5f0     0x4  <Init block>
+    __DLIB_PERTHREAD   inited   0x1ffff5f0     0x4  errno.o [3]
+                              - 0x1ffff5f4   0x5f4
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module           ro code  ro data  rw data
+    ------           -------  -------  -------
+G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj: [1]
+    adc.o                356                 4
+    afe.o                196                16
+    arm_cm0.o                                4
+    cmp.o                172                 4
+    crt0.o                24
+    dma.o                192                16
+    fll.o                288
+    ftfa.o                 4
+    gpio.o               492                 4
+    i2c.o                436                 4
+    irtc.o               776                16
+    llwu.o               136                 4
+    lptmr.o               24                 4
+    modbus.o             856      513      402
+    pit.o                240                 4
+    pit_test.o           648      500
+    pmc.o                 84                 4
+    rnga.o                28                 4
+    spi.o                228                 8
+    start.o              108        4
+    startup.o            124
+    svcall_isr.o          36
+    swisr.o               44                12
+    syst.o                16                 4
+    system.o              16      208
+    tmr.o                492                16
+    uart.o               892                 8
+    usart.o              234               968
+    wdog.o                 4
+    xbar.o                24                 4
+    ------------------------------------------
+    Total:             7 170    1 225    1 510
+
+command line: [2]
+    ------------------------------------------
+    Total:
+
+dl6M_tln.a: [3]
+    errno.o               16        4        4
+    memset.o              20
+    ------------------------------------------
+    Total:                36        4        4
+
+m6M_tl.a: [4]
+    DblAddSub.o          424
+    DblDiv.o             194
+    DblMul.o             388
+    DblToFlt.o            98
+    I32ToDbl.o            52
+    sqrt.o               190
+    ------------------------------------------
+    Total:             1 346
+
+rt6M_tl.a: [5]
+    ABImemcpy.o           52
+    ABImemset.o           84
+    I32DivModFast.o      224
+    iarEdom.o             12
+    ------------------------------------------
+    Total:               372
+
+    Gaps                   4
+    Linker created                  3
+----------------------------------------------
+    Grand Total:       8 928    1 232    1 514
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                      Address   Size  Type      Object
+-----                      -------   ----  ----      ------
+.bss$$Base              0x1ffff008          --   Gb  - Linker created -
+.bss$$Limit             0x1ffff5ed          --   Gb  - Linker created -
+.data$$Base             0x1ffff000          --   Gb  - Linker created -
+.data$$Limit            0x1ffff004          --   Gb  - Linker created -
+.data_init$$Base        0x00002ae8          --   Gb  - Linker created -
+.data_init$$Limit       0x00002aec          --   Gb  - Linker created -
+AC                      0x000016fd   0x74  Code  Gb  usart.o [1]
+ADC_Init                0x0000119d   0x9c  Code  Gb  adc.o [1]
+CodeRelocate$$Base      0x000000c0          --   Gb  - Linker created -
+CodeRelocate$$Limit     0x000000c0          --   Gb  - Linker created -
+CodeRelocateRam$$Base   0x1ffff5ed          --   Gb  - Linker created -
+CodeRelocateRam$$Limit  0x1ffff5ed          --   Gb  - Linker created -
+FLL_Init                0x000014ed  0x120  Code  Gb  fll.o [1]
+IRTC_GetClock           0x00000bc5   0x8a  Code  Gb  irtc.o [1]
+LLWU_GetFlags           0x00002651   0x3c  Code  Lc  llwu.o [1]
+PIT0_CH0_Init           0x00001645   0x1c  Code  Gb  pit.o [1]
+PIT_InstallCallback     0x0000160d   0x38  Code  Gb  pit.o [1]
+PORTD_Init              0x00001301   0x2e  Code  Gb  gpio.o [1]
+PORTF_Init              0x0000132f   0x2e  Code  Gb  gpio.o [1]
+Region$$Table$$Base     0x00000000          --   Gb  - Linker created -
+Region$$Table$$Limit    0x00000000          --   Gb  - Linker created -
+UART0_Init              0x00000449   0x62  Code  Gb  uart.o [1]
+UART_InstallCallbackUART0_UART1
+                        0x00000411   0x38  Code  Gb  uart.o [1]
+__aeabi_d2f             0x00001b9d         Code  Gb  DblToFlt.o [4]
+__aeabi_dadd            0x00001871         Code  Gb  DblAddSub.o [4]
+__aeabi_ddiv            0x00001bff         Code  Gb  DblDiv.o [4]
+__aeabi_dmul            0x00001a19         Code  Gb  DblMul.o [4]
+__aeabi_errno_addr      0x00001d8d    0xa  Code  Gb  errno.o [3]
+__aeabi_i2d             0x0000183d         Code  Gb  I32ToDbl.o [4]
+__aeabi_idiv            0x00000b11         Code  Gb  I32DivModFast.o [5]
+__aeabi_idivmod         0x00000b11         Code  Gb  I32DivModFast.o [5]
+__aeabi_memcpy4         0x00001155         Code  Wk  ABImemcpy.o [5]
+__aeabi_memset          0x000017e9         Code  Gb  ABImemset.o [5]
+__aeabi_ui2d            0x00001851         Code  Gb  I32ToDbl.o [4]
+__aeabi_uidiv           0x00000b17         Code  Gb  I32DivModFast.o [5]
+__aeabi_uidivmod        0x00000b17         Code  Gb  I32DivModFast.o [5]
+__iar_Errno             0x1ffff5f0    0x4  Data  Gb  errno.o [3]
+__iar_Memset4_word      0x00001809         Code  Gb  ABImemset.o [5]
+__iar_Memset_word       0x000017f5         Code  Gb  ABImemset.o [5]
+__iar_edom              0x00001d81         Code  Gb  iarEdom.o [5]
+__iar_program_start     0x00002a2d         Code  Gb  crt0.o [1]
+__iar_sqrt              0x00001cc1         Code  Gb  sqrt.o [4]
+__iar_ui2d              0x00001855         Code  Gb  I32ToDbl.o [4]
+__memcfg_table          0x00000400   0x10  Data  Gb  system.o [1]
+__vector_table          0x00000000   0xc0  Data  Gb  system.o [1]
+adc_isr                 0x00001245   0x7c  Code  Wk  adc.o [1]
+adcval                  0x1ffff4b0   0xf0  Data  Gb  modbus.o [1]
+afe0_isr                0x00002421   0x28  Code  Wk  afe.o [1]
+afe1_isr                0x00002449   0x28  Code  Wk  afe.o [1]
+afe2_isr                0x00002471   0x28  Code  Wk  afe.o [1]
+afe3_isr                0x00002499   0x28  Code  Wk  afe.o [1]
+auchCRCHi               0x0000213c  0x100  Data  Gb  modbus.o [1]
+auchCRCLo               0x0000223c  0x100  Data  Gb  modbus.o [1]
+beginSend               0x00000949   0x40  Code  Gb  modbus.o [1]
+calc                    0x00001799   0x4e  Code  Gb  usart.o [1]
+checkComm0Modbus        0x000007c5   0xaa  Code  Gb  modbus.o [1]
+checkoutError           0x1ffff5e8    0x1  Data  Gb  modbus.o [1]
+cmpx_isr                0x000025a5   0x94  Code  Wk  cmp.o [1]
+crc16                   0x0000078d   0x38  Code  Gb  modbus.o [1]
+data                    0x1ffff008  0x3c0  Data  Gb  usart.o [1]
+default_isr             0x00002a85    0x4  Code  Wk  system.o [1]
+dma0_isr                0x000024e5   0x28  Code  Wk  dma.o [1]
+dma1_isr                0x0000250d   0x28  Code  Wk  dma.o [1]
+dma2_isr                0x00002535   0x28  Code  Wk  dma.o [1]
+dma3_isr                0x0000255d   0x28  Code  Wk  dma.o [1]
+ewm_isr                 0x0000281f    0xa  Code  Gb  swisr.o [1]
+ftfa_isr                0x00002ae1    0x4  Code  Wk  ftfa.o [1]
+getRegisterVal          0x00000995  0x118  Code  Gb  modbus.o [1]
+hardfault_isr           0x00002a89    0x4  Code  Wk  system.o [1]
+i2cx_isr                0x00001f89  0x19a  Code  Wk  i2c.o [1]
+irtc_isr                0x00000c65  0x248  Code  Wk  irtc.o [1]
+llwu_isr                0x0000268d   0x32  Code  Wk  llwu.o [1]
+localAddr               0x1ffff000    0x1  Data  Gb  modbus.o [1]
+lptmr_isr               0x00002a45   0x10  Code  Wk  lptmr.o [1]
+main                    0x00000ecd  0x18e  Code  Gb  pit_test.o [1]
+mcg_isr                 0x00002829    0xa  Code  Gb  swisr.o [1]
+memset                  0x00001189   0x14  Code  Gb  memset.o [3]
+nmi_isr                 0x00002a8d    0x4  Code  Wk  system.o [1]
+pCallback0              0x1ffff5b4    0x4  Data  Lc  swisr.o [1]
+pCallback1              0x1ffff5b8    0x4  Data  Lc  swisr.o [1]
+pCallback2              0x1ffff5bc    0x4  Data  Lc  swisr.o [1]
+pCallbackADC            0x1ffff3c8    0x4  Data  Lc  adc.o [1]
+pCallbackAFE_CH0        0x1ffff3cc    0x4  Data  Lc  afe.o [1]
+pCallbackAFE_CH1        0x1ffff3d0    0x4  Data  Lc  afe.o [1]
+pCallbackAFE_CH2        0x1ffff3d4    0x4  Data  Lc  afe.o [1]
+pCallbackAFE_CH3        0x1ffff3d8    0x4  Data  Lc  afe.o [1]
+pCallbackCMPx           0x1ffff3e0    0x4  Data  Lc  cmp.o [1]
+pCallbackDMA0           0x1ffff3e4    0x4  Data  Lc  dma.o [1]
+pCallbackDMA1           0x1ffff3e8    0x4  Data  Lc  dma.o [1]
+pCallbackDMA2           0x1ffff3ec    0x4  Data  Lc  dma.o [1]
+pCallbackDMA3           0x1ffff3f0    0x4  Data  Lc  dma.o [1]
+pCallbackI2Cx           0x1ffff3f8    0x4  Data  Lc  i2c.o [1]
+pCallbackIRTC           0x1ffff3fc    0x4  Data  Lc  irtc.o [1]
+pCallbackLLWU           0x1ffff40c    0x4  Data  Lc  llwu.o [1]
+pCallbackLPTMR          0x1ffff410    0x4  Data  Lc  lptmr.o [1]
+pCallbackPITx           0x1ffff5a0    0x4  Data  Lc  pit.o [1]
+pCallbackPMC            0x1ffff5a4    0x4  Data  Lc  pmc.o [1]
+pCallbackPTx            0x1ffff3f4    0x4  Data  Lc  gpio.o [1]
+pCallbackRNGA           0x1ffff5a8    0x4  Data  Lc  rnga.o [1]
+pCallbackSPI0           0x1ffff5ac    0x4  Data  Lc  spi.o [1]
+pCallbackSPI1           0x1ffff5b0    0x4  Data  Lc  spi.o [1]
+pCallbackSVC            0x1ffff3dc    0x4  Data  Gb  arm_cm0.o [1]
+pCallbackSYST           0x1ffff5c0    0x4  Data  Lc  syst.o [1]
+pCallbackTMR0           0x1ffff5c4    0x4  Data  Lc  tmr.o [1]
+pCallbackTMR1           0x1ffff5c8    0x4  Data  Lc  tmr.o [1]
+pCallbackTMR2           0x1ffff5cc    0x4  Data  Lc  tmr.o [1]
+pCallbackTMR3           0x1ffff5d0    0x4  Data  Lc  tmr.o [1]
+pCallbackUART0_UART1    0x1ffff5d4    0x4  Data  Lc  uart.o [1]
+pCallbackUART2_UART3    0x1ffff5d8    0x4  Data  Lc  uart.o [1]
+pCallbackXBAR           0x1ffff5e4    0x4  Data  Lc  xbar.o [1]
+pendsv_isr              0x00002a91    0x4  Code  Wk  system.o [1]
+pit_callback            0x0000105b   0x14  Code  Gb  pit_test.o [1]
+pitx_isr                0x00001661   0x6c  Code  Wk  pit.o [1]
+pmc_isr                 0x000027c1   0x40  Code  Wk  pmc.o [1]
+portx_isr               0x0000135d  0x15a  Code  Wk  gpio.o [1]
+readRegisrers           0x0000086f   0xda  Code  Gb  modbus.o [1]
+receBuf                 0x1ffff414   0x20  Data  Gb  modbus.o [1]
+receCount               0x1ffff5ea    0x1  Data  Gb  modbus.o [1]
+rececount               0x1ffff5e9    0x1  Data  Gb  modbus.o [1]
+rnga_isr                0x00002a11   0x10  Code  Wk  rnga.o [1]
+sendBuf                 0x1ffff434   0x78  Data  Gb  modbus.o [1]
+sendCount               0x1ffff5eb    0x1  Data  Gb  modbus.o [1]
+sendPosi                0x1ffff5ec    0x1  Data  Gb  modbus.o [1]
+slcd_isr                0x00002815    0xa  Code  Gb  swisr.o [1]
+spi0_isr                0x0000233d   0x4e  Code  Wk  spi.o [1]
+spi1_isr                0x0000238b   0x7a  Code  Wk  spi.o [1]
+sqrt                    0x00001cc1         Code  Gb  sqrt.o [4]
+sqrtl                   0x00001cc1         Code  Gb  sqrt.o [4]
+start                   0x00002755   0x6c  Code  Gb  start.o [1]
+startup                 0x000026d9   0x7c  Code  Gb  startup.o [1]
+svcall_isr              0x000029d1         Code  Wk  svcall_isr.o [1]
+syst_isr                0x00002a75    0xa  Code  Wk  syst.o [1]
+t                       0x1ffff5e0    0x4  Data  Gb  usart.o [1]
+tmr0_isr                0x00001d9d   0x6a  Code  Wk  tmr.o [1]
+tmr1_isr                0x00001e09   0x6a  Code  Wk  tmr.o [1]
+tmr2_isr                0x00001e75   0x6a  Code  Wk  tmr.o [1]
+tmr3_isr                0x00001ee1   0x6a  Code  Wk  tmr.o [1]
+uart01_isr              0x000004e1  0x128  Code  Wk  uart.o [1]
+uart23_isr              0x00000611  0x128  Code  Wk  uart.o [1]
+uart_callback           0x0000106f   0x2e  Code  Lc  pit_test.o [1]
+voltage3                0x1ffff5dc    0x4  Data  Gb  usart.o [1]
+wdog_isr                0x00002ae5    0x4  Code  Wk  wdog.o [1]
+xbar_isr                0x00002a5d   0x10  Code  Wk  xbar.o [1]
+y                       0x1ffff4ac    0x4  Data  Gb  modbus.o [1]
+
+
+[1] = G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj
+[2] = command line
+[3] = dl6M_tln.a
+[4] = m6M_tl.a
+[5] = rt6M_tl.a
+
+  8 928 bytes of readonly  code memory
+  1 232 bytes of readonly  data memory
+  1 514 bytes of readwrite data memory
+
+Errors: none
+Warnings: none

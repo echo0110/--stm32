@@ -1,0 +1,63 @@
+###############################################################################
+#                                                                             #
+#     IAR Assembler V7.40.3.8902/W32 for ARM 15/Mar/2017  09:18:03            #
+#     Copyright 1999-2015 IAR Systems AB.                                     #
+#                                                                             #
+#           Source file   =  C:\Freescale\KM128SWDRV_R4_1_6\src\toolchain\iar\svcall_isr.s#
+#           List file     =  C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc_test\Release\List\svcall_isr.lst#
+#           Object file   =  C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc_test\Release\Obj\svcall_isr.o#
+#           Command line  =  C:\Freescale\KM128SWDRV_R4_1_6\src\toolchain\iar\svcall_isr.s #
+#                            -OC:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc_test\Release\Obj\ #
+#                            -s+ -M<> -w+ -r                                  #
+#                            -LC:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc_test\Release\List\ #
+#                            -t8 --cpu Cortex-M0+ --fpu None                  #
+#                            -IC:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc_test\..\..\..\..\src\projects\irtc_test\ #
+#                                                                             #
+###############################################################################
+
+    1                           /*********************************************
+                                *********************************
+    2                            * (c) Copyright 2010-2016, Freescale
+                                 Semiconductor Inc.
+    3                            * ALL RIGHTS RESERVED.
+    4                            *********************************************
+                                ******************************//*!
+    5                            * @file      svcall_isr.s
+    6                            * @version   1.0.0.0
+    7                            * @date      Mar-31-2016
+    8                            * @brief     Module with interrupt handler
+                                 for calling a Supervisor Call (SVC)
+    9                            *            callback function.
+   10                            *********************************************
+                                *********************************/
+   11                                 PUBWEAK svcall_isr
+   12                                 EXTERN  pCallbackSVC
+   13                                 SECTION .text:CODE:NOROOT
+   14                                 THUMB
+   15                           svcall_isr:
+   16    00000000 0420                movs  r0,#4
+   17    00000002 7146                mov   r1,lr
+   18    00000004 0842                tst   r0,r1
+   19    00000006 02D0                beq   _msp
+   20    00000008 EFF30980            mrs   r0,psp
+   21    0000000C 01E0                b     _end
+   22    0000000E EFF30880      _msp: mrs   r0,msp
+   23    00000012 8069          _end: ldr   r0,[r0,#24]
+   24    00000014 801E                subs  r0,r0,#2
+   25    00000016 0078                ldrb  r0,[r0]
+   26    00000018 0149                ldr   r1,=pCallbackSVC
+   27    0000001A 0968                ldr   r1,[r1]
+   28    0000001C 0847                bx    r1
+   28.1                                  TABLE
+   28.2  00000020 ........              Reference on line 26
+   29                                 END
+##############################
+#           CRC:0            #
+#        Errors:   0         #
+#        Warnings: 0         #
+#         Bytes: 36          #
+##############################
+
+
+
+

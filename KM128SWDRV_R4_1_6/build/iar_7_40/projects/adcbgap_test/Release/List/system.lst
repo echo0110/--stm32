@@ -1,0 +1,290 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        31/Mar/2017  15:33:26
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\common\system.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\common\system.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adcbgap_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adcbgap_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adcbgap_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adcbgap_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adcbgap_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adcbgap_test\..\..\..\..\src\projects\adcbgap_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adcbgap_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adcbgap_test\Release\List\system.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adcbgap_test\Release\Obj\system.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\common\system.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2016, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      system.c
+      6           * @version   1.0.4.0
+      7           * @date      Mar-27-2016
+      8           * @brief     Kinetis-M system definitions.
+      9           ******************************************************************************/
+     10          #include "appconfig.h"
+     11          #include "drivers.h"
+     12          #include "system.h"
+     13          
+     14          /******************************************************************************
+     15          * Vector table start
+     16          *******************************************************************************/
+     17          #if defined(__ICCARM__)
+     18            #pragma location = ".intvec"
+
+   \                                 In section .intvec, align 4, root
+     19            __root void (* const __vector_table[])() =
+   \                     __vector_table:
+   \   00000000   0x20002FF8         DC32 20002FF8H, __iar_program_start, nmi_isr, hardfault_isr
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \   00000010   0x........         DC32 default_isr, default_isr, default_isr, default_isr, default_isr
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \   00000024   0x........         DC32 default_isr, default_isr, svcall_isr, default_isr, default_isr
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \   00000038   0x........         DC32 pendsv_isr, syst_isr, dma0_isr, dma1_isr, dma2_isr, dma3_isr
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \   00000050   0x........         DC32 spi0_isr, spi1_isr, pmc_isr, tmr0_isr, tmr1_isr, tmr2_isr
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \   00000068   0x........         DC32 tmr3_isr, pitx_isr, llwu_isr, ftfa_isr, cmpx_isr, slcd_isr
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \   00000080   0x........         DC32 adc_isr, portx_isr, rnga_isr, uart01_isr, uart23_isr, afe0_isr
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \   00000098   0x........         DC32 afe1_isr, afe2_isr, afe3_isr, irtc_isr, i2cx_isr, ewm_isr, mcg_isr
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \              0x........   
+   \   000000B4   0x........         DC32 wdog_isr, lptmr_isr, xbar_isr
+   \              0x........   
+   \              0x........   
+     20          #elif defined(__GNUC__)
+     21            void (* const __vector_table[])() __attribute__((section(".intvec"))) =
+     22          #elif defined(__CC_ARM)
+     23            void (* const __vector_table[])() __attribute__((section(".ARM.__at_0x000"),used)) =
+     24          #endif
+     25          {
+     26             VECTOR_000,                                              /* Initial SP     */
+     27             VECTOR_001,                                              /* Initial PC     */
+     28             VECTOR_002,
+     29             VECTOR_003,
+     30             VECTOR_004,
+     31             VECTOR_005,
+     32             VECTOR_006,
+     33             VECTOR_007,
+     34             VECTOR_008,
+     35             VECTOR_009,
+     36             VECTOR_010,
+     37             VECTOR_011,
+     38             VECTOR_012,
+     39             VECTOR_013,
+     40             VECTOR_014,
+     41             VECTOR_015,
+     42             VECTOR_016,
+     43             VECTOR_017,
+     44             VECTOR_018,
+     45             VECTOR_019,
+     46             VECTOR_020,
+     47             VECTOR_021,
+     48             VECTOR_022,
+     49             VECTOR_023,
+     50             VECTOR_024,
+     51             VECTOR_025,
+     52             VECTOR_026,
+     53             VECTOR_027,
+     54             VECTOR_028,
+     55             VECTOR_029,
+     56             VECTOR_030,
+     57             VECTOR_031,
+     58             VECTOR_032,
+     59             VECTOR_033,
+     60             VECTOR_034,
+     61             VECTOR_035,
+     62             VECTOR_036,
+     63             VECTOR_037,
+     64             VECTOR_038,
+     65             VECTOR_039,
+     66             VECTOR_040,
+     67             VECTOR_041,
+     68             VECTOR_042,
+     69             VECTOR_043,
+     70             VECTOR_044,
+     71             VECTOR_045,
+     72             VECTOR_046,
+     73             VECTOR_047
+     74          };
+     75          /* Vector table end                                                           */
+     76          
+     77          /******************************************************************************
+     78           * Flash configuration field start
+     79           ******************************************************************************/
+     80          #if defined(__ICCARM__)
+     81            #pragma location = ".memcfg"
+
+   \                                 In section .memcfg, align 4, root
+     82            __root const long __memcfg_table[] =
+   \                     __memcfg_table:
+   \   00000000   0xFFFFFFFF         DC32 -1, -1, -1, -3074
+   \              0xFFFFFFFF   
+   \              0xFFFFFFFF   
+   \              0xFFFFF3FE   
+     83          #elif defined(__GNUC__)
+     84            const long __memcfg_table[] __attribute__((section(".memcfg"))) =
+     85          #elif defined(__CC_ARM)
+     86            const long __memcfg_table[] __attribute__((section(".ARM.__at_0x400"),used)) =
+     87          #endif
+     88          {
+     89             CONFIG_1,
+     90             CONFIG_2,
+     91             CONFIG_3,
+     92             CONFIG_4,
+     93          };
+     94          /* Flash configuration field end                                              */
+     95          
+     96          /******************************************************************************
+     97           * Memory trace buffer start
+     98           ******************************************************************************/
+     99          #if defined(MTB_RAM_RESERVE)
+    100            #if !defined(MTB_RAM_SIZE)
+    101              #define MTB_RAM_SIZE 0x40
+    102            #endif
+    103              #if defined(__ICCARM__)
+    104                #pragma location = ".mtbram"
+    105                __root unsigned char __mtb_ram[MTB_RAM_SIZE];
+    106              #elif defined(__GNUC__)
+    107                unsigned char __mtb_ram[MTB_RAM_SIZE] __attribute__((section (".mtbram")));
+    108              #elif defined(__CC_ARM)
+    109                unsigned char __mtb_ram[MTB_RAM_SIZE]
+    110                         __attribute__((section (".ARM.__at_0x1ffff000"),used, zero_init));
+    111            #endif
+    112          #endif
+    113          /* Memory trace buffer end                                                    */
+    114          
+    115          /******************************************************************************
+    116           * System's weak interrupt service routine definitions.
+    117           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+    118          weak void default_isr   (void) { for (;;) {} }
+   \                     default_isr: (+1)
+   \                     ??default_isr_0: (+1)
+   \   00000000   0xE7FE             B        ??default_isr_0
+    119          
+
+   \                                 In section .text, align 2, keep-with-next
+    120          weak void hardfault_isr (void) { for (;;) {} }
+   \                     hardfault_isr: (+1)
+   \                     ??hardfault_isr_0: (+1)
+   \   00000000   0xE7FE             B        ??hardfault_isr_0
+    121          
+
+   \                                 In section .text, align 2, keep-with-next
+    122          weak void nmi_isr       (void) { for (;;) {} }
+   \                     nmi_isr: (+1)
+   \                     ??nmi_isr_0: (+1)
+   \   00000000   0xE7FE             B        ??nmi_isr_0
+    123          
+
+   \                                 In section .text, align 2, keep-with-next
+    124          weak void pendsv_isr    (void) { for (;;) {} }
+   \                     pendsv_isr: (+1)
+   \                     ??pendsv_isr_0: (+1)
+   \   00000000   0xE7FE             B        ??pendsv_isr_0
+    125          
+
+   \                                 In section .text, align 2, keep-with-next
+    126          weak void slcd_isr      (void) { for (;;) {} }    /* overriden in swisr.c     */
+   \                     slcd_isr: (+1)
+   \                     ??slcd_isr_0: (+1)
+   \   00000000   0xE7FE             B        ??slcd_isr_0
+    127          
+
+   \                                 In section .text, align 2, keep-with-next
+    128          weak void mcg_isr       (void) { for (;;) {} }    /* overriden in swisr.c     */
+   \                     mcg_isr: (+1)
+   \                     ??mcg_isr_0: (+1)
+   \   00000000   0xE7FE             B        ??mcg_isr_0
+    129          /******************************************************************************
+    130           * End of module                                                              *
+    131           ******************************************************************************/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   default_isr
+       0   hardfault_isr
+       0   mcg_isr
+       0   nmi_isr
+       0   pendsv_isr
+       0   slcd_isr
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      16  __memcfg_table
+     192  __vector_table
+       2  default_isr
+       2  hardfault_isr
+       2  mcg_isr
+       2  nmi_isr
+       2  pendsv_isr
+       2  slcd_isr
+
+ 
+ 192 bytes in section .intvec
+  16 bytes in section .memcfg
+  12 bytes in section .text
+ 
+  12 bytes of CODE  memory
+ 208 bytes of CONST memory
+
+Errors: none
+Warnings: none

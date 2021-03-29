@@ -1,0 +1,74 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        15/Mar/2017  09:18:09
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\i2c\rtc.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\i2c\rtc.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc_test\..\..\..\..\src\projects\irtc_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc_test\Release\List\rtc.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtc_test\Release\Obj\rtc.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\i2c\rtc.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2014, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      irtc.c
+      6           * @version   1.0.7.0
+      7           * @date      Apr-20-2014
+      8           * @brief     IRTC Real Time Clock (IRTC) driver source code.
+      9           ******************************************************************************/
+     10          #include "common.h"
+     11          #include "rtc.h"
+     12          
+     13          typedef struct
+     14          {
+     15            uint8  sec1;           ///< Second after the minute [0, 59]
+     16            uint8  min1;           ///< Minute after the hour [0, 59]
+     17            uint8  hour1;          ///< Hour since midnight [0, 23]
+     18            uint8  day1;           ///< Day of the month [1, 31]
+     19            uint8  wday1;          ///< @ref irtc_wday since Sunday [0, 6]
+     20            uint8  mon1;           ///< @ref irtc_mon since January [1, 12]
+     21            uint16 year1;          ///< Year [1984, 2239]
+     22          } tTIME;
+     23          
+     24          /******************************************************************************
+     25           * public function definitions                                                *
+     26           ******************************************************************************/
+     27          
+     28          /******************************************************************************
+     29           * End of module                                                              *
+     30           ******************************************************************************/
+
+
+ 
+
+ 
+
+
+Errors: none
+Warnings: none

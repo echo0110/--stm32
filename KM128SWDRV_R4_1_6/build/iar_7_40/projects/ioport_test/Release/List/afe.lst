@@ -1,0 +1,547 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        07/Feb/2017  17:56:21
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\afe\afe.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\afe\afe.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\..\..\..\..\src\projects\ioport_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\Release\List\afe.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\ioport_test\Release\Obj\afe.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\afe\afe.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2015, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      afe.c
+      6           * @version   1.0.3.0
+      7           * @date      Apr-20-2015
+      8           * @brief     Analog Front End (AFE) driver source code.
+      9           ******************************************************************************/
+     10          #include "common.h"
+     11          #include "afe.h"
+     12          
+     13          #if !defined(MCU_MKM34ZA5)
+     14            #error "The afe.c module is specific to the MKMxxZxxACxx5 microcontrollers."
+     15          #endif
+     16          /******************************************************************************
+     17           * data type definitions                                                      *
+     18           ******************************************************************************/
+
+   \                                 In section .bss, align 4
+     19          static AFE_CH_CALLBACK pCallbackAFE_CH0;
+   \                     pCallbackAFE_CH0:
+   \   00000000                      DS8 4
+
+   \                                 In section .bss, align 4
+     20          static AFE_CH_CALLBACK pCallbackAFE_CH1;
+   \                     pCallbackAFE_CH1:
+   \   00000000                      DS8 4
+
+   \                                 In section .bss, align 4
+     21          static AFE_CH_CALLBACK pCallbackAFE_CH2;
+   \                     pCallbackAFE_CH2:
+   \   00000000                      DS8 4
+
+   \                                 In section .bss, align 4
+     22          static AFE_CH_CALLBACK pCallbackAFE_CH3;
+   \                     pCallbackAFE_CH3:
+   \   00000000                      DS8 4
+     23          
+     24          /******************************************************************************
+     25           * public function definitions                                                *
+     26           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+     27          void AFE_CH0_Init(tAFE_CH ch, int16 dly, uint8 ip, AFE_CH_CALLBACK pCallback)
+     28          {
+   \                     AFE_CH0_Init: (+1)
+   \   00000000   0xB430             PUSH     {R4,R5}
+     29            if (pCallback)
+   \   00000002   0x001C             MOVS     R4,R3
+   \   00000004   0xD017             BEQ      ??AFE_CH0_Init_0
+     30            {
+     31              pCallbackAFE_CH0 = pCallback;
+   \   00000006   0x....             LDR      R4,??DataTable7
+   \   00000008   0x6023             STR      R3,[R4, #+0]
+     32              NVIC_SetIsr(INT_AFE0,ip);
+   \   0000000A   0x2380             MOVS     R3,#+128
+   \   0000000C   0x039B             LSLS     R3,R3,#+14       ;; #+2097152
+   \   0000000E   0x....             LDR      R4,??DataTable7_1  ;; 0xe000e280
+   \   00000010   0x6825             LDR      R5,[R4, #+0]
+   \   00000012   0x431D             ORRS     R5,R5,R3
+   \   00000014   0x6025             STR      R5,[R4, #+0]
+   \   00000016   0x....             LDR      R4,??DataTable7_2  ;; 0xe000e100
+   \   00000018   0x6825             LDR      R5,[R4, #+0]
+   \   0000001A   0x432B             ORRS     R3,R3,R5
+   \   0000001C   0x6023             STR      R3,[R4, #+0]
+   \   0000001E   0x....             LDR      R3,??DataTable7_3  ;; 0xe000e414
+   \   00000020   0x681C             LDR      R4,[R3, #+0]
+   \   00000022   0x0612             LSLS     R2,R2,#+24
+   \   00000024   0x0A92             LSRS     R2,R2,#+10
+   \   00000026   0x4322             ORRS     R2,R2,R4
+   \   00000028   0x601A             STR      R2,[R3, #+0]
+     33              AFE_DI |= AFE_DI_INTEN0_MASK;
+   \   0000002A   0x....             LDR      R2,??DataTable7_4  ;; 0x40030000
+   \   0000002C   0x6A13             LDR      R3,[R2, #+32]
+   \   0000002E   0x2480             MOVS     R4,#+128
+   \   00000030   0x04E4             LSLS     R4,R4,#+19       ;; #+67108864
+   \   00000032   0x431C             ORRS     R4,R4,R3
+   \   00000034   0x6214             STR      R4,[R2, #+32]
+     34            }
+     35            AFE_CH0_DR  = ((dly>0)?dly:0);        /* update only if value is positive   */
+   \                     ??AFE_CH0_Init_0: (+1)
+   \   00000036   0xB209             SXTH     R1,R1
+   \   00000038   0x2901             CMP      R1,#+1
+   \   0000003A   0xDA00             BGE      ??AFE_CH0_Init_1
+   \   0000003C   0x2100             MOVS     R1,#+0
+   \                     ??AFE_CH0_Init_1: (+1)
+   \   0000003E   0x....             LDR      R2,??DataTable7_4  ;; 0x40030000
+   \   00000040   0x62D1             STR      R1,[R2, #+44]
+     36            AFE_CH0_CFR = ch.CFR;
+   \   00000042   0x6010             STR      R0,[R2, #+0]
+     37          }
+   \   00000044   0xBC30             POP      {R4,R5}
+   \   00000046   0x4770             BX       LR               ;; return
+     38          
+
+   \                                 In section .text, align 2, keep-with-next
+     39          void AFE_CH1_Init(tAFE_CH ch, int16 dly, uint8 ip, AFE_CH_CALLBACK pCallback)
+     40          {
+   \                     AFE_CH1_Init: (+1)
+   \   00000000   0xB430             PUSH     {R4,R5}
+     41            if (pCallback)
+   \   00000002   0x001C             MOVS     R4,R3
+   \   00000004   0xD017             BEQ      ??AFE_CH1_Init_0
+     42            {
+     43              pCallbackAFE_CH1 = pCallback;
+   \   00000006   0x....             LDR      R4,??DataTable7_5
+   \   00000008   0x6023             STR      R3,[R4, #+0]
+     44              NVIC_SetIsr(INT_AFE1,ip);
+   \   0000000A   0x2380             MOVS     R3,#+128
+   \   0000000C   0x03DB             LSLS     R3,R3,#+15       ;; #+4194304
+   \   0000000E   0x....             LDR      R4,??DataTable7_1  ;; 0xe000e280
+   \   00000010   0x6825             LDR      R5,[R4, #+0]
+   \   00000012   0x431D             ORRS     R5,R5,R3
+   \   00000014   0x6025             STR      R5,[R4, #+0]
+   \   00000016   0x....             LDR      R4,??DataTable7_2  ;; 0xe000e100
+   \   00000018   0x6825             LDR      R5,[R4, #+0]
+   \   0000001A   0x432B             ORRS     R3,R3,R5
+   \   0000001C   0x6023             STR      R3,[R4, #+0]
+   \   0000001E   0x....             LDR      R3,??DataTable7_3  ;; 0xe000e414
+   \   00000020   0x681C             LDR      R4,[R3, #+0]
+   \   00000022   0x0612             LSLS     R2,R2,#+24
+   \   00000024   0x0892             LSRS     R2,R2,#+2
+   \   00000026   0x4322             ORRS     R2,R2,R4
+   \   00000028   0x601A             STR      R2,[R3, #+0]
+     45              AFE_DI |= AFE_DI_INTEN1_MASK;
+   \   0000002A   0x....             LDR      R2,??DataTable7_6  ;; 0x40030004
+   \   0000002C   0x69D3             LDR      R3,[R2, #+28]
+   \   0000002E   0x2480             MOVS     R4,#+128
+   \   00000030   0x04A4             LSLS     R4,R4,#+18       ;; #+33554432
+   \   00000032   0x431C             ORRS     R4,R4,R3
+   \   00000034   0x61D4             STR      R4,[R2, #+28]
+     46            }
+     47            AFE_CH1_DR  = ((dly>0)?dly:0);        /* update only if value is positive   */
+   \                     ??AFE_CH1_Init_0: (+1)
+   \   00000036   0xB209             SXTH     R1,R1
+   \   00000038   0x2901             CMP      R1,#+1
+   \   0000003A   0xDA00             BGE      ??AFE_CH1_Init_1
+   \   0000003C   0x2100             MOVS     R1,#+0
+   \                     ??AFE_CH1_Init_1: (+1)
+   \   0000003E   0x....             LDR      R2,??DataTable7_6  ;; 0x40030004
+   \   00000040   0x62D1             STR      R1,[R2, #+44]
+     48            AFE_CH1_CFR = ch.CFR;
+   \   00000042   0x6010             STR      R0,[R2, #+0]
+     49          }
+   \   00000044   0xBC30             POP      {R4,R5}
+   \   00000046   0x4770             BX       LR               ;; return
+     50          
+
+   \                                 In section .text, align 2, keep-with-next
+     51          void AFE_CH2_Init(tAFE_CH ch, int16 dly, uint8 ip, AFE_CH_CALLBACK pCallback)
+     52          {
+   \                     AFE_CH2_Init: (+1)
+   \   00000000   0xB430             PUSH     {R4,R5}
+     53            if (pCallback)
+   \   00000002   0x001C             MOVS     R4,R3
+   \   00000004   0xD017             BEQ      ??AFE_CH2_Init_0
+     54            {
+     55              pCallbackAFE_CH2 = pCallback;
+   \   00000006   0x....             LDR      R4,??DataTable7_7
+   \   00000008   0x6023             STR      R3,[R4, #+0]
+     56              NVIC_SetIsr(INT_AFE2,ip);
+   \   0000000A   0x2380             MOVS     R3,#+128
+   \   0000000C   0x041B             LSLS     R3,R3,#+16       ;; #+8388608
+   \   0000000E   0x....             LDR      R4,??DataTable7_1  ;; 0xe000e280
+   \   00000010   0x6825             LDR      R5,[R4, #+0]
+   \   00000012   0x431D             ORRS     R5,R5,R3
+   \   00000014   0x6025             STR      R5,[R4, #+0]
+   \   00000016   0x....             LDR      R4,??DataTable7_2  ;; 0xe000e100
+   \   00000018   0x6825             LDR      R5,[R4, #+0]
+   \   0000001A   0x432B             ORRS     R3,R3,R5
+   \   0000001C   0x6023             STR      R3,[R4, #+0]
+   \   0000001E   0x....             LDR      R3,??DataTable7_3  ;; 0xe000e414
+   \   00000020   0x681C             LDR      R4,[R3, #+0]
+   \   00000022   0xB2D2             UXTB     R2,R2
+   \   00000024   0x0792             LSLS     R2,R2,#+30
+   \   00000026   0x4322             ORRS     R2,R2,R4
+   \   00000028   0x601A             STR      R2,[R3, #+0]
+     57              AFE_DI |= AFE_DI_INTEN2_MASK;
+   \   0000002A   0x....             LDR      R2,??DataTable7_8  ;; 0x40030008
+   \   0000002C   0x6993             LDR      R3,[R2, #+24]
+   \   0000002E   0x2480             MOVS     R4,#+128
+   \   00000030   0x0464             LSLS     R4,R4,#+17       ;; #+16777216
+   \   00000032   0x431C             ORRS     R4,R4,R3
+   \   00000034   0x6194             STR      R4,[R2, #+24]
+     58            }
+     59            AFE_CH2_DR  = ((dly>0)?dly:0);        /* update only if value is positive   */
+   \                     ??AFE_CH2_Init_0: (+1)
+   \   00000036   0xB209             SXTH     R1,R1
+   \   00000038   0x2901             CMP      R1,#+1
+   \   0000003A   0xDA00             BGE      ??AFE_CH2_Init_1
+   \   0000003C   0x2100             MOVS     R1,#+0
+   \                     ??AFE_CH2_Init_1: (+1)
+   \   0000003E   0x....             LDR      R2,??DataTable7_8  ;; 0x40030008
+   \   00000040   0x62D1             STR      R1,[R2, #+44]
+     60            AFE_CH2_CFR = ch.CFR;
+   \   00000042   0x6010             STR      R0,[R2, #+0]
+     61          }
+   \   00000044   0xBC30             POP      {R4,R5}
+   \   00000046   0x4770             BX       LR               ;; return
+     62          
+
+   \                                 In section .text, align 2, keep-with-next
+     63          void AFE_CH3_Init(tAFE_CH ch, int16 dly, uint8 ip, AFE_CH_CALLBACK pCallback)
+     64          {
+   \                     AFE_CH3_Init: (+1)
+   \   00000000   0xB430             PUSH     {R4,R5}
+     65            if (pCallback)
+   \   00000002   0x001C             MOVS     R4,R3
+   \   00000004   0xD017             BEQ      ??AFE_CH3_Init_0
+     66            {
+     67              pCallbackAFE_CH3 = pCallback;
+   \   00000006   0x....             LDR      R4,??DataTable7_9
+   \   00000008   0x6023             STR      R3,[R4, #+0]
+     68              NVIC_SetIsr(INT_AFE3,ip);
+   \   0000000A   0x2380             MOVS     R3,#+128
+   \   0000000C   0x045B             LSLS     R3,R3,#+17       ;; #+16777216
+   \   0000000E   0x....             LDR      R4,??DataTable7_1  ;; 0xe000e280
+   \   00000010   0x6825             LDR      R5,[R4, #+0]
+   \   00000012   0x431D             ORRS     R5,R5,R3
+   \   00000014   0x6025             STR      R5,[R4, #+0]
+   \   00000016   0x....             LDR      R4,??DataTable7_2  ;; 0xe000e100
+   \   00000018   0x6825             LDR      R5,[R4, #+0]
+   \   0000001A   0x432B             ORRS     R3,R3,R5
+   \   0000001C   0x6023             STR      R3,[R4, #+0]
+   \   0000001E   0x....             LDR      R3,??DataTable7_10  ;; 0xe000e418
+   \   00000020   0x681C             LDR      R4,[R3, #+0]
+   \   00000022   0x0612             LSLS     R2,R2,#+24
+   \   00000024   0x0C92             LSRS     R2,R2,#+18
+   \   00000026   0x4322             ORRS     R2,R2,R4
+   \   00000028   0x601A             STR      R2,[R3, #+0]
+     69              AFE_DI |= AFE_DI_INTEN3_MASK;
+   \   0000002A   0x....             LDR      R2,??DataTable7_11  ;; 0x4003000c
+   \   0000002C   0x6953             LDR      R3,[R2, #+20]
+   \   0000002E   0x2480             MOVS     R4,#+128
+   \   00000030   0x0424             LSLS     R4,R4,#+16       ;; #+8388608
+   \   00000032   0x431C             ORRS     R4,R4,R3
+   \   00000034   0x6154             STR      R4,[R2, #+20]
+     70            }
+     71            AFE_CH3_DR  = ((dly>0)?dly:0);        /* update only if value is positive   */
+   \                     ??AFE_CH3_Init_0: (+1)
+   \   00000036   0xB209             SXTH     R1,R1
+   \   00000038   0x2901             CMP      R1,#+1
+   \   0000003A   0xDA00             BGE      ??AFE_CH3_Init_1
+   \   0000003C   0x2100             MOVS     R1,#+0
+   \                     ??AFE_CH3_Init_1: (+1)
+   \   0000003E   0x....             LDR      R2,??DataTable7_11  ;; 0x4003000c
+   \   00000040   0x62D1             STR      R1,[R2, #+44]
+     72            AFE_CH3_CFR = ch.CFR;
+   \   00000042   0x6010             STR      R0,[R2, #+0]
+     73          }
+   \   00000044   0xBC30             POP      {R4,R5}
+   \   00000046   0x4770             BX       LR               ;; return
+     74          
+     75          /******************************************************************************
+     76           * interrupt function definitions                                             *
+     77           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+     78          weak void afe0_isr (void)
+     79          {
+   \                     afe0_isr: (+1)
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
+     80            register uint32 tmp = AFE_SR;
+   \   00000004   0x....             LDR      R4,??DataTable7_12  ;; 0x40030044
+   \   00000006   0x69A5             LDR      R5,[R4, #+24]
+     81            if (tmp & AFE_SR_COC0_MASK) { pCallbackAFE_CH0 (COC_CALLBACK, AFE_CH0_RR); }
+   \   00000008   0x2D00             CMP      R5,#+0
+   \   0000000A   0xD504             BPL      ??afe0_isr_0
+   \   0000000C   0x6821             LDR      R1,[R4, #+0]
+   \   0000000E   0x2001             MOVS     R0,#+1
+   \   00000010   0x....             LDR      R2,??DataTable7
+   \   00000012   0x6812             LDR      R2,[R2, #+0]
+   \   00000014   0x4790             BLX      R2
+     82            if (tmp & AFE_SR_OVR0_MASK) { pCallbackAFE_CH0 (OVR_CALLBACK, AFE_CH0_RR); }
+   \                     ??afe0_isr_0: (+1)
+   \   00000016   0x01E8             LSLS     R0,R5,#+7
+   \   00000018   0xD504             BPL      ??afe0_isr_1
+   \   0000001A   0x6821             LDR      R1,[R4, #+0]
+   \   0000001C   0x2002             MOVS     R0,#+2
+   \   0000001E   0x....             LDR      R2,??DataTable7
+   \   00000020   0x6812             LDR      R2,[R2, #+0]
+   \   00000022   0x4790             BLX      R2
+     83          }
+   \                     ??afe0_isr_1: (+1)
+   \   00000024   0xB001             ADD      SP,SP,#+4
+   \   00000026   0xBD30             POP      {R4,R5,PC}       ;; return
+     84          
+
+   \                                 In section .text, align 2, keep-with-next
+     85          weak void afe1_isr (void)
+     86          {
+   \                     afe1_isr: (+1)
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
+     87            register uint32 tmp = AFE_SR;
+   \   00000004   0x....             LDR      R4,??DataTable7_13  ;; 0x40030048
+   \   00000006   0x6965             LDR      R5,[R4, #+20]
+     88            if (tmp & AFE_SR_COC1_MASK) { pCallbackAFE_CH1 (COC_CALLBACK, AFE_CH1_RR); }
+   \   00000008   0x0068             LSLS     R0,R5,#+1
+   \   0000000A   0xD504             BPL      ??afe1_isr_0
+   \   0000000C   0x6821             LDR      R1,[R4, #+0]
+   \   0000000E   0x2001             MOVS     R0,#+1
+   \   00000010   0x....             LDR      R2,??DataTable7_5
+   \   00000012   0x6812             LDR      R2,[R2, #+0]
+   \   00000014   0x4790             BLX      R2
+     89            if (tmp & AFE_SR_OVR1_MASK) { pCallbackAFE_CH1 (OVR_CALLBACK, AFE_CH1_RR); }
+   \                     ??afe1_isr_0: (+1)
+   \   00000016   0x0228             LSLS     R0,R5,#+8
+   \   00000018   0xD504             BPL      ??afe1_isr_1
+   \   0000001A   0x6821             LDR      R1,[R4, #+0]
+   \   0000001C   0x2002             MOVS     R0,#+2
+   \   0000001E   0x....             LDR      R2,??DataTable7_5
+   \   00000020   0x6812             LDR      R2,[R2, #+0]
+   \   00000022   0x4790             BLX      R2
+     90          }
+   \                     ??afe1_isr_1: (+1)
+   \   00000024   0xB001             ADD      SP,SP,#+4
+   \   00000026   0xBD30             POP      {R4,R5,PC}       ;; return
+     91          
+
+   \                                 In section .text, align 2, keep-with-next
+     92          weak void afe2_isr (void)
+     93          {
+   \                     afe2_isr: (+1)
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
+     94            register uint32 tmp = AFE_SR;
+   \   00000004   0x....             LDR      R4,??DataTable7_14  ;; 0x4003004c
+   \   00000006   0x6925             LDR      R5,[R4, #+16]
+     95            if (tmp & AFE_SR_COC2_MASK) { pCallbackAFE_CH2 (COC_CALLBACK, AFE_CH2_RR); }
+   \   00000008   0x00A8             LSLS     R0,R5,#+2
+   \   0000000A   0xD504             BPL      ??afe2_isr_0
+   \   0000000C   0x6821             LDR      R1,[R4, #+0]
+   \   0000000E   0x2001             MOVS     R0,#+1
+   \   00000010   0x....             LDR      R2,??DataTable7_7
+   \   00000012   0x6812             LDR      R2,[R2, #+0]
+   \   00000014   0x4790             BLX      R2
+     96            if (tmp & AFE_SR_OVR2_MASK) { pCallbackAFE_CH2 (OVR_CALLBACK, AFE_CH2_RR); }
+   \                     ??afe2_isr_0: (+1)
+   \   00000016   0x0268             LSLS     R0,R5,#+9
+   \   00000018   0xD504             BPL      ??afe2_isr_1
+   \   0000001A   0x6821             LDR      R1,[R4, #+0]
+   \   0000001C   0x2002             MOVS     R0,#+2
+   \   0000001E   0x....             LDR      R2,??DataTable7_7
+   \   00000020   0x6812             LDR      R2,[R2, #+0]
+   \   00000022   0x4790             BLX      R2
+     97          }
+   \                     ??afe2_isr_1: (+1)
+   \   00000024   0xB001             ADD      SP,SP,#+4
+   \   00000026   0xBD30             POP      {R4,R5,PC}       ;; return
+     98          
+
+   \                                 In section .text, align 2, keep-with-next
+     99          weak void afe3_isr (void)
+    100          {
+   \                     afe3_isr: (+1)
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
+    101            register uint32 tmp = AFE_SR;
+   \   00000004   0x....             LDR      R4,??DataTable7_15  ;; 0x40030050
+   \   00000006   0x68E5             LDR      R5,[R4, #+12]
+    102            if (tmp & AFE_SR_COC3_MASK) { pCallbackAFE_CH3 (COC_CALLBACK, AFE_CH3_RR); }
+   \   00000008   0x00E8             LSLS     R0,R5,#+3
+   \   0000000A   0xD504             BPL      ??afe3_isr_0
+   \   0000000C   0x6821             LDR      R1,[R4, #+0]
+   \   0000000E   0x2001             MOVS     R0,#+1
+   \   00000010   0x....             LDR      R2,??DataTable7_9
+   \   00000012   0x6812             LDR      R2,[R2, #+0]
+   \   00000014   0x4790             BLX      R2
+    103            if (tmp & AFE_SR_OVR3_MASK) { pCallbackAFE_CH3 (OVR_CALLBACK, AFE_CH3_RR); }
+   \                     ??afe3_isr_0: (+1)
+   \   00000016   0x02A8             LSLS     R0,R5,#+10
+   \   00000018   0xD504             BPL      ??afe3_isr_1
+   \   0000001A   0x6821             LDR      R1,[R4, #+0]
+   \   0000001C   0x2002             MOVS     R0,#+2
+   \   0000001E   0x....             LDR      R2,??DataTable7_9
+   \   00000020   0x6812             LDR      R2,[R2, #+0]
+   \   00000022   0x4790             BLX      R2
+    104          }
+   \                     ??afe3_isr_1: (+1)
+   \   00000024   0xB001             ADD      SP,SP,#+4
+   \   00000026   0xBD30             POP      {R4,R5,PC}       ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7:
+   \   00000000   0x........         DC32     pCallbackAFE_CH0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_1:
+   \   00000000   0xE000E280         DC32     0xe000e280
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_2:
+   \   00000000   0xE000E100         DC32     0xe000e100
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_3:
+   \   00000000   0xE000E414         DC32     0xe000e414
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_4:
+   \   00000000   0x40030000         DC32     0x40030000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_5:
+   \   00000000   0x........         DC32     pCallbackAFE_CH1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_6:
+   \   00000000   0x40030004         DC32     0x40030004
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_7:
+   \   00000000   0x........         DC32     pCallbackAFE_CH2
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_8:
+   \   00000000   0x40030008         DC32     0x40030008
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_9:
+   \   00000000   0x........         DC32     pCallbackAFE_CH3
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_10:
+   \   00000000   0xE000E418         DC32     0xe000e418
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_11:
+   \   00000000   0x4003000C         DC32     0x4003000c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_12:
+   \   00000000   0x40030044         DC32     0x40030044
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_13:
+   \   00000000   0x40030048         DC32     0x40030048
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_14:
+   \   00000000   0x4003004C         DC32     0x4003004c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_15:
+   \   00000000   0x40030050         DC32     0x40030050
+    105          /******************************************************************************
+    106           * End of module                                                              *
+    107           ******************************************************************************/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   AFE_CH0_Init
+       8   AFE_CH1_Init
+       8   AFE_CH2_Init
+       8   AFE_CH3_Init
+      16   afe0_isr
+        16   -- Indirect call
+      16   afe1_isr
+        16   -- Indirect call
+      16   afe2_isr
+        16   -- Indirect call
+      16   afe3_isr
+        16   -- Indirect call
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable7
+       4  ??DataTable7_1
+       4  ??DataTable7_10
+       4  ??DataTable7_11
+       4  ??DataTable7_12
+       4  ??DataTable7_13
+       4  ??DataTable7_14
+       4  ??DataTable7_15
+       4  ??DataTable7_2
+       4  ??DataTable7_3
+       4  ??DataTable7_4
+       4  ??DataTable7_5
+       4  ??DataTable7_6
+       4  ??DataTable7_7
+       4  ??DataTable7_8
+       4  ??DataTable7_9
+      72  AFE_CH0_Init
+      72  AFE_CH1_Init
+      72  AFE_CH2_Init
+      72  AFE_CH3_Init
+      40  afe0_isr
+      40  afe1_isr
+      40  afe2_isr
+      40  afe3_isr
+       4  pCallbackAFE_CH0
+       4  pCallbackAFE_CH1
+       4  pCallbackAFE_CH2
+       4  pCallbackAFE_CH3
+
+ 
+  16 bytes in section .bss
+ 512 bytes in section .text
+ 
+ 512 bytes of CODE memory
+  16 bytes of DATA memory
+
+Errors: none
+Warnings: none

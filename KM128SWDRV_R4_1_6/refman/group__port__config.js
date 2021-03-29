@@ -1,0 +1,27 @@
+var group__port__config =
+[
+    [ "PORT_MODULE_ALT0_MODE", "group__port__config.html#ga05fa9fd6fceee565b5cf359aa5af6972", null ],
+    [ "PORT_MODULE_ALT0_PULLUP_EN_MODE", "group__port__config.html#ga63cf84066eea06992bea5ba6eef130f2", null ],
+    [ "PORT_MODULE_ALT1_MODE", "group__port__config.html#ga96362cb5bfe35b7760327312c343426a", null ],
+    [ "PORT_MODULE_ALT1_PULLUP_EN_MODE", "group__port__config.html#ga41374a0367e7e8f0c7e30f5a9472c504", null ],
+    [ "PORT_MODULE_ALT1_LOGIC0_IRQ_MODE", "group__port__config.html#gac1aacf2aa4e27b62be5c15475fc3b575", null ],
+    [ "PORT_MODULE_ALT1_LOGIC1_IRQ_MODE", "group__port__config.html#gaeddcf9155cf28b15d7a9ecf7bf08a93c", null ],
+    [ "PORT_MODULE_ALT1_POSEDGE_IRQ_MODE", "group__port__config.html#ga1556a54d2b8a00ee55954506837a0457", null ],
+    [ "PORT_MODULE_ALT1_NEGEDGE_IRQ_MODE", "group__port__config.html#gac3355878736b52ec4d29384173d02f6f", null ],
+    [ "PORT_MODULE_ALT1_ANYEDGE_IRQ_MODE", "group__port__config.html#ga681ede626055d9de86fee74d9d616075", null ],
+    [ "PORT_MODULE_ALT2_MODE", "group__port__config.html#ga04f71ff96eecc9ab06c8923d7fc715ef", null ],
+    [ "PORT_MODULE_ALT2_PULLUP_EN_MODE", "group__port__config.html#gac4340bc63976b97ff04fc52b98505b1d", null ],
+    [ "PORT_MODULE_ALT3_MODE", "group__port__config.html#ga305750cfc2b11cbc99a808bcd905a879", null ],
+    [ "PORT_MODULE_ALT3_PULLUP_EN_MODE", "group__port__config.html#gab048518f162f0eb25a37c29b560abdd1", null ],
+    [ "PORT_MODULE_ALT4_MODE", "group__port__config.html#gae832a77b4ef400fcabed24e25c6cc411", null ],
+    [ "PORT_MODULE_ALT4_PULLUP_EN_MODE", "group__port__config.html#ga09209c90e168c4288ba6b506442d0d6c", null ],
+    [ "PORT_MODULE_ALT5_MODE", "group__port__config.html#gaa8342756f5074ffa212389e334fe3a41", null ],
+    [ "PORT_MODULE_ALT5_PULLUP_EN_MODE", "group__port__config.html#ga0708fb478a138f6cce74af7744da4588", null ],
+    [ "PORT_MODULE_ALT6_MODE", "group__port__config.html#ga835cbc94730cb49581f57fd6902d419c", null ],
+    [ "PORT_MODULE_ALT6_PULLUP_EN_MODE", "group__port__config.html#ga1f5ceba414b0f23dbf6536589c6edb3e", null ],
+    [ "PORT_MODULE_ALT7_MODE", "group__port__config.html#ga077de9012ca3f805985ef9bbe913d465", null ],
+    [ "PORT_MODULE_ALT7_PULLUP_EN_MODE", "group__port__config.html#ga9dd3fc4d099d31a95fe68cafea40bc9b", null ],
+    [ "PORT_MODULE_BUTTON_MODE", "group__port__config.html#gafbde9270130d213e1dc3b060fb730302", null ],
+    [ "PORT_MODULE_BUTTON_IRQ_MODE", "group__port__config.html#ga8e7ac74f39766de0665e3d44ad1e4bad", null ],
+    [ "PORT_MODULE_LED_MODE", "group__port__config.html#gaa55647ae2935b18d66a5697eaddf59b6", null ]
+];

@@ -1,0 +1,341 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        07/Feb/2017  10:55:36
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\freemaster\freemaster_tsa.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\freemaster\freemaster_tsa.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\uartisr_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\uartisr_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\uartisr_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\uartisr_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\uartisr_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\uartisr_test\..\..\..\..\src\projects\uartisr_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\uartisr_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\uartisr_test\Release\List\freemaster_tsa.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\uartisr_test\Release\Obj\freemaster_tsa.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\freemaster\freemaster_tsa.c
+      1          /*******************************************************************************
+      2          *
+      3          * Copyright 2004-2013 Freescale Semiconductor, Inc.
+      4          *
+      5          * This software is owned or controlled by Freescale Semiconductor.
+      6          * Use of this software is governed by the Freescale FreeMASTER License
+      7          * distributed with this Material.
+      8          * See the license file distributed for more details.
+      9          *
+     10          ****************************************************************************//*!
+     11          *
+     12          * @brief  FreeMASTER TSA implementation
+     13          *
+     14          * This file implements a new FreeMASTER feature called Targer-side address
+     15          * translation.
+     16          *
+     17          *******************************************************************************/
+     18          
+     19          #include "freemaster.h"
+     20          #include "freemaster_private.h"
+     21          #include "freemaster_protocol.h"
+     22          
+     23          #if (FMSTR_USE_TSA) && (!(FMSTR_DISABLE))
+     24          
+     25          /**************************************************************************//*!
+     26          *
+     27          * @brief    TSA Initialization
+     28          *
+     29          ******************************************************************************/
+     30          
+     31          void FMSTR_InitTsa(void)
+     32          {
+     33          }
+     34          
+     35          /**************************************************************************//*!
+     36          *
+     37          * @brief    Handling GETTSAINFO and GETTSAINFO_EX command
+     38          *
+     39          * @param    pMessageIO - original command (in) and response buffer (out)
+     40          *
+     41          * @return   As all command handlers, the return value should be the buffer
+     42          *           pointer where the response output finished (except checksum)
+     43          *
+     44          ******************************************************************************/
+     45          
+     46          FMSTR_BPTR FMSTR_GetTsaInfo(FMSTR_BPTR pMessageIO)
+     47          {
+     48              volatile FMSTR_BPTR pResponse = pMessageIO;
+     49              const FMSTR_TSA_ENTRY* pTbl;
+     50              FMSTR_TSA_TINDEX nTblIndex;
+     51              FMSTR_TSA_TSIZE nTblSize = 0U;
+     52              FMSTR_ADDR tmpAddr;
+     53              FMSTR_U16 tmp16;
+     54          
+     55              /* get index of table the PC is requesting   */
+     56              pMessageIO = FMSTR_SkipInBuffer(pMessageIO, 2U);
+     57              pMessageIO = FMSTR_ValueFromBuffer16(&nTblIndex, pMessageIO);
+     58          
+     59              /* TSA flags */
+     60              tmp16 = FMSTR_TSA_VERSION | FMSTR_TSA_FLAGS;
+     61          
+     62              /* sizeof TSA table entry items */
+     63              /*lint -e{506,774} constant value boolean */
+     64              if((sizeof(FMSTR_TSA_ENTRY)/4U) == 4U)
+     65              {
+     66                  tmp16 |= FMSTR_TSA_INFO_32BIT;  /* 32bit TSA entries */
+     67              }
+     68          
+     69              /* success, flags */
+     70              pResponse = FMSTR_ConstToBuffer8(pResponse, FMSTR_STS_OK);
+     71              pResponse = FMSTR_ValueToBuffer16(pResponse, tmp16);
+     72          
+     73              /* get the table (or NULL if no table on given index) */
+     74              pTbl = FMSTR_TsaGetTable(nTblIndex, &nTblSize);
+     75              FMSTR_PTR2ADDR(tmpAddr, pTbl);
+     76          
+     77              /* table size in bytes */
+     78              nTblSize *= FMSTR_CFG_BUS_WIDTH;
+     79              pResponse = FMSTR_ValueToBuffer16(pResponse, nTblSize);
+     80          
+     81              /* table address */
+     82              return FMSTR_AddressToBuffer(pResponse, tmpAddr);
+     83          }
+     84          
+     85          /**************************************************************************//*!
+     86          *
+     87          * @brief    Handling GETSTRLEN and GETSTRLEN_EX commands
+     88          *
+     89          * @param    pMessageIO - original command (in) and response buffer (out)
+     90          *
+     91          * @return   As all command handlers, the return value should be the buffer
+     92          *           pointer where the response output finished (except checksum)
+     93          *
+     94          ******************************************************************************/
+     95          
+     96          FMSTR_BPTR FMSTR_GetStringLen(FMSTR_BPTR pMessageIO)
+     97          {
+     98              FMSTR_BPTR pResponse = pMessageIO;
+     99              FMSTR_ADDR nAddr;
+    100              FMSTR_U16 nLen = 0U;
+    101          
+    102              pMessageIO = FMSTR_SkipInBuffer(pMessageIO, 1U);
+    103              pMessageIO = FMSTR_AddressFromBuffer(&nAddr, pMessageIO);
+    104          
+    105              nLen = FMSTR_StrLen(nAddr);
+    106          
+    107              /* return strign size in bytes (even on 16bit DSP) */
+    108              nLen *= FMSTR_CFG_BUS_WIDTH ;
+    109          
+    110              pResponse = FMSTR_ConstToBuffer8(pResponse, FMSTR_STS_OK);
+    111              return FMSTR_ValueToBuffer16(pResponse, nLen);
+    112          }
+    113          
+    114          /**************************************************************************//*!
+    115          *
+    116          * @brief    Helper (inline) function for TSA memory region check
+    117          *
+    118          * @param    nAddrUser - address of region to be checked
+    119          * @param    nSizeUser - size of region to be checked
+    120          * @param    nAddrSafe - address of known "safe" region
+    121          * @param    wSizeSafe - size of safe region
+    122          *
+    123          * @return   This function returns non-zero if given user space is safe
+    124          *           (i.e. it lies in given safe space)
+    125          *
+    126          ******************************************************************************/
+    127          
+    128          #if defined(FMSTR_PLATFORM_56F8xxx) || defined(FMSTR_PLATFORM_56F8xx)
+    129          /* make inline */
+    130          inline FMSTR_BOOL FMSTR_CheckMemSpace(FMSTR_ADDR nAddrUser, FMSTR_SIZE8 nSizeUser,
+    131              FMSTR_ADDR nAddrSafe, FMSTR_SIZE wSizeSafe);
+    132          
+    133          inline
+    134          #else
+    135          /* declare function prototype */
+    136          static FMSTR_BOOL FMSTR_CheckMemSpace(FMSTR_ADDR nAddrUser, FMSTR_SIZE8 nSizeUser,
+    137              FMSTR_ADDR nAddrSafe, FMSTR_SIZE wSizeSafe);
+    138          
+    139          static
+    140          #endif
+    141          
+    142          FMSTR_BOOL FMSTR_CheckMemSpace(FMSTR_ADDR nAddrUser, FMSTR_SIZE8 nSizeUser,
+    143                                         FMSTR_ADDR nAddrSafe, FMSTR_SIZE wSizeSafe)
+    144          {
+    145              FMSTR_BOOL bRet = FMSTR_FALSE;
+    146          
+    147              #ifdef __HCS12X__
+    148              /* convert from logical to global if needed */
+    149              nAddrUser = FMSTR_FixHcs12xAddr(nAddrUser);
+    150              nAddrSafe = FMSTR_FixHcs12xAddr(nAddrSafe);
+    151              #endif
+    152          
+    153              if(nAddrUser >= nAddrSafe)
+    154              {
+    155                  bRet = (FMSTR_BOOL)
+    156                      (((nAddrUser + nSizeUser) <= (nAddrSafe + wSizeSafe)) ? FMSTR_TRUE : FMSTR_FALSE);
+    157              }
+    158          
+    159              return bRet;
+    160          }
+    161          
+    162          /**************************************************************************//*!
+    163          *
+    164          * @brief    Check wether given memory region is "safe" (covered by TSA)
+    165          *
+    166          * @param    dwAddr - address of the memory to be checked
+    167          * @param    nSize  - size of the memory to be checked
+    168          * @param    bWriteAccess - write access is required
+    169          *
+    170          * @return   This function returns non-zero if user space is safe
+    171          *
+    172          ******************************************************************************/
+    173          
+    174          FMSTR_BOOL FMSTR_CheckTsaSpace(FMSTR_ADDR dwAddr, FMSTR_SIZE8 nSize, FMSTR_BOOL bWriteAccess)
+    175          {
+    176              const FMSTR_TSA_ENTRY* pte;
+    177              FMSTR_TSA_TINDEX nTableIndex;
+    178              FMSTR_TSA_TSIZE i, cnt;
+    179              FMSTR_SIZE nInfo;
+    180          
+    181          #if FMSTR_CFG_BUS_WIDTH >= 2U
+    182              /* TSA tables use sizeof() operator which returns size in "bus-widths" (e.g. 56F8xx) */
+    183              nSize = (nSize + 1) / FMSTR_CFG_BUS_WIDTH;
+    184          #endif
+    185          
+    186              /* to be as fast as possible during normal operation,
+    187                 check variable entries in all tables first */
+    188              for(nTableIndex=0U; (pte=FMSTR_TsaGetTable(nTableIndex, &cnt)) != NULL; nTableIndex++)
+    189              {
+    190                  /* number of items in a table */
+    191                  cnt /= (FMSTR_TSA_TSIZE) sizeof(FMSTR_TSA_ENTRY);
+    192          
+    193                  /* all table entries */
+    194                  for(i=0U; i<cnt; i++)
+    195                  {
+    196                      /*lint -e{506,774} condition always true/false */
+    197          #if !defined(__S12Z__)
+    198                      if(sizeof(pte->addr.p) < sizeof(pte->addr.n))
+    199                          nInfo = (FMSTR_SIZE)((unsigned long) pte->info.n);
+    200                      else
+    201          #endif
+    202                      nInfo = (FMSTR_SIZE) ((unsigned long)pte->info.p);
+    203          
+    204                      /* variable entry only (also check read-write flag) */
+    205                      if((nInfo & FMSTR_TSA_INFO_VAR_FLAG) && (!bWriteAccess || (nInfo & FMSTR_TSA_INFO_RWV_FLAG)))
+    206                      {
+    207                          /* need to take the larger of the two in union (will be optimized by compiler anyway) */
+    208                          /*lint -e{506,774} condition always true/false */
+    209          #if !defined(__S12Z__)
+    210                          if(sizeof(pte->addr.p) < sizeof(pte->addr.n))
+    211                          {
+    212                              if(FMSTR_CheckMemSpace(dwAddr, nSize, (FMSTR_ADDR) pte->addr.n, (FMSTR_SIZE) (nInfo >> 2)))
+    213                              {
+    214                                  return FMSTR_TRUE; /* access granted! */
+    215                              }
+    216                          }
+    217                          else
+    218          #endif
+    219                          {
+    220                              /*lint -e{923} casting pointer to long (on some architectures) */
+    221                              if(FMSTR_CheckMemSpace(dwAddr, nSize, (FMSTR_ADDR) pte->addr.p, (FMSTR_SIZE) (nInfo >> 2)))
+    222                              {
+    223                                  return FMSTR_TRUE; /* access granted! */
+    224                              }
+    225                          }
+    226                      }
+    227          
+    228                      pte++;
+    229                  }
+    230              }
+    231          
+    232              /* no more writable memory chunks available */
+    233              if(bWriteAccess)
+    234              {
+    235                  return FMSTR_FALSE;
+    236              }
+    237          
+    238              /* allow reading of recorder buffer */
+    239          #if FMSTR_USE_RECORDER
+    240              if(FMSTR_IsInRecBuffer(dwAddr, nSize))
+    241              {
+    242                  return FMSTR_TRUE;
+    243              }
+    244          #endif
+    245          
+    246              /* allow reading of any C-constant string referenced in TSA tables */
+    247              for(nTableIndex=0U; (pte=FMSTR_TsaGetTable(nTableIndex, &cnt)) != NULL; nTableIndex++)
+    248              {
+    249                  FMSTR_ADDR tmpAddr;
+    250          
+    251                  /* allow reading of the TSA table itself */
+    252                  FMSTR_PTR2ADDR(tmpAddr, pte);
+    253                  if(FMSTR_CheckMemSpace(dwAddr, nSize, tmpAddr, cnt))
+    254                  {
+    255                      return FMSTR_TRUE;
+    256                  }
+    257          
+    258                  /* number of items in a table */
+    259                  cnt /= (FMSTR_TSA_TSIZE) sizeof(FMSTR_TSA_ENTRY);
+    260          
+    261                  /* all table entries */
+    262                  for(i=0U; i<cnt; i++)
+    263                  {
+    264                      /* system strings are always accessible at C-pointers */
+    265                      FMSTR_PTR2ADDR(tmpAddr, pte->name.p);
+    266                      if(pte->name.p)
+    267                      {
+    268                          if(FMSTR_CheckMemSpace(dwAddr, nSize, tmpAddr, FMSTR_StrLen(tmpAddr)))
+    269                          {
+    270                              return FMSTR_TRUE;
+    271                          }
+    272                      }
+    273          
+    274                      FMSTR_PTR2ADDR(tmpAddr, pte->type.p);
+    275                      if(pte->type.p)
+    276                      {
+    277                          if(FMSTR_CheckMemSpace(dwAddr, nSize, tmpAddr, FMSTR_StrLen(tmpAddr)))
+    278                          {
+    279                              return FMSTR_TRUE;
+    280                          }
+    281                      }
+    282          
+    283                      pte++;
+    284                  }
+    285              }
+    286          
+    287              /* no valid TSA entry found => not-safe to access the memory */
+    288              return FMSTR_FALSE;
+    289          }
+    290          
+    291          #else /* (FMSTR_USE_TSA) && (!(FMSTR_DISABLE)) */
+    292          
+    293          /*lint -efile(766, freemaster_protocol.h) include file is not used in this case */
+    294          
+    295          #endif /* (FMSTR_USE_TSA) && (!(FMSTR_DISABLE)) */
+    296          
+
+
+ 
+
+ 
+
+
+Errors: none
+Warnings: none

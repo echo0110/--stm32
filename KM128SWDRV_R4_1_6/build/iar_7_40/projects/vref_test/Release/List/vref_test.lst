@@ -1,0 +1,191 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        13/Apr/2017  10:51:00
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\projects\vref_test\vref_test.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\projects\vref_test\vref_test.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\..\..\..\..\src\projects\vref_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\Release\List\vref_test.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\vref_test\Release\Obj\vref_test.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\projects\vref_test\vref_test.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2015, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ******************************************************************************
+      5           * vref_test.c
+      6           ******************************************************************************/
+      7          #include "drivers.h"
+      8          
+
+   \                                 In section .text, align 4, keep-with-next
+      9          void main (void)
+     10          {
+   \                     main: (+1)
+   \   00000000   0xB570             PUSH     {R4-R6,LR}
+     11            SIM_Init  (SIM_MODULE_ALL_PERIPH_ON_CONFIG);
+   \   00000002   0x....             LDR      R1,??DataTable4  ;; 0x4003e000
+   \   00000004   0x2000             MOVS     R0,#+0
+   \   00000006   0x6008             STR      R0,[R1, #+0]
+   \   00000008   0x6048             STR      R0,[R1, #+4]
+   \   0000000A   0x....             LDR      R1,??DataTable4_1  ;; 0x4003f004
+   \   0000000C   0x2201             MOVS     R2,#+1
+   \   0000000E   0x600A             STR      R2,[R1, #+0]
+   \   00000010   0x....             LDR      R2,??DataTable4_2  ;; 0x786cbdf2
+   \   00000012   0x630A             STR      R2,[R1, #+48]
+   \   00000014   0x....             LDR      R2,??DataTable4_3  ;; 0x7ab7fc8
+   \   00000016   0x634A             STR      R2,[R1, #+52]
+   \   00000018   0x....             LDR      R2,??DataTable4_4  ;; 0xd0116a1f
+   \   0000001A   0x638A             STR      R2,[R1, #+56]
+   \   0000001C   0x2403             MOVS     R4,#+3
+   \   0000001E   0x63CC             STR      R4,[R1, #+60]
+   \   00000020   0x2280             MOVS     R2,#+128
+   \   00000022   0x0512             LSLS     R2,R2,#+20       ;; #+134217728
+   \   00000024   0x640A             STR      R2,[R1, #+64]
+   \   00000026   0x6488             STR      R0,[R1, #+72]
+   \   00000028   0x6688             STR      R0,[R1, #+104]
+     12          
+     13            /* voltage reference sourced from the internal 1.2V bangap reference        */
+     14            VREF_Init (VREF_MODULE_CHOP_EN_ICOMP_EN_REG_EN_VREFL_EN_LPWR_CONFIG,
+     15                       VREF_SWITCH_S1_L_S2_L_S3_L_BUFF_EN);
+   \   0000002A   0xBF00             Nop      
+   \   0000002C   0x....             ADR.N    R0,?_1
+   \   0000002E   0xC803             LDM      R0,{R0,R1}
+   \   00000030   0x000A             MOVS     R2,R1
+   \   00000032   0x0001             MOVS     R1,R0
+   \   00000034   0x....             ADR.N    R0,?_0
+   \   00000036   0x6800             LDR      R0,[R0, #+0]
+   \   00000038   0x.... 0x....      BL       VREF_Init
+     16            VREFL_Trim(3);
+   \   0000003C   0x....             LDR      R6,??DataTable4_5  ;; 0x4006f005
+   \   0000003E   0x7830             LDRB     R0,[R6, #+0]
+   \   00000040   0x2518             MOVS     R5,#+24
+   \   00000042   0x4028             ANDS     R0,R0,R5
+   \   00000044   0x2103             MOVS     R1,#+3
+   \   00000046   0x4301             ORRS     R1,R1,R0
+   \   00000048   0x7031             STRB     R1,[R6, #+0]
+     17          
+     18            /* voltage reference sourced from the external 1.2V reference               */
+     19            VREF_Init (VREF_MODULE_CHOP_DI_ICOMP_DI_REG_DI_VREFL_EN_LPWR_CONFIG,
+     20                       VREF_SWITCH_S1_L_S2_L_S3_H_BUFF_DI);
+   \   0000004A   0xBF00             Nop      
+   \   0000004C   0x....             ADR.N    R0,?_3
+   \   0000004E   0xC803             LDM      R0,{R0,R1}
+   \   00000050   0x000A             MOVS     R2,R1
+   \   00000052   0x0001             MOVS     R1,R0
+   \   00000054   0x....             ADR.N    R0,?_2
+   \   00000056   0x6800             LDR      R0,[R0, #+0]
+   \   00000058   0x.... 0x....      BL       VREF_Init
+     21            VREFL_Trim(3);
+   \   0000005C   0x7830             LDRB     R0,[R6, #+0]
+   \   0000005E   0x4005             ANDS     R5,R5,R0
+   \   00000060   0x432C             ORRS     R4,R4,R5
+   \   00000062   0x7034             STRB     R4,[R6, #+0]
+     22          
+     23            while(1);
+   \                     ??main_0: (+1)
+   \   00000064   0xE7FE             B        ??main_0
+     24          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4:
+   \   00000000   0x4003E000         DC32     0x4003e000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_1:
+   \   00000000   0x4003F004         DC32     0x4003f004
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_2:
+   \   00000000   0x786CBDF2         DC32     0x786cbdf2
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_3:
+   \   00000000   0x07AB7FC8         DC32     0x7ab7fc8
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_4:
+   \   00000000   0xD0116A1F         DC32     0xd0116a1f
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_5:
+   \   00000000   0x4006F005         DC32     0x4006f005
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_0:
+   \   00000000   0x40 0xE2          DC8 64, 226, 8, 0
+   \              0x08 0x00    
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_1:
+   \   00000000   0x00000000         DC32 0
+   \   00000004   0x00 0x00          DC8 0, 0, 0, 0
+   \              0x00 0x00    
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_2:
+   \   00000000   0x00 0x82          DC8 0, 130, 8, 0
+   \              0x08 0x00    
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_3:
+   \   00000000   0x80000000         DC32 2147483648
+   \   00000004   0x10 0x00          DC8 16, 0, 0, 0
+   \              0x00 0x00    
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      16   main
+        16   -> VREF_Init
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable4
+       4  ??DataTable4_1
+       4  ??DataTable4_2
+       4  ??DataTable4_3
+       4  ??DataTable4_4
+       4  ??DataTable4_5
+       4  ?_0
+       8  ?_1
+       4  ?_2
+       8  ?_3
+     102  main
+
+ 
+ 150 bytes in section .text
+ 
+ 150 bytes of CODE memory
+
+Errors: none
+Warnings: none

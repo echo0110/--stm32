@@ -1,0 +1,166 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        14/Apr/2017  12:33:04
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\common\start.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\common\start.c -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adc_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adc_test\Release\Obj\
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M0+ --no_mem_idioms -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adc_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adc_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adc_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adc_test\..\..\..\..\src\projects\adc_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adc_test\..\..\..\..\src\toolchain\iar\
+#        -Ol --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adc_test\Release\List\start.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\adc_test\Release\Obj\start.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\common\start.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2015, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      start.c
+      6           * @version   1.0.5.0
+      7           * @date      Dec-01-2014
+      8           * @brief     startup function (high level part).
+      9           ******************************************************************************/
+     10          #include "start.h"
+     11          #include "drivers.h"
+     12          
+     13          #define WDOG_DISABLE()                                                        \
+     14          {                                                                             \
+     15            /* Write 0xC520 to the unlock register                          */          \
+     16            WDOG_UNLOCK = 0xC520;                                                       \
+     17                                                                                        \
+     18            /* Followed by 0xD928 to complete the unlock                    */          \
+     19            WDOG_UNLOCK = 0xD928;                                                       \
+     20                                                                                        \
+     21            /* Clear the WDOGEN bit to disable the watchdog timer           */          \
+     22            ioclrh(WDOG_STCTRLH,WDOG_STCTRLH_WDOGEN_MASK);                              \
+     23          }
+     24          
+     25          /******************************************************************************
+     26           * Startup function definition - function calls all of the needed startup     *
+     27           * routines and then branches to the main process.                            *
+     28           ******************************************************************************/
+
+   \                                 In section .text, align 4, keep-with-next
+     29          void start(void)
+     30          {
+   \                     start: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+     31            #if defined(BOOT_HWVLPR_MODE)
+     32              /* Hardware forced VLPR boot mode. The device will boot in VLPR mode      */
+     33              /* after next POR provided VBAT is powered.                               */
+     34              IRTC_BootVLPR   ();
+     35            #else
+     36              /* Activate VLPR mode by software if BOOT_EXE_MODE constant has been      */
+     37              /* defined in the appconfig.h header file.                                */
+     38              if (NV_FOPT & NV_FOPT_EXE_MODE_MASK)
+   \   00000002   0x4810             LDR      R0,??start_0     ;; 0x40d
+   \   00000004   0x7800             LDRB     R0,[R0, #+0]
+   \   00000006   0x0700             LSLS     R0,R0,#+28
+   \   00000008   0xD50E             BPL      ??start_1
+     39              {
+     40                SMC_Init (SMC_MODULE_VLPS_ON_VLLS_ON_CONFIG); /* enable all modes       */
+   \   0000000A   0x480F             LDR      R0,??start_0+0x4
+   \   0000000C   0x6800             LDR      R0,[R0, #+0]
+   \   0000000E   0x9000             STR      R0,[SP, #+0]
+   \   00000010   0x4668             MOV      R0,SP
+   \   00000012   0x7800             LDRB     R0,[R0, #+0]
+   \   00000014   0x490D             LDR      R1,??start_0+0x8  ;; 0x4007e000
+   \   00000016   0x7008             STRB     R0,[R1, #+0]
+     41                SMC_SetMode (VLPR);                           /* enter VLPR mode        */
+   \   00000018   0x2040             MOVS     R0,#+64
+   \   0000001A   0x490D             LDR      R1,??start_0+0xC  ;; 0x528fe001
+   \   0000001C   0x7008             STRB     R0,[R1, #+0]
+   \                     ??start_2: (+1)
+   \   0000001E   0x480D             LDR      R0,??start_0+0x10  ;; 0x4007d002
+   \   00000020   0x7800             LDRB     R0,[R0, #+0]
+   \   00000022   0xB2C0             UXTB     R0,R0
+   \   00000024   0x0740             LSLS     R0,R0,#+29
+   \   00000026   0xD4FA             BMI      ??start_2
+     42              }
+     43            #endif
+     44          
+     45            WDOG_DISABLE(); /* Disable watchdog timer                                   */
+   \                     ??start_1: (+1)
+   \   00000028   0x480B             LDR      R0,??start_0+0x14  ;; 0xc520
+   \   0000002A   0x490C             LDR      R1,??start_0+0x18  ;; 0x4005300e
+   \   0000002C   0x8008             STRH     R0,[R1, #+0]
+   \   0000002E   0x480C             LDR      R0,??start_0+0x1C  ;; 0xd928
+   \   00000030   0x490A             LDR      R1,??start_0+0x18  ;; 0x4005300e
+   \   00000032   0x8008             STRH     R0,[R1, #+0]
+   \   00000034   0x480B             LDR      R0,??start_0+0x20  ;; 0xfffe
+   \   00000036   0x490C             LDR      R1,??start_0+0x24  ;; 0x44053000
+   \   00000038   0x8008             STRH     R0,[R1, #+0]
+     46            startup     (); /* Copy any vector or data sections that need to be in RAM  */
+   \   0000003A   0x.... 0x....      BL       startup
+     47            (void)main  (); /* Jump to main process                                     */
+   \   0000003E   0x.... 0x....      BL       main
+     48          }
+   \   00000042   0xBD01             POP      {R0,PC}          ;; return
+   \                     ??start_0:
+   \   00000044   0x0000040D         DC32     0x40d
+   \   00000048   0x........         DC32     ?_0
+   \   0000004C   0x4007E000         DC32     0x4007e000
+   \   00000050   0x528FE001         DC32     0x528fe001
+   \   00000054   0x4007D002         DC32     0x4007d002
+   \   00000058   0x0000C520         DC32     0xc520
+   \   0000005C   0x4005300E         DC32     0x4005300e
+   \   00000060   0x0000D928         DC32     0xd928
+   \   00000064   0x0000FFFE         DC32     0xfffe
+   \   00000068   0x44053000         DC32     0x44053000
+
+   \                                 In section .rodata, align 4
+   \                     ?_0:
+   \   00000000   0x22 0x00          DC8 34, 0, 0, 0
+   \              0x00 0x00    
+     49          /******************************************************************************
+     50           * End of module                                                              *
+     51           ******************************************************************************/
+     52          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   start
+         8   -> main
+         8   -> startup
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ?_0
+     108  start
+
+ 
+   4 bytes in section .rodata
+ 108 bytes in section .text
+ 
+ 108 bytes of CODE  memory
+   4 bytes of CONST memory
+
+Errors: none
+Warnings: none

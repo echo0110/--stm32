@@ -1,0 +1,216 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        07/Mar/2017  13:03:30
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\pmc\pmc.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\pmc\pmc.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\gpioaccess_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\gpioaccess_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\gpioaccess_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\gpioaccess_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\gpioaccess_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\gpioaccess_test\..\..\..\..\src\projects\gpioaccess_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\gpioaccess_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\gpioaccess_test\Release\List\pmc.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\gpioaccess_test\Release\Obj\pmc.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\pmc\pmc.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2015, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      pmc.c
+      6           * @version   1.0.3.0
+      7           * @date      May-4-2012
+      8           * @brief     Power Management Controller (PMC) driver source code.
+      9           ******************************************************************************/
+     10          #include "common.h"
+     11          #include "pmc.h"
+     12          
+     13          /******************************************************************************
+     14           * data type definitions                                                      *
+     15           ******************************************************************************/
+
+   \                                 In section .bss, align 4
+     16          static PMC_CALLBACK pCallbackPMC;
+   \                     pCallbackPMC:
+   \   00000000                      DS8 4
+     17          
+     18          /******************************************************************************
+     19           * public function definitions                                                *
+     20           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+     21          void PMC_Init (tLVD lvd, tREG reg, uint8 ip, PMC_CALLBACK pCallback)
+     22          {
+   \                     PMC_Init: (+1)
+   \   00000000   0xB403             PUSH     {R0,R1}
+     23            if (pCallback) { pCallbackPMC = pCallback; NVIC_SetIsr(INT_PMC,ip); }
+   \   00000002   0x0018             MOVS     R0,R3
+   \   00000004   0xD010             BEQ      ??PMC_Init_0
+   \   00000006   0x....             LDR      R0,??DataTable1
+   \   00000008   0x6003             STR      R3,[R0, #+0]
+   \   0000000A   0x2040             MOVS     R0,#+64
+   \   0000000C   0x....             LDR      R1,??DataTable1_1  ;; 0xe000e280
+   \   0000000E   0x680B             LDR      R3,[R1, #+0]
+   \   00000010   0x4303             ORRS     R3,R3,R0
+   \   00000012   0x600B             STR      R3,[R1, #+0]
+   \   00000014   0x....             LDR      R1,??DataTable1_2  ;; 0xe000e100
+   \   00000016   0x680B             LDR      R3,[R1, #+0]
+   \   00000018   0x4318             ORRS     R0,R0,R3
+   \   0000001A   0x6008             STR      R0,[R1, #+0]
+   \   0000001C   0x....             LDR      R0,??DataTable1_3  ;; 0xe000e404
+   \   0000001E   0x6801             LDR      R1,[R0, #+0]
+   \   00000020   0x0612             LSLS     R2,R2,#+24
+   \   00000022   0x0892             LSRS     R2,R2,#+2
+   \   00000024   0x430A             ORRS     R2,R2,R1
+   \   00000026   0x6002             STR      R2,[R0, #+0]
+     24            PMC_LVDSC1 = lvd.LVDSC1;
+   \                     ??PMC_Init_0: (+1)
+   \   00000028   0x....             LDR      R0,??DataTable1_4  ;; 0x4007d000
+   \   0000002A   0x4669             MOV      R1,SP
+   \   0000002C   0x7809             LDRB     R1,[R1, #+0]
+   \   0000002E   0x7001             STRB     R1,[R0, #+0]
+     25            PMC_LVDSC2 = lvd.LVDSC2;
+   \   00000030   0x4669             MOV      R1,SP
+   \   00000032   0x7849             LDRB     R1,[R1, #+1]
+   \   00000034   0x7041             STRB     R1,[R0, #+1]
+     26            PMC_REGSC  = reg.REGSC;
+   \   00000036   0x4669             MOV      R1,SP
+   \   00000038   0x7909             LDRB     R1,[R1, #+4]
+   \   0000003A   0x7081             STRB     R1,[R0, #+2]
+     27          }
+   \   0000003C   0xB002             ADD      SP,SP,#+8
+   \   0000003E   0x4770             BX       LR               ;; return
+     28          
+     29          /******************************************************************************
+     30           * interrupt function definitions                                             *
+     31           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+     32          weak void pmc_isr (void)
+     33          {
+   \                     pmc_isr: (+1)
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
+     34            if ((PMC_LVDSC1 & PMC_LVDSC1_LVDF_MASK) && (PMC_LVDSC1 & PMC_LVDSC1_LVDIE_MASK))
+   \   00000004   0x2480             MOVS     R4,#+128
+   \   00000006   0x....             LDR      R5,??DataTable1_4  ;; 0x4007d000
+   \   00000008   0x7828             LDRB     R0,[R5, #+0]
+   \   0000000A   0x4220             TST      R0,R4
+   \   0000000C   0xD009             BEQ      ??pmc_isr_0
+   \   0000000E   0x7828             LDRB     R0,[R5, #+0]
+   \   00000010   0x0680             LSLS     R0,R0,#+26
+   \   00000012   0xD506             BPL      ??pmc_isr_0
+     35            {
+     36              iosetb (PMC_LVDSC1,PMC_LVDSC1_LVDACK_MASK);   /* clear interrupt flag     */
+   \   00000014   0x2040             MOVS     R0,#+64
+   \   00000016   0x....             LDR      R1,??DataTable1_5  ;; 0x4807d000
+   \   00000018   0x7008             STRB     R0,[R1, #+0]
+     37              pCallbackPMC (LVD_CALLBACK);
+   \   0000001A   0x2001             MOVS     R0,#+1
+   \   0000001C   0x....             LDR      R1,??DataTable1
+   \   0000001E   0x6809             LDR      R1,[R1, #+0]
+   \   00000020   0x4788             BLX      R1
+     38            }
+     39            if ((PMC_LVDSC2 & PMC_LVDSC2_LVWF_MASK) && (PMC_LVDSC2 & PMC_LVDSC2_LVWIE_MASK))
+   \                     ??pmc_isr_0: (+1)
+   \   00000022   0x7868             LDRB     R0,[R5, #+1]
+   \   00000024   0x4220             TST      R0,R4
+   \   00000026   0xD009             BEQ      ??pmc_isr_1
+   \   00000028   0x7868             LDRB     R0,[R5, #+1]
+   \   0000002A   0x0680             LSLS     R0,R0,#+26
+   \   0000002C   0xD506             BPL      ??pmc_isr_1
+     40            {
+     41              iosetb (PMC_LVDSC2,PMC_LVDSC2_LVWACK_MASK);   /* clear interrupt flag     */
+   \   0000002E   0x2040             MOVS     R0,#+64
+   \   00000030   0x....             LDR      R1,??DataTable1_5  ;; 0x4807d000
+   \   00000032   0x7048             STRB     R0,[R1, #+1]
+     42              pCallbackPMC (LVW_CALLBACK);
+   \   00000034   0x2002             MOVS     R0,#+2
+   \   00000036   0x....             LDR      R1,??DataTable1
+   \   00000038   0x6809             LDR      R1,[R1, #+0]
+   \   0000003A   0x4788             BLX      R1
+     43            }
+     44          }
+   \                     ??pmc_isr_1: (+1)
+   \   0000003C   0xB001             ADD      SP,SP,#+4
+   \   0000003E   0xBD30             POP      {R4,R5,PC}       ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \   00000000   0x........         DC32     pCallbackPMC
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \   00000000   0xE000E280         DC32     0xe000e280
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \   00000000   0xE000E100         DC32     0xe000e100
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_3:
+   \   00000000   0xE000E404         DC32     0xe000e404
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_4:
+   \   00000000   0x4007D000         DC32     0x4007d000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_5:
+   \   00000000   0x4807D000         DC32     0x4807d000
+     45          /******************************************************************************
+     46           * End of module                                                              *
+     47           ******************************************************************************/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   PMC_Init
+      16   pmc_isr
+        16   -- Indirect call
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable1
+       4  ??DataTable1_1
+       4  ??DataTable1_2
+       4  ??DataTable1_3
+       4  ??DataTable1_4
+       4  ??DataTable1_5
+      64  PMC_Init
+       4  pCallbackPMC
+      64  pmc_isr
+
+ 
+   4 bytes in section .bss
+ 152 bytes in section .text
+ 
+ 152 bytes of CODE memory
+   4 bytes of DATA memory
+
+Errors: none
+Warnings: none

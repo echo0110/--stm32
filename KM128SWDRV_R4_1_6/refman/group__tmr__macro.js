@@ -1,0 +1,25 @@
+var group__tmr__macro =
+[
+    [ "TMR_Disable", "group__tmr__macro.html#ga011e5182f0b05a6cbb451a99e450286c", null ],
+    [ "TMR_Enable", "group__tmr__macro.html#gaa370efe8bd14eed999721e5928e47cb1", null ],
+    [ "TMR_SetCmp1Val", "group__tmr__macro.html#ga26d1457061a0af0c6f74a4f577546d9e", null ],
+    [ "TMR_SetCmp2Val", "group__tmr__macro.html#ga1849a67372a4e3307efe4ca6d71ddf2e", null ],
+    [ "TMR_SetCountMode", "group__tmr__macro.html#ga0ca03790785b84c65cc6ee2eed5d97cb", null ],
+    [ "TMR_SetOutMode", "group__tmr__macro.html#ga0716e1f8830311ccf00dac20b703ca3f", null ],
+    [ "TMR_GetOutMode", "group__tmr__macro.html#ga2a78c231bf8ed4d7251ed9899b8db892", null ],
+    [ "TMR_ForceOFLAG", "group__tmr__macro.html#ga1b30210f575cddae0bb3bcfa3aca6d25", null ],
+    [ "TMR_SetPrmClkSrc", "group__tmr__macro.html#ga1e24b0b5f033c83db52bc67b55fe0c94", null ],
+    [ "TMR_SetLoadVal", "group__tmr__macro.html#ga023e02c05f50b268f973bf5df0fe9103", null ],
+    [ "TMR_SetHoldVal", "group__tmr__macro.html#ga2e6dadd58450bf7a4911213713768e11", null ],
+    [ "TMR_SetCntrVal", "group__tmr__macro.html#ga7ea2c6e535ca96dd09ea5a6996eef7da", null ],
+    [ "TMR_SetCmpLoad1Val", "group__tmr__macro.html#gab7db0f09f074c9d508ec62a18ee4e0d2", null ],
+    [ "TMR_SetCmpLoad2Val", "group__tmr__macro.html#gaa4effd4f507254bb3cc71f26247c3755", null ],
+    [ "TMR_GetCaptVal", "group__tmr__macro.html#ga98badb09b0157e07d7639faaba2e5284", null ],
+    [ "TMR_ReadClrCaptReg", "group__tmr__macro.html#gac50ac70d9c03b31bbee99053e69a4ff4", null ],
+    [ "TMR_GetCntrVal", "group__tmr__macro.html#ga4506f5af6a8060f7c6b28bc1e5da6a91", null ],
+    [ "TMR_GetINPUT", "group__tmr__macro.html#gaac17304239605f890395cc951d66b915", null ],
+    [ "TMR_CtrlOEN", "group__tmr__macro.html#gadb870a82ce414f4bdf05236b016d7703", null ],
+    [ "TMR_CtrlOPS", "group__tmr__macro.html#ga26d3d36116d53fdfe0ed8d9576a81d16", null ],
+    [ "TMR_SetScsFilter", "group__tmr__macro.html#gaf3547dc08dddde0b95511d70f3d5f541", null ],
+    [ "TMR_Init", "group__tmr__macro.html#ga6331efd79294131d4ca130cb9fe5ebce", null ]
+];

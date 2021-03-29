@@ -1,0 +1,167 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        20/Mar/2017  09:48:02
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\syst\syst.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\syst\syst.c -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\Release\Obj\
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M0+ --no_mem_idioms -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\..\..\..\..\src\projects\i2c_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\..\..\..\..\src\toolchain\iar\
+#        -On
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\Release\List\syst.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\Release\Obj\syst.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\syst\syst.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2015, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      syst.c
+      6           * @version   1.0.1.0
+      7           * @date      May-14-2012
+      8           * @brief     System Timer (SYST) driver source code.
+      9           ******************************************************************************/
+     10          #include "common.h"
+     11          #include "syst.h"
+     12          
+     13          /******************************************************************************
+     14           * data type definitions                                                      *
+     15           ******************************************************************************/
+
+   \                                 In section .bss, align 4
+     16          static SYST_CALLBACK pCallbackSYST;
+   \                     pCallbackSYST:
+   \   00000000                      DS8 4
+     17          
+     18          /******************************************************************************
+     19           * public function definitions                                                *
+     20           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+     21          void SYST_Init (tSYST syst, uint8 ip, SYST_CALLBACK pCallback)
+     22          {
+   \                     SYST_Init: (+1)
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+     23            if (pCallback)
+   \   00000002   0x001C             MOVS     R4,R3
+   \   00000004   0x2C00             CMP      R4,#+0
+   \   00000006   0xD00B             BEQ      ??SYST_Init_0
+     24            {
+     25              syst.CSR |= SysTick_CSR_TICKINT_MASK; /* enables system Timer exception   */
+   \   00000008   0x2402             MOVS     R4,#+2
+   \   0000000A   0x4304             ORRS     R4,R4,R0
+   \   0000000C   0x0020             MOVS     R0,R4
+     26              pCallbackSYST = pCallback;
+   \   0000000E   0x....             LDR      R4,??DataTable1
+   \   00000010   0x6023             STR      R3,[R4, #+0]
+     27              FAULT_SetIsr (INT_SysTick,ip);
+   \   00000012   0x....             LDR      R4,??DataTable1_1  ;; 0xe000ed20
+   \   00000014   0x6824             LDR      R4,[R4, #+0]
+   \   00000016   0xB2D2             UXTB     R2,R2
+   \   00000018   0x0795             LSLS     R5,R2,#+30
+   \   0000001A   0x4325             ORRS     R5,R5,R4
+   \   0000001C   0x....             LDR      R4,??DataTable1_1  ;; 0xe000ed20
+   \   0000001E   0x6025             STR      R5,[R4, #+0]
+     28            }
+     29            SYST_RVR = syst.RVR;
+   \                     ??SYST_Init_0: (+1)
+   \   00000020   0x....             LDR      R4,??DataTable1_2  ;; 0xe000e014
+   \   00000022   0x6021             STR      R1,[R4, #+0]
+     30            SYST_CVR = 0l;
+   \   00000024   0x2400             MOVS     R4,#+0
+   \   00000026   0x....             LDR      R5,??DataTable1_3  ;; 0xe000e018
+   \   00000028   0x602C             STR      R4,[R5, #+0]
+     31            SYST_CSR = syst.CSR;
+   \   0000002A   0x....             LDR      R4,??DataTable1_4  ;; 0xe000e010
+   \   0000002C   0x6020             STR      R0,[R4, #+0]
+     32          }
+   \   0000002E   0xBD30             POP      {R4,R5,PC}       ;; return
+     33          
+     34          /******************************************************************************
+     35           * interrupt function definitions                                             *
+     36           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+     37          weak void syst_isr (void) { pCallbackSYST (); }
+   \                     syst_isr: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000002   0x....             LDR      R0,??DataTable1
+   \   00000004   0x6800             LDR      R0,[R0, #+0]
+   \   00000006   0x4780             BLX      R0
+   \   00000008   0xBD01             POP      {R0,PC}          ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \   00000000   0x........         DC32     pCallbackSYST
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \   00000000   0xE000ED20         DC32     0xe000ed20
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \   00000000   0xE000E014         DC32     0xe000e014
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_3:
+   \   00000000   0xE000E018         DC32     0xe000e018
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_4:
+   \   00000000   0xE000E010         DC32     0xe000e010
+     38          /******************************************************************************
+     39           * End of module                                                              *
+     40           ******************************************************************************/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      12   SYST_Init
+       8   syst_isr
+         8   -- Indirect call
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable1
+       4  ??DataTable1_1
+       4  ??DataTable1_2
+       4  ??DataTable1_3
+       4  ??DataTable1_4
+      48  SYST_Init
+       4  pCallbackSYST
+      10  syst_isr
+
+ 
+  4 bytes in section .bss
+ 78 bytes in section .text
+ 
+ 78 bytes of CODE memory
+  4 bytes of DATA memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,61 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        23/Oct/2018  09:42:15
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\src\drivers\sim\sim.c
+#    Command line =  
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\src\drivers\sim\sim.c
+#        -D NDEBUG -lCN
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\List\
+#        -o
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M0+ --no_mem_idioms -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.2\arm\INC\c\DLib_Config_Normal.h" -I
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\..\..\..\..\src\common\
+#        -I
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\..\..\..\..\src\drivers\
+#        -I
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\..\..\..\..\src\freemaster\
+#        -I
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\..\..\..\..\src\projects\pit_test\
+#        -I
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\..\..\..\..\src\toolchain\iar\
+#        -On
+#    List file    =  
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\List\sim.lst
+#    Object file  =  
+#        G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\pit_test\Release\Obj\sim.o
+#
+###############################################################################
+
+G:\存放桌面文件\离职程序\计量模块-基于MKM33Z128芯片\Freescale\KM128SWDRV_R4_1_6\src\drivers\sim\sim.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2015, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      sim.c
+      6           * @version   1.0.3.0
+      7           * @date      Jun-07-2013
+      8           * @brief     System Integration Module (SIM) driver source code.
+      9           ******************************************************************************/
+     10          #include "common.h"
+     11          #include "sim.h"
+     12          /******************************************************************************
+     13           * End of module                                                              *
+     14           ******************************************************************************/
+
+
+ 
+
+ 
+
+
+Errors: none
+Warnings: none

@@ -1,0 +1,181 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        19/Apr/2017  10:43:07
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\xbar\xbar.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\xbar\xbar.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmrisr_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmrisr_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmrisr_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmrisr_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmrisr_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmrisr_test\..\..\..\..\src\projects\lptmrisr_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmrisr_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmrisr_test\Release\List\xbar.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmrisr_test\Release\Obj\xbar.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\xbar\xbar.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2015, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      xbar.c
+      6           * @version   1.0.3.0
+      7           * @date      Apr-20-2015
+      8           * @brief     Inter-Peripheral Crossbar Switch (XBAR) driver source code.
+      9           ******************************************************************************/
+     10          #include "common.h"
+     11          #include "xbar.h"
+     12          
+     13          #if !defined(MCU_MKM34ZA5)
+     14            #error "The xbar.c module is specific to the MKMxxZxxACxx5 microcontrollers."
+     15          #endif
+     16          
+     17          /******************************************************************************
+     18           * data type definitions                                                      *
+     19           ******************************************************************************/
+
+   \                                 In section .bss, align 4
+     20          static XBAR_CALLBACK pCallbackXBAR;
+   \                     pCallbackXBAR:
+   \   00000000                      DS8 4
+     21          
+     22          /******************************************************************************
+     23           * public function definitions                                                *
+     24           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+     25          void XBAR_Init (tXBAR xbar, uint16 ip, XBAR_CALLBACK pCallback)
+     26          {
+   \                     XBAR_Init: (+1)
+   \   00000000   0xB401             PUSH     {R0}
+     27            if (pCallback) { pCallbackXBAR = pCallback; NVIC_SetIsr(INT_PXBAR,ip); }
+   \   00000002   0x0010             MOVS     R0,R2
+   \   00000004   0xD011             BEQ      ??XBAR_Init_0
+   \   00000006   0x....             LDR      R0,??DataTable1
+   \   00000008   0x6002             STR      R2,[R0, #+0]
+   \   0000000A   0x2080             MOVS     R0,#+128
+   \   0000000C   0x0600             LSLS     R0,R0,#+24       ;; #-2147483648
+   \   0000000E   0x....             LDR      R2,??DataTable1_1  ;; 0xe000e280
+   \   00000010   0x6813             LDR      R3,[R2, #+0]
+   \   00000012   0x4303             ORRS     R3,R3,R0
+   \   00000014   0x6013             STR      R3,[R2, #+0]
+   \   00000016   0x....             LDR      R2,??DataTable1_2  ;; 0xe000e100
+   \   00000018   0x6813             LDR      R3,[R2, #+0]
+   \   0000001A   0x4318             ORRS     R0,R0,R3
+   \   0000001C   0x6010             STR      R0,[R2, #+0]
+   \   0000001E   0x....             LDR      R0,??DataTable1_3  ;; 0xe000e41c
+   \   00000020   0x6802             LDR      R2,[R0, #+0]
+   \   00000022   0xB289             UXTH     R1,R1
+   \   00000024   0x0789             LSLS     R1,R1,#+30
+   \   00000026   0x4311             ORRS     R1,R1,R2
+   \   00000028   0x6001             STR      R1,[R0, #+0]
+     28            XBAR_CTRL0 = xbar.CTRL0;
+   \                     ??XBAR_Init_0: (+1)
+   \   0000002A   0x4668             MOV      R0,SP
+   \   0000002C   0x8800             LDRH     R0,[R0, #+0]
+   \   0000002E   0x....             LDR      R1,??DataTable1_4  ;; 0x40055022
+   \   00000030   0x8008             STRH     R0,[R1, #+0]
+     29          }
+   \   00000032   0xB001             ADD      SP,SP,#+4
+   \   00000034   0x4770             BX       LR               ;; return
+     30          
+     31          /******************************************************************************
+     32           * interrupt function definitions                                             *
+     33           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+     34          weak void xbar_isr (void)
+     35          {
+   \                     xbar_isr: (+1)
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
+     36            ioseth (XBAR_CTRL0,XBAR_CTRL0_STS0_MASK); /* clear interrupt flag           */
+   \   00000004   0x2010             MOVS     R0,#+16
+   \   00000006   0x....             LDR      R1,??DataTable1_5  ;; 0x48055022
+   \   00000008   0x8008             STRH     R0,[R1, #+0]
+     37            pCallbackXBAR ();
+   \   0000000A   0x....             LDR      R0,??DataTable1
+   \   0000000C   0x6800             LDR      R0,[R0, #+0]
+   \   0000000E   0x4780             BLX      R0
+     38          }
+   \   00000010   0xB001             ADD      SP,SP,#+4
+   \   00000012   0xBD00             POP      {PC}             ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \   00000000   0x........         DC32     pCallbackXBAR
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \   00000000   0xE000E280         DC32     0xe000e280
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \   00000000   0xE000E100         DC32     0xe000e100
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_3:
+   \   00000000   0xE000E41C         DC32     0xe000e41c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_4:
+   \   00000000   0x40055022         DC32     0x40055022
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_5:
+   \   00000000   0x48055022         DC32     0x48055022
+     39          /******************************************************************************
+     40           * End of module                                                              *
+     41           ******************************************************************************/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       4   XBAR_Init
+       8   xbar_isr
+         8   -- Indirect call
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable1
+       4  ??DataTable1_1
+       4  ??DataTable1_2
+       4  ??DataTable1_3
+       4  ??DataTable1_4
+       4  ??DataTable1_5
+      54  XBAR_Init
+       4  pCallbackXBAR
+      20  xbar_isr
+
+ 
+  4 bytes in section .bss
+ 98 bytes in section .text
+ 
+ 98 bytes of CODE memory
+  4 bytes of DATA memory
+
+Errors: none
+Warnings: none

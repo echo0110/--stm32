@@ -1,0 +1,207 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        18/Apr/2017  10:21:15
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\crc\crc.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\crc\crc.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmr_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmr_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmr_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmr_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmr_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmr_test\..\..\..\..\src\projects\lptmr_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmr_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmr_test\Release\List\crc.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\lptmr_test\Release\Obj\crc.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\crc\crc.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2015, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      crc.c
+      6           * @version   1.0.4.0
+      7           * @date      Apr-15-2015
+      8           * @brief     Cyclic Redundancy Check (CRC) driver source code.
+      9           ******************************************************************************/
+     10          #include "common.h"
+     11          #include "crc.h"
+     12          
+     13          /******************************************************************************
+     14           * public function definitions                                                *
+     15           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+     16          void* CRC_INIT (tCRC crc)
+     17          {
+   \                     CRC_INIT: (+1)
+   \   00000000   0xB470             PUSH     {R4-R6}
+     18            CRC_CTRL  = (crc.CTRL & ~CRC_CTRL_WAS_MASK);
+   \   00000002   0x....             LDR      R3,??DataTable3  ;; 0x40034000
+   \   00000004   0x....             LDR      R5,??DataTable3_1  ;; 0xfdffffff
+   \   00000006   0x0014             MOVS     R4,R2
+   \   00000008   0x402C             ANDS     R4,R4,R5
+   \   0000000A   0x609C             STR      R4,[R3, #+8]
+     19            CRC_GPOLY = crc.GPOLY;
+   \   0000000C   0x6059             STR      R1,[R3, #+4]
+     20            CRC_CTRL |= CRC_CTRL_WAS_MASK;
+   \   0000000E   0x689C             LDR      R4,[R3, #+8]
+   \   00000010   0x43EE             MVNS     R6,R5
+   \   00000012   0x4326             ORRS     R6,R6,R4
+   \   00000014   0x609E             STR      R6,[R3, #+8]
+     21            CRC_DATA  = crc.DATA;
+   \   00000016   0x6018             STR      R0,[R3, #+0]
+     22            CRC_CTRL &= ~CRC_CTRL_WAS_MASK;
+   \   00000018   0x6898             LDR      R0,[R3, #+8]
+   \   0000001A   0x4005             ANDS     R5,R5,R0
+   \   0000001C   0x609D             STR      R5,[R3, #+8]
+     23            return (void*)CRC_BASE_PTR;
+   \   0000001E   0x0018             MOVS     R0,R3
+   \   00000020   0xBC70             POP      {R4-R6}
+   \   00000022   0x4770             BX       LR               ;; return
+     24          }
+     25          
+
+   \                                 In section .text, align 2, keep-with-next
+     26          uint32 CRC_CALC8 (const uint8 *ptr, uint32 len)
+     27          {
+     28            register uint32 i;
+     29          
+     30            for (i = 0; i < len; i++) { *((volatile uint8*)&CRC_DATA) = *(ptr+i); }
+   \                     CRC_CALC8: (+1)
+   \   00000000   0x....             LDR      R2,??DataTable3  ;; 0x40034000
+   \   00000002   0x2900             CMP      R1,#+0
+   \   00000004   0xD004             BEQ      ??CRC_CALC8_0
+   \                     ??CRC_CALC8_1: (+1)
+   \   00000006   0x7803             LDRB     R3,[R0, #+0]
+   \   00000008   0x7013             STRB     R3,[R2, #+0]
+   \   0000000A   0x1C40             ADDS     R0,R0,#+1
+   \   0000000C   0x1E49             SUBS     R1,R1,#+1
+   \   0000000E   0xD1FA             BNE      ??CRC_CALC8_1
+     31            if (CRC_CTRL & CRC_CTRL_TCRC_MASK) { return (uint32)(CRC_DATA & 0xFFFFFFFF); }
+   \                     ??CRC_CALC8_0: (+1)
+   \   00000010   0x6890             LDR      R0,[R2, #+8]
+   \   00000012   0x01C0             LSLS     R0,R0,#+7
+   \   00000014   0x6810             LDR      R0,[R2, #+0]
+   \   00000016   0xD400             BMI      ??CRC_CALC8_2
+     32            else                               { return (uint32)(CRC_DATA & 0x0000FFFF); }
+   \   00000018   0xB280             UXTH     R0,R0
+   \                     ??CRC_CALC8_2: (+1)
+   \   0000001A   0x4770             BX       LR               ;; return
+     33          }
+     34          
+
+   \                                 In section .text, align 2, keep-with-next
+     35          uint32 CRC_CALC16 (const uint16 *ptr, uint32 len)
+     36          {
+     37            register uint32 i;
+     38          
+     39            for (i = 0; i < len; i++) { *((volatile uint16*)&CRC_DATA) = *(ptr+i); }
+   \                     CRC_CALC16: (+1)
+   \   00000000   0x....             LDR      R2,??DataTable3  ;; 0x40034000
+   \   00000002   0x2900             CMP      R1,#+0
+   \   00000004   0xD004             BEQ      ??CRC_CALC16_0
+   \                     ??CRC_CALC16_1: (+1)
+   \   00000006   0x8803             LDRH     R3,[R0, #+0]
+   \   00000008   0x8013             STRH     R3,[R2, #+0]
+   \   0000000A   0x1C80             ADDS     R0,R0,#+2
+   \   0000000C   0x1E49             SUBS     R1,R1,#+1
+   \   0000000E   0xD1FA             BNE      ??CRC_CALC16_1
+     40            if (CRC_CTRL & CRC_CTRL_TCRC_MASK) { return (uint32)(CRC_DATA & 0xFFFFFFFF); }
+   \                     ??CRC_CALC16_0: (+1)
+   \   00000010   0x6890             LDR      R0,[R2, #+8]
+   \   00000012   0x01C0             LSLS     R0,R0,#+7
+   \   00000014   0x6810             LDR      R0,[R2, #+0]
+   \   00000016   0xD400             BMI      ??CRC_CALC16_2
+     41            else                               { return (uint32)(CRC_DATA & 0x0000FFFF); }
+   \   00000018   0xB280             UXTH     R0,R0
+   \                     ??CRC_CALC16_2: (+1)
+   \   0000001A   0x4770             BX       LR               ;; return
+     42          }
+     43          
+
+   \                                 In section .text, align 2, keep-with-next
+     44          uint32 CRC_CALC32 (const uint32 *ptr, uint32 len)
+     45          {
+     46            register uint32 i;
+     47          
+     48            for (i = 0; i < len; i++) { *((volatile uint32*)&CRC_DATA) = *(ptr+i); }
+   \                     CRC_CALC32: (+1)
+   \   00000000   0x....             LDR      R2,??DataTable3  ;; 0x40034000
+   \   00000002   0x2900             CMP      R1,#+0
+   \   00000004   0xD004             BEQ      ??CRC_CALC32_0
+   \                     ??CRC_CALC32_1: (+1)
+   \   00000006   0x6803             LDR      R3,[R0, #+0]
+   \   00000008   0x6013             STR      R3,[R2, #+0]
+   \   0000000A   0x1D00             ADDS     R0,R0,#+4
+   \   0000000C   0x1E49             SUBS     R1,R1,#+1
+   \   0000000E   0xD1FA             BNE      ??CRC_CALC32_1
+     49            if (CRC_CTRL & CRC_CTRL_TCRC_MASK) { return (uint32)(CRC_DATA & 0xFFFFFFFF); }
+   \                     ??CRC_CALC32_0: (+1)
+   \   00000010   0x6890             LDR      R0,[R2, #+8]
+   \   00000012   0x01C0             LSLS     R0,R0,#+7
+   \   00000014   0x6810             LDR      R0,[R2, #+0]
+   \   00000016   0xD400             BMI      ??CRC_CALC32_2
+     50            else                               { return (uint32)(CRC_DATA & 0x0000FFFF); }
+   \   00000018   0xB280             UXTH     R0,R0
+   \                     ??CRC_CALC32_2: (+1)
+   \   0000001A   0x4770             BX       LR               ;; return
+     51          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3:
+   \   00000000   0x40034000         DC32     0x40034000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_1:
+   \   00000000   0xFDFFFFFF         DC32     0xfdffffff
+     52          /******************************************************************************
+     53           * End of module                                                              *
+     54           ******************************************************************************/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   CRC_CALC16
+       0   CRC_CALC32
+       0   CRC_CALC8
+      12   CRC_INIT
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable3
+       4  ??DataTable3_1
+      28  CRC_CALC16
+      28  CRC_CALC32
+      28  CRC_CALC8
+      36  CRC_INIT
+
+ 
+ 128 bytes in section .text
+ 
+ 128 bytes of CODE memory
+
+Errors: none
+Warnings: none

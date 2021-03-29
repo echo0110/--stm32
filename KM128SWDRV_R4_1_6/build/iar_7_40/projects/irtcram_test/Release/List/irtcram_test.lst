@@ -1,0 +1,252 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        15/Mar/2017  12:58:35
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\projects\irtcram_test\irtcram_test.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\projects\irtcram_test\irtcram_test.c
+#        --no_size_constraints -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtcram_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtcram_test\Release\Obj\
+#        --no_unroll --debug --endian=little --cpu=Cortex-M0+ --no_mem_idioms
+#        -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtcram_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtcram_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtcram_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtcram_test\..\..\..\..\src\projects\irtcram_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtcram_test\..\..\..\..\src\toolchain\iar\
+#        -Ohs --require_prototypes
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtcram_test\Release\List\irtcram_test.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\irtcram_test\Release\Obj\irtcram_test.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\projects\irtcram_test\irtcram_test.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2015, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ******************************************************************************
+      5           * irtcram_test.c
+      6           ******************************************************************************/
+      7          #include "drivers.h"
+      8          
+      9          /* LPTMR callback function declaration                                        */
+     10          static void lptmr_callback (void);
+     11          
+     12          /* static data definition                                                     */
+
+   \                                 In section .bss, align 4
+     13          static uint32 counter_rtc;
+   \                     counter_rtc:
+   \   00000000                      DS8 4
+
+   \                                 In section .bss, align 4
+     14          static uint32 counter_ram;
+   \                     counter_ram:
+   \   00000000                      DS8 4
+     15          
+
+   \                                 In section .text, align 4, keep-with-next
+     16          void main (void)
+     17          {
+   \                     main: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+     18            /* enable peripheral clocks                                                 */
+     19            SIM_EnableModule (LPTMR);
+   \   00000002   0x....             LDR      R0,??DataTable6  ;; 0x4803f034
+   \   00000004   0x2180             MOVS     R1,#+128
+   \   00000006   0x0549             LSLS     R1,R1,#+21       ;; #+268435456
+   \   00000008   0x6081             STR      R1,[R0, #+8]
+     20            SIM_EnableModule (UART1);
+   \   0000000A   0x0C49             LSRS     R1,R1,#+17
+   \   0000000C   0x6001             STR      R1,[R0, #+0]
+     21            SIM_EnableModule (PORTI);
+   \   0000000E   0x00C9             LSLS     R1,R1,#+3
+   \   00000010   0x6041             STR      R1,[R0, #+4]
+     22          
+     23            /* enable low voltage reset detection (1.6V), disable interrupts and bandgap*/
+     24            PMC_Init (PMC_MODULE_LVDRE_ON_LVDINT_OFF_LVWINT_OFF_CONFIG(PMC_LVDL,PMC_LVW1),
+     25                      PMC_INTREG_BGEN_OFF_BGBE_OFF_CONFIG, PRI_LVL0, (PMC_CALLBACK)NULL);
+   \   00000012   0x2300             MOVS     R3,#+0
+   \   00000014   0x2200             MOVS     R2,#+0
+   \   00000016   0xBF00             Nop      
+   \   00000018   0x....             ADR.N    R0,?_1
+   \   0000001A   0x6801             LDR      R1,[R0, #+0]
+   \   0000001C   0x....             ADR.N    R0,?_0
+   \   0000001E   0x6800             LDR      R0,[R0, #+0]
+   \   00000020   0x.... 0x....      BL       PMC_Init
+     26          
+     27            /* initialize UART and FreeMASTER                                           */
+     28            PORT_Init (PORTI, PORT_MODULE_ALT2_MODE, PIN0|PIN1);
+   \   00000024   0x2203             MOVS     R2,#+3
+   \   00000026   0xBF00             Nop      
+   \   00000028   0x....             ADR.N    R0,?_2
+   \   0000002A   0xC803             LDM      R0,{R0,R1}
+   \   0000002C   0x.... 0x....      BL       PORTI_Init
+     29            UART_Init (UART1, UART_MODULE_POLLMODE_CONFIG(9600,2e6));
+   \   00000030   0x....             ADR.N    R0,?_3
+   \   00000032   0xC807             LDM      R0,{R0-R2}
+   \   00000034   0x.... 0x....      BL       UART1_Init
+     30            FMSTR_Init();
+   \   00000038   0x.... 0x....      BL       FMSTR_Init
+     31          
+     32            /* initialize LPTMR in counter reset mode                                   */
+     33            LPTMR_Init(LPTMR_MODULE_TMR_CNT_RST_ONTCF_MODE_CONFIG(0,LPTMR_LPOCLK),5);
+   \   0000003C   0x2205             MOVS     R2,#+5
+   \   0000003E   0xBF00             Nop      
+   \   00000040   0x....             ADR.N    R0,?_4
+   \   00000042   0xC803             LDM      R0,{R0,R1}
+   \   00000044   0x.... 0x....      BL       LPTMR_Init
+     34            LPTMR_InstallCallback (PRI_LVL1, lptmr_callback);
+   \   00000048   0x....             LDR      R1,??DataTable6_1
+   \   0000004A   0x2001             MOVS     R0,#+1
+   \   0000004C   0x.... 0x....      BL       LPTMR_InstallCallback
+     35            EnableInterrupts();     /* enable interrupts on global level                */
+   \   00000050   0xB662             CPSIE i
+     36            LPTMR_Enable();         /* enable LPTMR                                     */
+   \   00000052   0x2001             MOVS     R0,#+1
+   \   00000054   0x....             LDR      R1,??DataTable6_2  ;; 0x4803c000
+   \   00000056   0x6008             STR      R0,[R1, #+0]
+   \   00000058   0x....             LDR      R4,??DataTable6_3
+     37          
+     38            while (1)
+     39            {
+     40              FMSTR_Poll ();
+   \                     ??main_0: (+1)
+   \   0000005A   0x.... 0x....      BL       FMSTR_Poll
+     41              /* read variable from RTC register file - takes 75 us @ 2 MHz core clock  */
+     42              IRTC_RdRam ((uint8*)&counter_ram, sizeof(counter_ram));
+   \   0000005E   0x2104             MOVS     R1,#+4
+   \   00000060   0x0020             MOVS     R0,R4
+   \   00000062   0x.... 0x....      BL       IRTC_RdRam
+   \   00000066   0xE7F8             B        ??main_0
+     43            }
+     44          }
+     45          
+     46          /* LPTMR interrupt - called every 10 ms                                       */
+
+   \                                 In section .text, align 2, keep-with-next
+     47          static void lptmr_callback (void)
+     48          {
+   \                     lptmr_callback: (+1)
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
+     49            counter_rtc++;          /* increment variable                               */
+   \   00000004   0x....             LDR      R0,??DataTable6_4
+   \   00000006   0x6801             LDR      R1,[R0, #+0]
+   \   00000008   0x1C49             ADDS     R1,R1,#+1
+   \   0000000A   0x6001             STR      R1,[R0, #+0]
+     50            /* store variable in RTC register file - takes 143 us @ 2 MHz core clock    */
+     51            IRTC_WrRam ((uint8*)&counter_rtc,sizeof(counter_rtc));
+   \   0000000C   0x2104             MOVS     R1,#+4
+   \   0000000E   0x.... 0x....      BL       IRTC_WrRam
+     52          }
+   \   00000012   0xB001             ADD      SP,SP,#+4
+   \   00000014   0xBD00             POP      {PC}             ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6:
+   \   00000000   0x4803F034         DC32     0x4803f034
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_1:
+   \   00000000   0x........         DC32     lptmr_callback
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_2:
+   \   00000000   0x4803C000         DC32     0x4803c000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_3:
+   \   00000000   0x........         DC32     counter_ram
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_4:
+   \   00000000   0x........         DC32     counter_rtc
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_0:
+   \   00000000   0x50 0x40          DC8 80, 64, 0, 0
+   \              0x00 0x00    
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_1:
+   \   00000000   0x00 0x00          DC8 0, 0, 0, 0
+   \              0x00 0x00    
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_2:
+   \   00000000   0x00000200         DC32 512, 0
+   \              0x00000000   
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_3:
+   \   00000000   0x00 0x0D          DC8 0, 13, 0, 12, 0, 0, 0, 0, 1, 0, 0, 0
+   \              0x00 0x0C    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x01 0x00    
+   \              0x00 0x00    
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_4:
+   \   00000000   0x00000040         DC32 64, 1
+   \              0x00000001   
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   lptmr_callback
+         8   -> IRTC_WrRam
+       8   main
+         8   -> FMSTR_Init
+         8   -> FMSTR_Poll
+         8   -> IRTC_RdRam
+         8   -> LPTMR_Init
+         8   -> LPTMR_InstallCallback
+         8   -> PMC_Init
+         8   -> PORTI_Init
+         8   -> UART1_Init
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable6
+       4  ??DataTable6_1
+       4  ??DataTable6_2
+       4  ??DataTable6_3
+       4  ??DataTable6_4
+       4  ?_0
+       4  ?_1
+       8  ?_2
+      12  ?_3
+       8  ?_4
+       4  counter_ram
+       4  counter_rtc
+      22  lptmr_callback
+     104  main
+
+ 
+   8 bytes in section .bss
+ 182 bytes in section .text
+ 
+ 182 bytes of CODE memory
+   8 bytes of DATA memory
+
+Errors: none
+Warnings: none

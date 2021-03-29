@@ -1,0 +1,258 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM        20/Mar/2017  09:47:57
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\crc\crc.c
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\crc\crc.c -D NDEBUG -lCN
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\Release\List\
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\Release\Obj\
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M0+ --no_mem_idioms -e --fpu=None --dlib_config
+#        D:\IAR7.4anzhuang\arm\INC\c\DLib_Config_Normal.h -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\..\..\..\..\src\common\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\..\..\..\..\src\drivers\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\..\..\..\..\src\freemaster\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\..\..\..\..\src\projects\i2c_test\
+#        -I
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\..\..\..\..\src\toolchain\iar\
+#        -On
+#    List file    =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\Release\List\crc.lst
+#    Object file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\i2c_test\Release\Obj\crc.o
+#
+###############################################################################
+
+C:\Freescale\KM128SWDRV_R4_1_6\src\drivers\crc\crc.c
+      1          /******************************************************************************
+      2           * (c) Copyright 2010-2015, Freescale Semiconductor Inc.
+      3           * ALL RIGHTS RESERVED.
+      4           ***************************************************************************//*!
+      5           * @file      crc.c
+      6           * @version   1.0.4.0
+      7           * @date      Apr-15-2015
+      8           * @brief     Cyclic Redundancy Check (CRC) driver source code.
+      9           ******************************************************************************/
+     10          #include "common.h"
+     11          #include "crc.h"
+     12          
+     13          /******************************************************************************
+     14           * public function definitions                                                *
+     15           ******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+     16          void* CRC_INIT (tCRC crc)
+     17          {
+   \                     CRC_INIT: (+1)
+   \   00000000   0xB407             PUSH     {R0-R2}
+     18            CRC_CTRL  = (crc.CTRL & ~CRC_CTRL_WAS_MASK);
+   \   00000002   0x9802             LDR      R0,[SP, #+8]
+   \   00000004   0x....             LDR      R1,??DataTable3  ;; 0xfdffffff
+   \   00000006   0x4001             ANDS     R1,R1,R0
+   \   00000008   0x....             LDR      R0,??DataTable3_1  ;; 0x40034008
+   \   0000000A   0x6001             STR      R1,[R0, #+0]
+     19            CRC_GPOLY = crc.GPOLY;
+   \   0000000C   0x9801             LDR      R0,[SP, #+4]
+   \   0000000E   0x....             LDR      R1,??DataTable3_2  ;; 0x40034004
+   \   00000010   0x6008             STR      R0,[R1, #+0]
+     20            CRC_CTRL |= CRC_CTRL_WAS_MASK;
+   \   00000012   0x....             LDR      R0,??DataTable3_1  ;; 0x40034008
+   \   00000014   0x6800             LDR      R0,[R0, #+0]
+   \   00000016   0x2180             MOVS     R1,#+128
+   \   00000018   0x0489             LSLS     R1,R1,#+18       ;; #+33554432
+   \   0000001A   0x4301             ORRS     R1,R1,R0
+   \   0000001C   0x....             LDR      R0,??DataTable3_1  ;; 0x40034008
+   \   0000001E   0x6001             STR      R1,[R0, #+0]
+     21            CRC_DATA  = crc.DATA;
+   \   00000020   0x9800             LDR      R0,[SP, #+0]
+   \   00000022   0x....             LDR      R1,??DataTable3_3  ;; 0x40034000
+   \   00000024   0x6008             STR      R0,[R1, #+0]
+     22            CRC_CTRL &= ~CRC_CTRL_WAS_MASK;
+   \   00000026   0x....             LDR      R0,??DataTable3_1  ;; 0x40034008
+   \   00000028   0x6800             LDR      R0,[R0, #+0]
+   \   0000002A   0x....             LDR      R1,??DataTable3  ;; 0xfdffffff
+   \   0000002C   0x4001             ANDS     R1,R1,R0
+   \   0000002E   0x....             LDR      R0,??DataTable3_1  ;; 0x40034008
+   \   00000030   0x6001             STR      R1,[R0, #+0]
+     23            return (void*)CRC_BASE_PTR;
+   \   00000032   0x....             LDR      R0,??DataTable3_3  ;; 0x40034000
+   \   00000034   0xB003             ADD      SP,SP,#+12
+   \   00000036   0x4770             BX       LR               ;; return
+     24          }
+     25          
+
+   \                                 In section .text, align 2, keep-with-next
+     26          uint32 CRC_CALC8 (const uint8 *ptr, uint32 len)
+     27          {
+   \                     CRC_CALC8: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0002             MOVS     R2,R0
+     28            register uint32 i;
+     29          
+     30            for (i = 0; i < len; i++) { *((volatile uint8*)&CRC_DATA) = *(ptr+i); }
+   \   00000004   0x2000             MOVS     R0,#+0
+   \   00000006   0x0003             MOVS     R3,R0
+   \                     ??CRC_CALC8_0: (+1)
+   \   00000008   0x428B             CMP      R3,R1
+   \   0000000A   0xD204             BCS      ??CRC_CALC8_1
+   \   0000000C   0x5CD0             LDRB     R0,[R2, R3]
+   \   0000000E   0x....             LDR      R4,??DataTable3_3  ;; 0x40034000
+   \   00000010   0x7020             STRB     R0,[R4, #+0]
+   \   00000012   0x1C5B             ADDS     R3,R3,#+1
+   \   00000014   0xE7F8             B        ??CRC_CALC8_0
+     31            if (CRC_CTRL & CRC_CTRL_TCRC_MASK) { return (uint32)(CRC_DATA & 0xFFFFFFFF); }
+   \                     ??CRC_CALC8_1: (+1)
+   \   00000016   0x....             LDR      R0,??DataTable3_1  ;; 0x40034008
+   \   00000018   0x6800             LDR      R0,[R0, #+0]
+   \   0000001A   0x01C0             LSLS     R0,R0,#+7
+   \   0000001C   0xD502             BPL      ??CRC_CALC8_2
+   \   0000001E   0x....             LDR      R0,??DataTable3_3  ;; 0x40034000
+   \   00000020   0x6800             LDR      R0,[R0, #+0]
+   \   00000022   0xE002             B        ??CRC_CALC8_3
+     32            else                               { return (uint32)(CRC_DATA & 0x0000FFFF); }
+   \                     ??CRC_CALC8_2: (+1)
+   \   00000024   0x....             LDR      R0,??DataTable3_3  ;; 0x40034000
+   \   00000026   0x6800             LDR      R0,[R0, #+0]
+   \   00000028   0xB280             UXTH     R0,R0
+   \                     ??CRC_CALC8_3: (+1)
+   \   0000002A   0xBD10             POP      {R4,PC}          ;; return
+     33          }
+     34          
+
+   \                                 In section .text, align 2, keep-with-next
+     35          uint32 CRC_CALC16 (const uint16 *ptr, uint32 len)
+     36          {
+   \                     CRC_CALC16: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0002             MOVS     R2,R0
+     37            register uint32 i;
+     38          
+     39            for (i = 0; i < len; i++) { *((volatile uint16*)&CRC_DATA) = *(ptr+i); }
+   \   00000004   0x2000             MOVS     R0,#+0
+   \   00000006   0x0003             MOVS     R3,R0
+   \                     ??CRC_CALC16_0: (+1)
+   \   00000008   0x428B             CMP      R3,R1
+   \   0000000A   0xD206             BCS      ??CRC_CALC16_1
+   \   0000000C   0x2002             MOVS     R0,#+2
+   \   0000000E   0x4358             MULS     R0,R3,R0
+   \   00000010   0x5A10             LDRH     R0,[R2, R0]
+   \   00000012   0x....             LDR      R4,??DataTable3_3  ;; 0x40034000
+   \   00000014   0x8020             STRH     R0,[R4, #+0]
+   \   00000016   0x1C5B             ADDS     R3,R3,#+1
+   \   00000018   0xE7F6             B        ??CRC_CALC16_0
+     40            if (CRC_CTRL & CRC_CTRL_TCRC_MASK) { return (uint32)(CRC_DATA & 0xFFFFFFFF); }
+   \                     ??CRC_CALC16_1: (+1)
+   \   0000001A   0x....             LDR      R0,??DataTable3_1  ;; 0x40034008
+   \   0000001C   0x6800             LDR      R0,[R0, #+0]
+   \   0000001E   0x01C0             LSLS     R0,R0,#+7
+   \   00000020   0xD502             BPL      ??CRC_CALC16_2
+   \   00000022   0x....             LDR      R0,??DataTable3_3  ;; 0x40034000
+   \   00000024   0x6800             LDR      R0,[R0, #+0]
+   \   00000026   0xE002             B        ??CRC_CALC16_3
+     41            else                               { return (uint32)(CRC_DATA & 0x0000FFFF); }
+   \                     ??CRC_CALC16_2: (+1)
+   \   00000028   0x....             LDR      R0,??DataTable3_3  ;; 0x40034000
+   \   0000002A   0x6800             LDR      R0,[R0, #+0]
+   \   0000002C   0xB280             UXTH     R0,R0
+   \                     ??CRC_CALC16_3: (+1)
+   \   0000002E   0xBD10             POP      {R4,PC}          ;; return
+     42          }
+     43          
+
+   \                                 In section .text, align 2, keep-with-next
+     44          uint32 CRC_CALC32 (const uint32 *ptr, uint32 len)
+     45          {
+   \                     CRC_CALC32: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0002             MOVS     R2,R0
+     46            register uint32 i;
+     47          
+     48            for (i = 0; i < len; i++) { *((volatile uint32*)&CRC_DATA) = *(ptr+i); }
+   \   00000004   0x2000             MOVS     R0,#+0
+   \   00000006   0x0003             MOVS     R3,R0
+   \                     ??CRC_CALC32_0: (+1)
+   \   00000008   0x428B             CMP      R3,R1
+   \   0000000A   0xD206             BCS      ??CRC_CALC32_1
+   \   0000000C   0x2004             MOVS     R0,#+4
+   \   0000000E   0x4358             MULS     R0,R3,R0
+   \   00000010   0x5810             LDR      R0,[R2, R0]
+   \   00000012   0x....             LDR      R4,??DataTable3_3  ;; 0x40034000
+   \   00000014   0x6020             STR      R0,[R4, #+0]
+   \   00000016   0x1C5B             ADDS     R3,R3,#+1
+   \   00000018   0xE7F6             B        ??CRC_CALC32_0
+     49            if (CRC_CTRL & CRC_CTRL_TCRC_MASK) { return (uint32)(CRC_DATA & 0xFFFFFFFF); }
+   \                     ??CRC_CALC32_1: (+1)
+   \   0000001A   0x....             LDR      R0,??DataTable3_1  ;; 0x40034008
+   \   0000001C   0x6800             LDR      R0,[R0, #+0]
+   \   0000001E   0x01C0             LSLS     R0,R0,#+7
+   \   00000020   0xD502             BPL      ??CRC_CALC32_2
+   \   00000022   0x....             LDR      R0,??DataTable3_3  ;; 0x40034000
+   \   00000024   0x6800             LDR      R0,[R0, #+0]
+   \   00000026   0xE002             B        ??CRC_CALC32_3
+     50            else                               { return (uint32)(CRC_DATA & 0x0000FFFF); }
+   \                     ??CRC_CALC32_2: (+1)
+   \   00000028   0x....             LDR      R0,??DataTable3_3  ;; 0x40034000
+   \   0000002A   0x6800             LDR      R0,[R0, #+0]
+   \   0000002C   0xB280             UXTH     R0,R0
+   \                     ??CRC_CALC32_3: (+1)
+   \   0000002E   0xBD10             POP      {R4,PC}          ;; return
+     51          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3:
+   \   00000000   0xFDFFFFFF         DC32     0xfdffffff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_1:
+   \   00000000   0x40034008         DC32     0x40034008
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_2:
+   \   00000000   0x40034004         DC32     0x40034004
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_3:
+   \   00000000   0x40034000         DC32     0x40034000
+     52          /******************************************************************************
+     53           * End of module                                                              *
+     54           ******************************************************************************/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   CRC_CALC16
+       8   CRC_CALC32
+       8   CRC_CALC8
+      12   CRC_INIT
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable3
+       4  ??DataTable3_1
+       4  ??DataTable3_2
+       4  ??DataTable3_3
+      48  CRC_CALC16
+      48  CRC_CALC32
+      44  CRC_CALC8
+      56  CRC_INIT
+
+ 
+ 212 bytes in section .text
+ 
+ 212 bytes of CODE memory
+
+Errors: none
+Warnings: none

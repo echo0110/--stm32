@@ -1,0 +1,321 @@
+###############################################################################
+#
+# IAR ELF Linker V7.40.3.8902/W32 for ARM                 13/Jan/2017  10:29:31
+# Copyright 2007-2015 IAR Systems AB.
+#
+#    Output file  =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Exe\project.out
+#    Map file     =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\List\project.map
+#    Command line =  
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\adc.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\afe.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\aips.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\arch_delay.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\arm_cm0.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\cmp.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\crc.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\crt0.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\dma.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\ewm.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\fll.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\fllfei_test.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\freemaster_appcmd.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\freemaster_bdm.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\freemaster_Kxx.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\freemaster_protocol.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\freemaster_rec.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\freemaster_scope.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\freemaster_serial.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\freemaster_tsa.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\ftfa.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\gpio.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\i2c.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\irtc.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\llwu.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\lptmr.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\mcm.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\mpu.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\osc.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\osc32k.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\pit.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\pll.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\pmc.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\rcm.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\rnga.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\sim.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\smc.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\spi.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\start.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\startup.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\svcall_isr.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\swisr.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\syst.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\system.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\tmr.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\uart.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\vref.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\wdog.o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj\xbar.o
+#        -o
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Exe\project.out
+#        --map
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\List\project.map
+#        --config
+#        C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\..\..\..\..\src\toolchain\iar\config\MKMxxZ128_flash.icf
+#        --entry __iar_program_start --inline --no_exceptions --no_vfe
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A1":  place at 0x00000000 { ro section .intvec };
+"A2":  place at 0x00000400 { ro section .memcfg };
+"P1":  place in [from 0x00000000 to 0x0001ffff] { ro, block CodeRelocate };
+"P2":  place in [from 0x1ffff000 to 0x20002fff] {
+          rw, block CodeRelocateRam, block HEAP, block CSTACK };
+
+  Section          Kind        Address   Size  Object
+  -------          ----        -------   ----  ------
+"A1":                                    0xc0
+  .intvec          const    0x00000000   0xc0  system.o [1]
+                          - 0x000000c0   0xc0
+
+"P1", part 1 of 2:                        0x0
+  CodeRelocate              0x000000c0    0x0  <Block>
+
+"A2":                                    0x10
+  .memcfg          const    0x00000400   0x10  system.o [1]
+                          - 0x00000410   0x10
+
+"P1", part 2 of 2:                      0xf5c
+  .text            ro code  0x00000410  0x254  irtc.o [1]
+  .text            ro code  0x00000664  0x1b4  uart.o [1]
+  .text            ro code  0x00000818  0x18c  tmr.o [1]
+  .text            ro code  0x000009a4  0x16c  i2c.o [1]
+  .text            ro code  0x00000b10  0x138  gpio.o [1]
+  .text            ro code  0x00000c48   0xc4  spi.o [1]
+  .text            ro code  0x00000d0c   0xc0  afe.o [1]
+  .text            ro code  0x00000dcc   0xb4  fll.o [1]
+  .text            ro code  0x00000e80   0xb0  dma.o [1]
+  .text            ro code  0x00000f30   0x9c  cmp.o [1]
+  .text            ro code  0x00000fcc   0x74  adc.o [1]
+  .text            ro code  0x00001040   0x70  fllfei_test.o [1]
+  .text            ro code  0x000010b0   0x70  start.o [1]
+  .text            ro code  0x00001120   0x60  startup.o [1]
+  .text            ro code  0x00001180   0x68  pit.o [1]
+  .text            ro code  0x000011e8   0x4c  pmc.o [1]
+  .text            ro code  0x00001234   0x48  llwu.o [1]
+  .text            ro code  0x0000127c   0x38  swisr.o [1]
+  .text            ro code  0x000012b4   0x24  svcall_isr.o [1]
+  .text            ro code  0x000012d8   0x20  rnga.o [1]
+  .text            ro code  0x000012f8   0x20  xbar.o [1]
+  .text            ro code  0x00001318   0x1c  lptmr.o [1]
+  .text            ro code  0x00001334   0x18  crt0.o [1]
+  .text            ro code  0x0000134c   0x14  syst.o [1]
+  .text            ro code  0x00001360    0x8  system.o [1]
+  .text            ro code  0x00001368    0x2  ftfa.o [1]
+  .text            ro code  0x0000136a    0x2  wdog.o [1]
+                          - 0x0000136c  0xf5c
+
+"P2":                                    0x94
+  .bss                      0x1ffff000   0x94  <Block>
+    .bss           uninit   0x1ffff000    0x4  adc.o [1]
+    .bss           uninit   0x1ffff004    0x4  afe.o [1]
+    .bss           uninit   0x1ffff008    0x4  afe.o [1]
+    .bss           uninit   0x1ffff00c    0x4  afe.o [1]
+    .bss           uninit   0x1ffff010    0x4  afe.o [1]
+    .bss           uninit   0x1ffff014    0x4  arm_cm0.o [1]
+    .bss           uninit   0x1ffff018    0x4  cmp.o [1]
+    .bss           uninit   0x1ffff01c    0x4  dma.o [1]
+    .bss           uninit   0x1ffff020    0x4  dma.o [1]
+    .bss           uninit   0x1ffff024    0x4  dma.o [1]
+    .bss           uninit   0x1ffff028    0x4  dma.o [1]
+    .bss           uninit   0x1ffff02c    0x4  gpio.o [1]
+    .bss           uninit   0x1ffff030    0x4  i2c.o [1]
+    .bss           uninit   0x1ffff034   0x10  irtc.o [1]
+    .bss           uninit   0x1ffff044    0x4  llwu.o [1]
+    .bss           uninit   0x1ffff048    0x4  lptmr.o [1]
+    .bss           uninit   0x1ffff04c    0x4  pit.o [1]
+    .bss           uninit   0x1ffff050    0x4  pmc.o [1]
+    .bss           uninit   0x1ffff054    0x4  rnga.o [1]
+    .bss           uninit   0x1ffff058    0x8  spi.o [1]
+    .bss           uninit   0x1ffff060    0x8  spi.o [1]
+    .bss           uninit   0x1ffff068    0x4  swisr.o [1]
+    .bss           uninit   0x1ffff06c    0x4  swisr.o [1]
+    .bss           uninit   0x1ffff070    0x4  swisr.o [1]
+    .bss           uninit   0x1ffff074    0x4  syst.o [1]
+    .bss           uninit   0x1ffff078    0x4  tmr.o [1]
+    .bss           uninit   0x1ffff07c    0x4  tmr.o [1]
+    .bss           uninit   0x1ffff080    0x4  tmr.o [1]
+    .bss           uninit   0x1ffff084    0x4  tmr.o [1]
+    .bss           uninit   0x1ffff088    0x4  uart.o [1]
+    .bss           uninit   0x1ffff08c    0x4  uart.o [1]
+    .bss           uninit   0x1ffff090    0x4  xbar.o [1]
+  CodeRelocateRam           0x1ffff094    0x0  <Block>
+                          - 0x1ffff094   0x94
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module         ro code  ro data  rw data
+    ------         -------  -------  -------
+C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj: [1]
+    adc.o              116                 4
+    afe.o              192                16
+    arm_cm0.o                              4
+    cmp.o              156                 4
+    crt0.o              24
+    dma.o              176                16
+    fll.o              180
+    fllfei_test.o      112
+    ftfa.o               2
+    gpio.o             312                 4
+    i2c.o              364                 4
+    irtc.o             596                16
+    llwu.o              72                 4
+    lptmr.o             28                 4
+    pit.o              104                 4
+    pmc.o               76                 4
+    rnga.o              32                 4
+    spi.o              196                16
+    start.o            112
+    startup.o           96
+    svcall_isr.o        36
+    swisr.o             56                12
+    syst.o              20                 4
+    system.o             8      208
+    tmr.o              396                16
+    uart.o             436                 8
+    wdog.o               2
+    xbar.o              32                 4
+    ----------------------------------------
+    Total:           3 932      208      148
+
+--------------------------------------------
+    Grand Total:     3 932      208      148
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                      Address   Size  Type      Object
+-----                      -------   ----  ----      ------
+.bss$$Base              0x1ffff000          --   Gb  - Linker created -
+.bss$$Limit             0x1ffff094          --   Gb  - Linker created -
+.data$$Base             0x00000000          --   Gb  - Linker created -
+.data_init$$Base        0x00000000          --   Gb  - Linker created -
+.data_init$$Limit       0x00000000          --   Gb  - Linker created -
+CodeRelocate$$Base      0x000000c0          --   Gb  - Linker created -
+CodeRelocate$$Limit     0x000000c0          --   Gb  - Linker created -
+CodeRelocateRam$$Base   0x1ffff094          --   Gb  - Linker created -
+CodeRelocateRam$$Limit  0x1ffff094          --   Gb  - Linker created -
+FLL_Init                0x00000dcd   0xb4  Code  Gb  fll.o [1]
+PORTF_Init              0x00000b11   0x24  Code  Gb  gpio.o [1]
+Region$$Table$$Base     0x00000000          --   Gb  - Linker created -
+Region$$Table$$Limit    0x00000000          --   Gb  - Linker created -
+__iar_program_start     0x00001335         Code  Gb  crt0.o [1]
+__memcfg_table          0x00000400   0x10  Data  Gb  system.o [1]
+__vector_table          0x00000000   0xc0  Data  Gb  system.o [1]
+adc_isr                 0x00000fcd   0x6c  Code  Wk  adc.o [1]
+afe0_isr                0x00000d0d   0x28  Code  Wk  afe.o [1]
+afe1_isr                0x00000d35   0x28  Code  Wk  afe.o [1]
+afe2_isr                0x00000d5d   0x28  Code  Wk  afe.o [1]
+afe3_isr                0x00000d85   0x28  Code  Wk  afe.o [1]
+cmpx_isr                0x00000f31   0x8a  Code  Wk  cmp.o [1]
+default_isr             0x00001361    0x2  Code  Wk  system.o [1]
+dma0_isr                0x00000e81   0x24  Code  Wk  dma.o [1]
+dma1_isr                0x00000ea5   0x24  Code  Wk  dma.o [1]
+dma2_isr                0x00000ec9   0x24  Code  Wk  dma.o [1]
+dma3_isr                0x00000eed   0x24  Code  Wk  dma.o [1]
+ewm_isr                 0x0000128b    0xe  Code  Gb  swisr.o [1]
+ftfa_isr                0x00001369    0x2  Code  Wk  ftfa.o [1]
+hardfault_isr           0x00001363    0x2  Code  Wk  system.o [1]
+i2cx_isr                0x000009a5  0x15a  Code  Wk  i2c.o [1]
+irtc_isr                0x00000411  0x244  Code  Wk  irtc.o [1]
+llwu_isr                0x00001235   0x3e  Code  Wk  llwu.o [1]
+lptmr_isr               0x00001319   0x14  Code  Wk  lptmr.o [1]
+main                    0x00001041   0x46  Code  Gb  fllfei_test.o [1]
+mcg_isr                 0x00001299    0xe  Code  Gb  swisr.o [1]
+nmi_isr                 0x00001365    0x2  Code  Wk  system.o [1]
+pCallback0              0x1ffff068    0x4  Data  Lc  swisr.o [1]
+pCallback1              0x1ffff06c    0x4  Data  Lc  swisr.o [1]
+pCallback2              0x1ffff070    0x4  Data  Lc  swisr.o [1]
+pCallbackADC            0x1ffff000    0x4  Data  Lc  adc.o [1]
+pCallbackAFE_CH0        0x1ffff004    0x4  Data  Lc  afe.o [1]
+pCallbackAFE_CH1        0x1ffff008    0x4  Data  Lc  afe.o [1]
+pCallbackAFE_CH2        0x1ffff00c    0x4  Data  Lc  afe.o [1]
+pCallbackAFE_CH3        0x1ffff010    0x4  Data  Lc  afe.o [1]
+pCallbackCMPx           0x1ffff018    0x4  Data  Lc  cmp.o [1]
+pCallbackDMA0           0x1ffff01c    0x4  Data  Lc  dma.o [1]
+pCallbackDMA1           0x1ffff020    0x4  Data  Lc  dma.o [1]
+pCallbackDMA2           0x1ffff024    0x4  Data  Lc  dma.o [1]
+pCallbackDMA3           0x1ffff028    0x4  Data  Lc  dma.o [1]
+pCallbackI2Cx           0x1ffff030    0x4  Data  Lc  i2c.o [1]
+pCallbackIRTC           0x1ffff040    0x4  Data  Lc  irtc.o [1]
+pCallbackLLWU           0x1ffff044    0x4  Data  Lc  llwu.o [1]
+pCallbackLPTMR          0x1ffff048    0x4  Data  Lc  lptmr.o [1]
+pCallbackPITx           0x1ffff04c    0x4  Data  Lc  pit.o [1]
+pCallbackPMC            0x1ffff050    0x4  Data  Lc  pmc.o [1]
+pCallbackPTx            0x1ffff02c    0x4  Data  Lc  gpio.o [1]
+pCallbackRNGA           0x1ffff054    0x4  Data  Lc  rnga.o [1]
+pCallbackSPI0           0x1ffff058    0x4  Data  Lc  spi.o [1]
+pCallbackSPI1           0x1ffff060    0x4  Data  Lc  spi.o [1]
+pCallbackSS0            0x1ffff05c    0x4  Data  Lc  spi.o [1]
+pCallbackSS1            0x1ffff064    0x4  Data  Lc  spi.o [1]
+pCallbackSVC            0x1ffff014    0x4  Data  Gb  arm_cm0.o [1]
+pCallbackSYST           0x1ffff074    0x4  Data  Lc  syst.o [1]
+pCallbackTMR0           0x1ffff078    0x4  Data  Lc  tmr.o [1]
+pCallbackTMR1           0x1ffff07c    0x4  Data  Lc  tmr.o [1]
+pCallbackTMR2           0x1ffff080    0x4  Data  Lc  tmr.o [1]
+pCallbackTMR3           0x1ffff084    0x4  Data  Lc  tmr.o [1]
+pCallbackUART0_UART1    0x1ffff088    0x4  Data  Lc  uart.o [1]
+pCallbackUART2_UART3    0x1ffff08c    0x4  Data  Lc  uart.o [1]
+pCallbackXBAR           0x1ffff090    0x4  Data  Lc  xbar.o [1]
+pendsv_isr              0x00001367    0x2  Code  Wk  system.o [1]
+pitx_isr                0x00001181   0x58  Code  Wk  pit.o [1]
+pmc_isr                 0x000011e9   0x40  Code  Wk  pmc.o [1]
+portx_isr               0x00000b35   0xe4  Code  Wk  gpio.o [1]
+rnga_isr                0x000012d9   0x14  Code  Wk  rnga.o [1]
+slcd_isr                0x0000127d    0xe  Code  Gb  swisr.o [1]
+spi0_isr                0x00000c49   0x4c  Code  Wk  spi.o [1]
+spi1_isr                0x00000c95   0x68  Code  Wk  spi.o [1]
+start                   0x000010b1   0x46  Code  Gb  start.o [1]
+startup                 0x00001121   0x60  Code  Gb  startup.o [1]
+svcall_isr              0x000012b5         Code  Wk  svcall_isr.o [1]
+syst_isr                0x0000134d    0xe  Code  Wk  syst.o [1]
+tmr0_isr                0x00000819   0x54  Code  Wk  tmr.o [1]
+tmr1_isr                0x00000871   0x54  Code  Wk  tmr.o [1]
+tmr2_isr                0x000008c9   0x54  Code  Wk  tmr.o [1]
+tmr3_isr                0x00000921   0x54  Code  Wk  tmr.o [1]
+uart01_isr              0x00000665   0xcc  Code  Wk  uart.o [1]
+uart23_isr              0x00000735   0xcc  Code  Wk  uart.o [1]
+wdog_isr                0x0000136b    0x2  Code  Wk  wdog.o [1]
+xbar_isr                0x000012f9   0x14  Code  Wk  xbar.o [1]
+
+
+[1] = C:\Freescale\KM128SWDRV_R4_1_6\build\iar_7_40\projects\fllfei_test\Release\Obj
+[2] = command line
+[3] = dl6M_tln.a
+[4] = rt6M_tl.a
+
+  3 932 bytes of readonly  code memory
+    208 bytes of readonly  data memory
+    148 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
